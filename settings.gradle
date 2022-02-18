@@ -1,1 +1,4 @@
 include 'desktop', 'core'
+include 'core:src:test'
+findProject(':core:src:test')?.name = 'test'
+
