@@ -2,10 +2,8 @@ package com.mygdx.utils;
 
 import java.lang.UnsupportedOperationException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Queue;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * A First in first out queue
@@ -13,7 +11,7 @@ import java.util.Queue;
  * @param <T> Data type to store
  */
 public class QueueFIFO<T> implements Queue<T> {
-    private final ArrayList<T> data;
+    private ArrayList<T> data;
     private int topIndex;
 
     /**
@@ -23,8 +21,20 @@ public class QueueFIFO<T> implements Queue<T> {
         topIndex = -1;
         data = new ArrayList<>();
     }
+    // for testing purposes
 
+    public void set(ArrayList<T> setThis ) {
+        data = setThis;
+        topIndex = size();
+    }
 
+    public ArrayList get() {
+        return data; }
+
+    public int getI() {
+        return topIndex;
+    }
+    
     @Override
     public int size() {
         return data.size();
@@ -166,4 +176,6 @@ public class QueueFIFO<T> implements Queue<T> {
         }
         return data.get(topIndex);
     }
+
+
 }
