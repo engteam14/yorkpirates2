@@ -128,6 +128,8 @@ public class QueueFIFO<T> implements Queue<T> {
     @Override
     public void clear() {
         data.clear();
+        topIndex = -1;
+
     }
 
     /**
