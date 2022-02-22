@@ -71,35 +71,58 @@ class UtilitiesTest {
 
     @Test
     void round() {
-    }
+        Vector2 testEdges =     Utilities.round(new Vector2(2.9f, 2.1f));
+        Vector2 testRounded =   Utilities.round(new Vector2(3, 2));
+        Vector2 testHalf =      Utilities.round(new Vector2(2.5f, 1.5f));
+        Vector2 expected =                      new Vector2(3, 2);
 
-    @Test
-    void randomPos() {
-    }
-
-    @Test
-    void randomChoice() {
+        assertAll(
+                () -> assertAll(
+                        () -> assertEquals(expected.x, testEdges.x, "Fails on lower edge.")
+                        ,   () -> assertEquals(expected.y, testEdges.y, "Fails on upper edge."))
+                ,   () -> assertAll(
+                        () -> assertEquals(expected.x, testRounded.x, "Fails on rounded value.")
+                        ,   () -> assertEquals(expected.y, testRounded.y, "Fails on rounded value."))
+                ,   () -> assertAll(
+                        () -> assertEquals(expected.x, testHalf.x, "Fails on half value.")
+                        ,   () -> assertEquals(expected.y, testHalf.y, "Fails on half value."))
+        );
     }
 
     @Test
     void floor() {
-        Vector2 notFloored = new Vector2(3.1f, 2.9f);
-        Vector2 v = Utilities.floor(notFloored);
-        Vector2 floored = new Vector2(3,2);
-        assertTrue(v.x == floored.x && v.y == floored.y );
-        // already floored
+        Vector2 testEdges =     Utilities.floor(new Vector2(3.1f, 2.9f));
+        Vector2 testRounded =   Utilities.floor(new Vector2(3, 2));
+        Vector2 testHalf =      Utilities.floor(new Vector2(3.5f, 2.5f));
+        Vector2 expected =                      new Vector2(3, 2);
 
-    }
-
-    @Test
-    void print() {
-    }
-
-    @Test
-    void testPrint() {
+        assertAll(
+                    () -> assertAll(
+                                () -> assertEquals(expected.x, testEdges.x, "Fails on lower edge.")
+                            ,   () -> assertEquals(expected.y, testEdges.y, "Fails on upper edge."))
+                ,   () -> assertAll(
+                                () -> assertEquals(expected.x, testRounded.x, "Fails on rounded value.")
+                            ,   () -> assertEquals(expected.y, testRounded.y, "Fails on rounded value."))
+                ,   () -> assertAll(
+                                () -> assertEquals(expected.x, testHalf.x, "Fails on half value.")
+                            ,   () -> assertEquals(expected.y, testHalf.y, "Fails on half value."))
+        );
     }
 
     @Test
     void contains() {
+        ArrayList<Integer> list = new ArrayList<>();
+        boolean checkEmpty = Utilities.contains(list, 10);
+        list.add(10);
+        boolean checkOne = Utilities.contains(list, 10);
+        list.add(20);
+        list.add(0, 5);
+        boolean checkMultiple = Utilities.contains(list, 10);
+        boolean checkWrong = Utilities.contains(list, 30);
+
+        assertAll(() -> assertFalse(checkEmpty, "Found value despite empty array.")
+                , () -> assertTrue(checkOne, "Cannot find value in single sized array.")
+                , () -> assertTrue(checkMultiple, "Cannot find value in multiple sized array.")
+                , () -> assertFalse(checkWrong, "Found value when not in array."));
     }
 }
