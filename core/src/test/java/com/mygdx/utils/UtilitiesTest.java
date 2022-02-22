@@ -5,12 +5,23 @@ import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.Test;
 import sun.security.krb5.internal.rcache.AuthList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UtilitiesTest {
 
     @Test
     void vectorToAngle() {
+        Vector2 testVector = new Vector2(3,4);
+        float testAngle = Utilities.vectorToAngle(testVector);
+        float expectedOutcome = (float) Math.atan2(-testVector.x, testVector.y);
+        float wrongAngleOutcome = (float) Math.atan2(-testVector.y, testVector.x);
+
+        assertAll(() -> assertEquals(expectedOutcome, testAngle, "Incorrect angle calculation")
+                , () -> assertNotEquals(wrongAngleOutcome, testAngle, 0.0, "Calculates wrong angle, but correctly")
+                , () -> assertNotEquals((Math.PI/2), testAngle, 0.0, "Calculates wrong angle, but correctly"));
     }
 
     @Test
