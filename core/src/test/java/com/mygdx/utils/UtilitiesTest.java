@@ -16,16 +16,25 @@ class UtilitiesTest {
     void vectorToAngle() {
         Vector2 testVector = new Vector2(3,4);
         float testAngle = Utilities.vectorToAngle(testVector);
-        float expectedOutcome = (float) Math.atan2(-testVector.x, testVector.y);
-        float wrongAngleOutcome = (float) Math.atan2(-testVector.y, testVector.x);
+
+        float expectedOutcome = (float) Math.atan(-3f/4);
+        float wrongAngleOutcome = (float) Math.atan(-4f/3);
 
         assertAll(() -> assertEquals(expectedOutcome, testAngle, "Incorrect angle calculation")
                 , () -> assertNotEquals(wrongAngleOutcome, testAngle, 0.0, "Calculates wrong angle, but correctly")
-                , () -> assertNotEquals((Math.PI/2), testAngle, 0.0, "Calculates wrong angle, but correctly"));
+                , () -> assertNotEquals((float)(Math.PI/2), testAngle, 0.0, "Calculates wrong angle, but correctly"));
     }
 
     @Test
     void angleToVector() {
+        float testAngle = (float) Math.atan(-3f/4);
+        Vector2 testVector = Utilities.angleToVector(new Vector2(),testAngle);
+
+        Vector2 expectedOutcome = new Vector2(3f/5,4f/5);
+        Vector2 wrongAxisOutcome = new Vector2(4f/5,3f/5);
+
+        assertAll(() -> assertEquals(expectedOutcome, testVector, "Incorrect vector calculation")
+                , () -> assertNotEquals(wrongAxisOutcome, testVector, "Calculates vector with flipped axis, but correctly"));
     }
 
     @Test
