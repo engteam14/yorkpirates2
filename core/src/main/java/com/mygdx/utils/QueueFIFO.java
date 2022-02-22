@@ -2,7 +2,6 @@ package com.mygdx.utils;
 
 import java.lang.UnsupportedOperationException;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -28,7 +27,7 @@ public class QueueFIFO<T> implements Queue<T> {
         topIndex = size();
     }
 
-    public ArrayList get() {
+    public ArrayList<T> get() {
         return data; }
 
     public int getI() {
@@ -150,8 +149,8 @@ public class QueueFIFO<T> implements Queue<T> {
         return t;
     }
 
-    public T pop() {
-        return remove();
+    public void pop() {
+        remove();
     }
 
     @Override
