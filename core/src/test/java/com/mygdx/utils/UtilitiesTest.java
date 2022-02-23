@@ -55,6 +55,21 @@ class UtilitiesTest {
 
     @Test
     void checkProximity() {
+        Vector2 origin = new Vector2(0,0);
+        Vector2 horizontal = new Vector2(10,0);
+        Vector2 other = new Vector2(7.5f,3.3f);
+
+        boolean sameCheck = Utilities.checkProximity(origin, origin, 0f);
+        boolean horizontalCheck = Utilities.checkProximity(origin, horizontal, 15);
+        boolean boundsCheck = Utilities.checkProximity(origin, horizontal, 10);
+        boolean outsideCheck = Utilities.checkProximity(origin, horizontal, 5);
+        boolean angleCheck = Utilities.checkProximity(origin, other, 9);
+
+        assertAll(() -> assertTrue(sameCheck, "Fails to confirm proximity for two identical vectors.")
+                , () -> assertTrue(horizontalCheck, "Fails to confirm proximity on the horizontal axis.")
+                , () -> assertTrue(boundsCheck, "Fails to confirm proximity when other vector lies on the boundary.")
+                , () -> assertFalse(outsideCheck, "Fails to deny proximity when other vector lies outside the boundary.")
+                , () -> assertTrue(angleCheck, "Fails to confirm proximity between two vectors."));
     }
 
     @Test
@@ -77,14 +92,14 @@ class UtilitiesTest {
         Vector2 expected =                      new Vector2(3, 2);
 
         assertAll(
-                () -> assertAll(
-                        () -> assertEquals(expected.x, testEdges.x, "Fails on lower edge.")
+                    () -> assertAll(
+                            () -> assertEquals(expected.x, testEdges.x, "Fails on lower edge.")
                         ,   () -> assertEquals(expected.y, testEdges.y, "Fails on upper edge."))
                 ,   () -> assertAll(
-                        () -> assertEquals(expected.x, testRounded.x, "Fails on rounded value.")
+                            () -> assertEquals(expected.x, testRounded.x, "Fails on rounded value.")
                         ,   () -> assertEquals(expected.y, testRounded.y, "Fails on rounded value."))
                 ,   () -> assertAll(
-                        () -> assertEquals(expected.x, testHalf.x, "Fails on half value.")
+                            () -> assertEquals(expected.x, testHalf.x, "Fails on half value.")
                         ,   () -> assertEquals(expected.y, testHalf.y, "Fails on half value."))
         );
     }

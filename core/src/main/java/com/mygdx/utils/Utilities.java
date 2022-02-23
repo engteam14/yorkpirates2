@@ -49,7 +49,7 @@ public final class Utilities {
     public static boolean checkProximity(Vector2 a, Vector2 b, float radius) {
         final float d2 = radius * radius;
         final float d = Math.abs(a.dst2(b));
-        return d < d2;
+        return d <= d2;
     }
 
     public static float angleBetween(Vector2 v, Vector2 w) {
