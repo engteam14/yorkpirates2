@@ -39,18 +39,26 @@ class UtilitiesTest {
 
     @Test
     void tilesToDistance() {
-    }
+        float actualFloat = Utilities.tilesToDistance(10);
+        float expectedFloat = Constants.TILE_SIZE * 10;
 
-    @Test
-    void testTilesToDistance() {
+        Vector2 actualVector = Utilities.tilesToDistance(new Vector2(5, 10));
+        Vector2 expectedVector = new Vector2(Constants.TILE_SIZE * 5, Constants.TILE_SIZE * 10);
+
+        assertAll(() -> assertEquals(expectedFloat, actualFloat, "Incorrect calculation for float value.")
+                , () -> assertEquals(expectedVector, actualVector, "Incorrect calculation for vector value."));
     }
 
     @Test
     void distanceToTiles() {
-    }
+        float actualFloat = Utilities.distanceToTiles(100);
+        float expectedFloat = (int) (100 / Constants.TILE_SIZE);
 
-    @Test
-    void testDistanceToTiles() {
+        Vector2 actualVector = Utilities.distanceToTiles(new Vector2(50, 100));
+        Vector2 expectedVector = new Vector2(50 / Constants.TILE_SIZE, 100 / Constants.TILE_SIZE);
+
+        assertAll(() -> assertEquals(expectedFloat, actualFloat, "Incorrect calculation for float value.")
+                , () -> assertEquals(expectedVector, actualVector, "Incorrect calculation for vector value."));
     }
 
     @Test
