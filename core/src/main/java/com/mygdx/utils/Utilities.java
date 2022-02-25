@@ -63,8 +63,8 @@ public final class Utilities {
         return Math.acos(dot/(absA*absB));
     }
 
-    public static float scale(float x, float min0, float max0, float min1, float max1) {
-        return (max1 - min1) * ((x - min0 * x) / (max0 * x - min0 * x)) + min1;
+    public static float scale(float min0, float max0, float min1, float max1) {
+        return (max1 - min1) * ((1 - min0) / (max0 - min0)) + min1;
     }
 
     public static float scale(Vector2 a, Vector2 b) {

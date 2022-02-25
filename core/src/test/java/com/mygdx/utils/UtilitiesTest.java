@@ -94,15 +94,27 @@ class UtilitiesTest {
     }
 
     @Test
-    void scale() {
+    void scaleTwoVectors() {
         Vector2 a = new Vector2(3,4);
         Vector2 b = new Vector2(6,8);
 
-        assertEquals(Utilities.scale(a,b),2,"Scale calculation incorrect");
+        Vector2 c = new Vector2(4,3);
+        Vector2 d = new Vector2(8,6);
+
+        assertAll(() -> assertEquals(Utilities.scale(a,b),2,"Scale calculation incorrect")
+                , () -> assertEquals(Utilities.scale(c,d),2,"Scale calculation incorrect"));
     }
 
     @Test
-    void testScale() {
+    void scaleFourPoints() {
+        Vector2 a = new Vector2(3,4);
+        Vector2 b = new Vector2(6,8);
+
+        Vector2 c = new Vector2(4,3);
+        Vector2 d = new Vector2(8,6);
+
+        assertAll(() -> assertEquals(Utilities.scale(a.x,a.y,b.x,b.y),2,"Scale calculation incorrect")
+                , () -> assertEquals(Utilities.scale(c.x,c.y,d.x,d.y),2,"Scale calculation incorrect"));
     }
 
     @Test
