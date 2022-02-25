@@ -20,7 +20,6 @@ class QueueFIFOTest {
         assertAll(() -> assertEquals(queue3.size(), 3, "Failed to find size of (1,2,3)"), () -> assertEquals(queue0.size(), 0, "Failed to find size of Empty Queue"));
     }
 
-
     @Test
     void isEmpty() {
         QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
@@ -47,8 +46,6 @@ class QueueFIFOTest {
 
     }
 
-
-
     @Test
     void add() {
         QueueFIFO<Object> queue3 = new QueueFIFO<>();
@@ -61,26 +58,26 @@ class QueueFIFOTest {
     }
 
     @Test
-    void remove() {
+    void removeObject() {
         QueueFIFO<Object> queue3 = new QueueFIFO<>();
         QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
         queue0.set(new ArrayList<>());
-        queue3.set(new ArrayList<>(Arrays.asList(1,2,3)));
-        Integer x = 2;
-        Integer y = 5;
+        queue3.set(new ArrayList<>(Arrays.asList("a","b","c")));
+        String x = "b";
+        String y = "e";
 
         assertAll(() -> assertTrue(queue3.remove(x), "Can't remove a value when present")
-                , () -> assertEquals(new ArrayList<>(Arrays.asList(1,3)), queue3.get(), "Removing value unsuccessful" )
+                , () -> assertEquals(new ArrayList<>(Arrays.asList("a","c")), queue3.get(), "Removing value unsuccessful" )
                 , () -> assertFalse(queue3.remove(y), "removed a value even though its not in the array ")
-                , () -> assertEquals(new ArrayList<>(Arrays.asList(1,3)), queue3.get(), "Array is not the same after an unsuccessful remove" )
+                , () -> assertEquals(new ArrayList<>(Arrays.asList("a","c")), queue3.get(), "Array is not the same after an unsuccessful remove" )
                 , () -> assertFalse(queue0.remove(x), "removed a value even though array is empty ")
                 , () -> assertEquals( new ArrayList<>(), queue0.get(), "Array is not the same after an unsuccessful remove due to empty array")
-                , () -> assertEquals(2, queue3.getI())
-                , () -> assertEquals(0, queue0.getI()));
+                , () -> assertEquals(1, queue3.getI())
+                , () -> assertEquals(-1, queue0.getI()));
     }
 
     @Test
-    void testRemove() {
+    void removeIndex() {
         QueueFIFO<Object> queue3 = new QueueFIFO<>();
         QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
         queue3.set(new ArrayList<>(Arrays.asList(1,2,3)));
@@ -89,10 +86,9 @@ class QueueFIFOTest {
         System.out.println(queue0.get());
         assertAll(() -> assertEquals(queue3.get(), new ArrayList<>(Arrays.asList(1,2)) )
                 , () -> assertEquals(queue0.get(), new ArrayList<>())
-                , () -> assertEquals(2, queue3.getI())
+                , () -> assertEquals(1, queue3.getI())
                 , () -> assertEquals(-1, queue0.getI()));
     }
-
 
     @Test
     void addAll() {
@@ -104,12 +100,8 @@ class QueueFIFOTest {
                 , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2,3)), queue0.get())
                 , () -> assertTrue(queue3.addAll(toAdd))
                 , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2,3,1,2,3)), queue3.get())
-                , () -> assertEquals(6, queue3.getI())
-                , () -> assertEquals(3, queue0.getI()));
-
-
-
-
+                , () -> assertEquals(5, queue3.getI())
+                , () -> assertEquals(2, queue0.getI()));
     }
 
     @Test
@@ -123,10 +115,8 @@ class QueueFIFOTest {
                 , () -> assertTrue(queue3.removeAll(toRemove))
                 , () -> assertEquals(new ArrayList<>(), queue0.get())
                 , () -> assertEquals(new ArrayList<>(Collections.singletonList(2)), queue3.get())
-                , () -> assertEquals(1, queue3.getI())
-                , () -> assertEquals(0, queue0.getI()));
-
-
+                , () -> assertEquals(0, queue3.getI())
+                , () -> assertEquals(-1, queue0.getI()));
     }
 
     @Test
@@ -144,11 +134,10 @@ class QueueFIFOTest {
                 , () -> assertEquals(new ArrayList<>(), queue0.get())
                 , () -> assertEquals(new ArrayList<>(Arrays.asList(1,3)), queue3.get())
                 , () -> assertEquals(new ArrayList<>(Arrays.asList(1,3,5,5)), queue6.get())
-                , () -> assertEquals(2, queue3.getI())
-                , () -> assertEquals(0, queue0.getI())
-                , () -> assertEquals(4, queue6.getI())
+                , () -> assertEquals(1, queue3.getI())
+                , () -> assertEquals(-1, queue0.getI())
+                , () -> assertEquals(3, queue6.getI())
         );
-
     }
 
     @Test
@@ -165,6 +154,9 @@ class QueueFIFOTest {
                 , () -> assertEquals(-1, queue0.getI()));
     }
 
+    /**
+     * Not implemented
+     */
     @Test
     void offer() {
 
@@ -172,14 +164,20 @@ class QueueFIFOTest {
 
     @Test
     void pop() {
-    /*    QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
+        QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
         QueueFIFO<Object> queue3 = new QueueFIFO<>() ;
-        queue3.set(new ArrayList<Object>(Arrays.asList(1,2,3)));
-        System.out.println(queue3.pop());
-        assertAll(() -> assertEquals(new ArrayList<>(), queue0.get())
-                , () -> assertEquals(new ArrayList<>(), queue3.get())
-                , () -> assertEquals(-1, queue3.getI())
-                , () -> assertEquals(-1, queue0.getI()));*/
+        queue3.set(new ArrayList<>(Arrays.asList(1, 2, 3)));
+        queue0.set(new ArrayList<>());
+
+        try {
+            queue0.pop();
+        }
+        catch (Throwable t) {
+            assertInstanceOf(RuntimeException.class,t);
+        }
+        assertAll(() -> assertEquals(3,queue3.pop())
+                , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2)),queue3.get())
+                , () -> assertEquals(1, queue3.getI()));
     }
 
     @Test
