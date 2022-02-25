@@ -52,8 +52,15 @@ public final class Utilities {
         return d <= d2;
     }
 
-    public static float angleBetween(Vector2 v, Vector2 w) {
-        return MathUtils.atan2(w.y * v.x - w.x * v.y, w.x * v.x + w.y * v.y);
+    public static double angleBetween(Vector2 a, Vector2 b) {
+        if(a.equals(new Vector2(0,0)) || b.equals(new Vector2(0,0))){
+            return 0;
+        }
+        float dot = Vector2.dot(a.x,a.y,b.x,b.y);
+        double absA = Math.sqrt( Math.pow(a.x,2) + Math.pow(a.y,2) );
+        double absB = Math.sqrt( Math.pow(b.x,2) + Math.pow(b.y,2) );
+
+        return Math.acos(dot/(absA*absB));
     }
 
     public static float scale(float x, float min0, float max0, float min1, float max1) {

@@ -81,14 +81,16 @@ class UtilitiesTest {
 
     @Test
     void angleBetween() {
-        Vector2 a = new Vector2(10,0);
-        Vector2 b = new Vector2(0,10);
-        float dot = Vector2.dot(a.x,a.y,b.x,b.y);
-        double absA = Math.sqrt( Math.pow(a.x,2) + Math.pow(a.y,2) );
-        double absB = Math.sqrt( Math.pow(b.x,2) + Math.pow(b.y,2) );
-        DecimalFormat df = new DecimalFormat("#.#####");
+        Vector2 x_axis = new Vector2(10,0);
+        Vector2 x_axis_negative = new Vector2(-10,0);
+        Vector2 y_axis = new Vector2(0,10);
+        Vector2 y_axis_extended = new Vector2(0,20);
+        Vector2 origin = new Vector2(0,0);
 
-        assertEquals(df.format(Utilities.angleBetween(a,b)),df.format(Math.acos(dot/(absA*absB))),"Angle calculation incorrect");
+        assertAll(() -> assertEquals(Math.PI/2,Utilities.angleBetween(x_axis,y_axis),"Angle calculation incorrect")
+                , () -> assertEquals(0,Utilities.angleBetween(origin,y_axis),"Incorrect calculation when origin involved")
+                , () -> assertEquals(0,Utilities.angleBetween(y_axis,y_axis_extended),"Incorrect calculation when vectors lie on same path")
+                , () -> assertEquals(Math.PI,Utilities.angleBetween(x_axis,x_axis_negative),"Incorrect calculation when vectors lie in opposite directions"));
     }
 
     @Test
