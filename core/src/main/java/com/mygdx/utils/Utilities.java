@@ -61,7 +61,7 @@ public final class Utilities {
     }
 
     public static float scale(float x, Vector2 a, Vector2 b) {
-        return (b.y - b.x) * ((x - a.x * x) / (a.y * x - a.x * x)) + b.x;
+        return (b.y - b.x) * ((1 - a.x) / (a.y - a.x)) + b.x;
     }
 
     /**

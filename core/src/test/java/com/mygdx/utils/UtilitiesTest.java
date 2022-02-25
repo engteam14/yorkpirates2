@@ -1,8 +1,10 @@
 package com.mygdx.utils;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.Test;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,10 +81,19 @@ class UtilitiesTest {
 
     @Test
     void angleBetween() {
+        Vector2 a = new Vector2(10,0);
+        Vector2 b = new Vector2(0,10);
+        float dot = Vector2.dot(a.x,a.y,b.x,b.y);
+        double absA = Math.sqrt( Math.pow(a.x,2) + Math.pow(a.y,2) );
+        double absB = Math.sqrt( Math.pow(b.x,2) + Math.pow(b.y,2) );
+        DecimalFormat df = new DecimalFormat("#.#####");
+
+        assertEquals(df.format(Utilities.angleBetween(a,b)),df.format(Math.acos(dot/(absA*absB))));
     }
 
     @Test
     void scale() {
+
     }
 
     @Test
