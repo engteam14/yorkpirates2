@@ -1,12 +1,9 @@
 package com.mygdx.utils;
 
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.Test;
-import sun.security.krb5.internal.rcache.AuthList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
