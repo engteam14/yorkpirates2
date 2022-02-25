@@ -60,7 +60,7 @@ public final class Utilities {
         return (max1 - min1) * ((x - min0 * x) / (max0 * x - min0 * x)) + min1;
     }
 
-    public static float scale(float x, Vector2 a, Vector2 b) {
+    public static float scale(Vector2 a, Vector2 b) {
         return (b.y - b.x) * ((1 - a.x) / (a.y - a.x)) + b.x;
     }
 

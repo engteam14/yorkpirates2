@@ -88,12 +88,15 @@ class UtilitiesTest {
         double absB = Math.sqrt( Math.pow(b.x,2) + Math.pow(b.y,2) );
         DecimalFormat df = new DecimalFormat("#.#####");
 
-        assertEquals(df.format(Utilities.angleBetween(a,b)),df.format(Math.acos(dot/(absA*absB))));
+        assertEquals(df.format(Utilities.angleBetween(a,b)),df.format(Math.acos(dot/(absA*absB))),"Angle calculation incorrect");
     }
 
     @Test
     void scale() {
+        Vector2 a = new Vector2(3,4);
+        Vector2 b = new Vector2(6,8);
 
+        assertEquals(Utilities.scale(a,b),2,"Scale calculation incorrect");
     }
 
     @Test
