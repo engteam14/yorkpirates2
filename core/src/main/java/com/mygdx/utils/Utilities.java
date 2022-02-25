@@ -97,12 +97,11 @@ public final class Utilities {
      * Chooses a random element
      *
      * @param list   source
-     * @param choice the index of the chosen element
      * @param <T>    type of element to return
      * @return the random element
      */
-    public static <T> T randomChoice(ArrayList<T> list, Integer choice) {
-        choice = new Random().nextInt(list.size());
+    public static <T> T randomChoice(ArrayList<T> list) {
+        int choice = new Random().nextInt(list.size());
         return list.get(choice);
     }
 

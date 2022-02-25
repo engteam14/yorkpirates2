@@ -64,10 +64,9 @@ public class QuestManager {
         // in game settings the positions are stored as ints with y following x it doesnt wrap
         // eg. a, b, c, d
         // v1: (a, b) v2: (c, d)
-        Integer choice = -1;
-        float x = Utilities.randomChoice(locations, choice);
+        int choice = -1;
+        float x = Utilities.randomChoice(locations);
         float y;
-        assert (choice > -1);
         if (choice == locations.size() - 1) {
             y = x;
             x = locations.get(choice - 1);
