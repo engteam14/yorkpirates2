@@ -167,28 +167,62 @@ class QueueFIFOTest {
         QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
         QueueFIFO<Object> queue3 = new QueueFIFO<>() ;
         queue3.set(new ArrayList<>(Arrays.asList(1, 2, 3)));
-        queue0.set(new ArrayList<>());
 
         try {
             queue0.pop();
         }
         catch (Throwable t) {
-            assertInstanceOf(RuntimeException.class,t);
+            assertInstanceOf(RuntimeException.class,t,"Runtime exception not thrown under correct circumstances");
         }
-        assertAll(() -> assertEquals(3,queue3.pop())
-                , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2)),queue3.get())
-                , () -> assertEquals(1, queue3.getI()));
+        assertAll(() -> assertEquals(3,queue3.pop(),"Incorrect value popped")
+                , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2)),queue3.get(),"Queue not correctly modified post-pop")
+                , () -> assertEquals(1, queue3.getI(),"Top Index not correctly modified post-pop"));
     }
 
     @Test
     void poll() {
+        QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
+        QueueFIFO<Object> queue3 = new QueueFIFO<>() ;
+        queue3.set(new ArrayList<>(Arrays.asList(1, 2, 3)));
+
+        assertAll(() -> assertNull(queue0.poll(), "Incorrect value popped")
+                , () -> assertEquals(3,queue3.poll(),"Incorrect value popped")
+                , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2)),queue3.get(),"Queue not correctly modified post-pop")
+                , () -> assertEquals(1, queue3.getI(),"Top Index not correctly modified post-pop"));
     }
 
     @Test
     void element() {
+        QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
+        QueueFIFO<Object> queue3 = new QueueFIFO<>() ;
+        queue3.set(new ArrayList<>(Arrays.asList(1, 2, 3)));
+
+        try {
+            queue0.element();
+        }
+        catch (Throwable t) {
+            assertInstanceOf(RuntimeException.class,t,"Runtime exception not thrown under correct circumstances");
+        }
+        assertAll(() -> assertEquals(3,queue3.element(),"Incorrect value popped")
+                , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2,3)),queue3.get(),"Queue modified when shouldn't be")
+                , () -> assertEquals(2, queue3.getI(),"Top Index modified when shouldn't be"));
     }
 
     @Test
     void peek() {
+        QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
+        QueueFIFO<Object> queue3 = new QueueFIFO<>() ;
+        queue3.set(new ArrayList<>(Arrays.asList(1, 2, 3)));
+
+        try {
+            queue0.element();
+        }
+        catch (Throwable t) {
+            assertInstanceOf(RuntimeException.class,t,"Runtime exception not thrown under correct circumstances");
+        }
+        assertAll(() -> assertNull(queue0.peek(), "Incorrect value popped")
+                , () -> assertEquals(3,queue3.peek(),"Incorrect value popped")
+                , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2,3)),queue3.get(),"Queue modified when shouldn't be")
+                , () -> assertEquals(2, queue3.getI(),"Top Index modified when shouldn't be"));
     }
 }
