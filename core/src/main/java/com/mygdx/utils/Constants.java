@@ -21,7 +21,7 @@ public final class Constants {
             SCREEN_WIDTH = 1920;
             SCREEN_HEIGHT = 1080;
         }
-        ASPECT_RATIO = !FULLSCREEN ? 1.0f / 1.0f : (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT;
+        ASPECT_RATIO = !FULLSCREEN ? 1.0f : (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT;
         VIEWPORT_HEIGHT = !FULLSCREEN ? 800 : SCREEN_HEIGHT;
         VIEWPORT_WIDTH = !FULLSCREEN ? (int) (ASPECT_RATIO * VIEWPORT_HEIGHT) : SCREEN_WIDTH;
         HALF_VIEWPORT_HEIGHT = VIEWPORT_WIDTH / 2;
