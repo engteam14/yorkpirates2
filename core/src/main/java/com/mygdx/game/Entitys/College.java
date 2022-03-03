@@ -69,7 +69,7 @@ public class College extends Entity {
                 Building b = new Building();
                 buildings.add(b);
 
-                String b_name = Utilities.randomChoice(buildingNames, 0);
+                String b_name = Utilities.randomChoice(buildingNames);
 
                 b.create(pos, b_name);
             }

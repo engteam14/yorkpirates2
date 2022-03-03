@@ -1,11 +1,10 @@
 package com.mygdx.utils;
 
+import org.junit.jupiter.api.function.Executable;
+
 import java.lang.UnsupportedOperationException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * A First in first out queue
@@ -13,7 +12,7 @@ import java.util.Queue;
  * @param <T> Data type to store
  */
 public class QueueFIFO<T> implements Queue<T> {
-    private final ArrayList<T> data;
+    private ArrayList<T> data;
     private int topIndex;
 
     /**
@@ -24,7 +23,20 @@ public class QueueFIFO<T> implements Queue<T> {
         data = new ArrayList<>();
     }
 
+    //Implemented for Testing
+    public void set(ArrayList<T> setThis) {
+        data = setThis;
+        topIndex = size() -1;
+    }
 
+    public ArrayList<T> get() {
+        return data; }
+
+    public int getI() {
+        return topIndex;
+    }
+    //End of Testing Functions
+    
     @Override
     public int size() {
         return data.size();
@@ -92,7 +104,7 @@ public class QueueFIFO<T> implements Queue<T> {
     public boolean addAll(Collection<? extends T> c) {
         boolean suc = data.addAll(c);
         if (suc) {
-            topIndex = data.size();
+            topIndex = data.size() -1;
         }
         return suc;
     }
@@ -101,7 +113,7 @@ public class QueueFIFO<T> implements Queue<T> {
     public boolean removeAll(Collection<?> c) {
         boolean suc = data.removeAll(c);
         if (suc) {
-            topIndex = data.size();
+            topIndex = data.size() -1;
         }
         return suc;
     }
@@ -110,7 +122,7 @@ public class QueueFIFO<T> implements Queue<T> {
     public boolean retainAll(Collection<?> c) {
         boolean suc = data.retainAll(c);
         if (suc) {
-            topIndex = data.size();
+            topIndex = data.size() -1;
         }
         return suc;
     }
@@ -118,6 +130,8 @@ public class QueueFIFO<T> implements Queue<T> {
     @Override
     public void clear() {
         data.clear();
+        topIndex = -1;
+
     }
 
     /**
@@ -129,7 +143,7 @@ public class QueueFIFO<T> implements Queue<T> {
     }
 
     @Override
-    public T remove() {
+    public T remove() throws RuntimeException{
         if (isEmpty()) {
             throw new RuntimeException("Queue is empty");
         }
@@ -152,7 +166,7 @@ public class QueueFIFO<T> implements Queue<T> {
     }
 
     @Override
-    public T element() {
+    public T element() throws RuntimeException{
         if (isEmpty()) {
             throw new RuntimeException("Queue is empty");
         }

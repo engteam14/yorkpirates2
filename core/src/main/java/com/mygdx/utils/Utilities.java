@@ -49,19 +49,26 @@ public final class Utilities {
     public static boolean checkProximity(Vector2 a, Vector2 b, float radius) {
         final float d2 = radius * radius;
         final float d = Math.abs(a.dst2(b));
-        return d < d2;
+        return d <= d2;
     }
 
-    public static float angleBetween(Vector2 v, Vector2 w) {
-        return MathUtils.atan2(w.y * v.x - w.x * v.y, w.x * v.x + w.y * v.y);
+    public static double angleBetween(Vector2 a, Vector2 b) {
+        if(a.equals(new Vector2(0,0)) || b.equals(new Vector2(0,0))){
+            return 0;
+        }
+        float dot = Vector2.dot(a.x,a.y,b.x,b.y);
+        double absA = Math.sqrt( Math.pow(a.x,2) + Math.pow(a.y,2) );
+        double absB = Math.sqrt( Math.pow(b.x,2) + Math.pow(b.y,2) );
+
+        return Math.acos(dot/(absA*absB));
     }
 
-    public static float scale(float x, float min0, float max0, float min1, float max1) {
-        return (max1 - min1) * ((x - min0 * x) / (max0 * x - min0 * x)) + min1;
+    public static float scale(float min0, float max0, float min1, float max1) {
+        return (max1 - min1) * ((1 - min0) / (max0 - min0)) + min1;
     }
 
-    public static float scale(float x, Vector2 a, Vector2 b) {
-        return (b.y - b.x) * ((x - a.x * x) / (a.y * x - a.x * x)) + b.x;
+    public static float scale(Vector2 a, Vector2 b) {
+        return (b.y - b.x) * ((1 - a.x) / (a.y - a.x)) + b.x;
     }
 
     /**
@@ -90,12 +97,11 @@ public final class Utilities {
      * Chooses a random element
      *
      * @param list   source
-     * @param choice the index of the chosen element
      * @param <T>    type of element to return
      * @return the random element
      */
-    public static <T> T randomChoice(ArrayList<T> list, Integer choice) {
-        choice = new Random().nextInt(list.size());
+    public static <T> T randomChoice(ArrayList<T> list) {
+        int choice = new Random().nextInt(list.size());
         return list.get(choice);
     }
 
