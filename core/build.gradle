@@ -10,6 +10,6 @@ dependencies {
 
 sourceSets.main.java.srcDirs = [ "src/main/java/" ]
 sourceSets.test.java.srcDirs = [ "src/test/java/" ]
-sourceSets.test.resources.srcDirs = [ "src/test/res/" ]
+sourceSets.test.resources.srcDirs = [ "assets/" ]
 
 eclipse.project.name = appName + "-core"
