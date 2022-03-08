@@ -36,8 +36,7 @@ public class GameScreen extends Page {
      */
     public GameScreen(PirateGame parent, int id_map) {
         super(parent);
-        INIT_CONSTANTS();
-        PhysicsManager.Initialize(false);
+        dothis();
 
         /*int id_ship = ResourceManager.addTexture("ship.png");
         int id_map = ResourceManager.addTileMap("Map.tmx");
@@ -106,6 +105,11 @@ public class GameScreen extends Page {
      *
      * @param delta delta time
      */
+
+    public void dothis(){
+        INIT_CONSTANTS();
+        PhysicsManager.Initialize(false);
+    }
     @Override
     public void render(float delta) {
         ScreenUtils.clear(BACKGROUND_COLOUR.x, BACKGROUND_COLOUR.y, BACKGROUND_COLOUR.z, 1);
