@@ -48,7 +48,7 @@ public class ShipTests {
 		assertNotEquals("Ship did not move (y axis)", endPos.y, startPos.y);
 	}
 
-	@Test
+	/*@Test
 	public void shipFires() {
 
 	}
@@ -66,5 +66,5 @@ public class ShipTests {
 	@Test
 	public void progressTasks() {
 
-	}
+	}*/
 }
