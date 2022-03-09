@@ -138,6 +138,16 @@ public class RigidBody extends Component {
         b.setTransform(position, 0);
     }
 
+    /**
+     * Gets the current player position.
+     * // Change for Assessment 2 //
+     * @return player position.
+     */
+    public Vector2 getPosition(){
+        Body b = PhysicsManager.getBody(bodyId);
+        return b.getTransform().getPosition();
+    }
+
     public Body getBody() {
         return PhysicsManager.getBody(bodyId);
     }
