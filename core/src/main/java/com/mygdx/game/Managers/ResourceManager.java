@@ -310,4 +310,15 @@ public final class ResourceManager {
             Initialize();
         }
     }
+
+    public static void dispose() {
+        cleanUp();
+        initialized = false;
+        manager = new AssetManager();
+        loaded = false;
+        ids = new ArrayList<>();
+        tileMaps = new ArrayList<>();
+        fontGenerators = new HashMap<>();
+        fonts = new HashMap<>();
+    }
 }

@@ -2,10 +2,13 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.ComponentType;
+import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Quests.LocateQuest;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +35,11 @@ public class ShipTests {
 		PhysicsManager.Initialize(false);
 	}
 
+	@After
+	public void dispose(){
+		ResourceManager.dispose();
+	}
+
 	@Test
 	public void shipMove() {
 		Player player = new Player();
@@ -48,7 +56,24 @@ public class ShipTests {
 		assertNotEquals("Ship did not move (y axis)", endPos.y, startPos.y);
 	}
 
-	/*@Test
+	@Test
+	public void progressTasks() {
+		Player player = new Player();
+
+		Vector2 questLocA = new Vector2(100,100);
+		Vector2 questLocB = new Vector2(player.getPosition());
+
+		LocateQuest questA = new LocateQuest(questLocA,1);
+		LocateQuest questB = new LocateQuest(questLocB,1);
+
+		boolean questStatusA = questA.checkCompleted(player);
+		boolean questStatusB = questB.checkCompleted(player);
+
+		assertFalse("Quest shown as complete when isn't",questStatusA);
+		assertTrue("Quest shown as incomplete when is",questStatusB);
+	}
+
+	@Test
 	public void shipFires() {
 
 	}
@@ -62,9 +87,4 @@ public class ShipTests {
 	public void gainPoints() {
 
 	}
-
-	@Test
-	public void progressTasks() {
-
-	}*/
 }
