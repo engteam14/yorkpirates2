@@ -36,17 +36,35 @@ public class ShipTests {
 	public void shipMove() {
 		Player player = new Player();
 		RigidBody playerRb = (RigidBody) player.getComponent(ComponentType.RigidBody);
-
 		Vector2 startPos = playerRb.getPosition().cpy();
 
 		for (int i = 0; i < 500; i++) {
 			playerRb.setVelocity(new Vector2(1f,1f));
 			PhysicsManager.update();
 		}
-
 		Vector2 endPos = playerRb.getPosition().cpy();
 
 		assertNotEquals("Ship did not move (x axis)", endPos.x, startPos.x);
 		assertNotEquals("Ship did not move (y axis)", endPos.y, startPos.y);
+	}
+
+	@Test
+	public void shipFires() {
+
+	}
+
+	@Test
+	public void gainMoney() {
+
+	}
+
+	@Test
+	public void gainPoints() {
+
+	}
+
+	@Test
+	public void progressTasks() {
+
 	}
 }
