@@ -311,14 +311,15 @@ public final class ResourceManager {
         }
     }
 
+    /**
+     * Added for Assessment 2
+     * Calls cleanup function and disposes of remaining assets
+     */
     public static void dispose() {
         cleanUp();
         initialized = false;
-        manager = new AssetManager();
         loaded = false;
         ids = new ArrayList<>();
-        tileMaps = new ArrayList<>();
-        fontGenerators = new HashMap<>();
         fonts = new HashMap<>();
     }
 }

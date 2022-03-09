@@ -69,8 +69,8 @@ public class ShipTests {
 		boolean questStatusA = questA.checkCompleted(player);
 		boolean questStatusB = questB.checkCompleted(player);
 
-		assertFalse("Quest shown as complete when isn't",questStatusA);
-		assertTrue("Quest shown as incomplete when is",questStatusB);
+		assertFalse("Locate Quest shown as complete when isn't",questStatusA);
+		assertTrue("Locate Quest shown as incomplete when is",questStatusB);
 	}
 
 	@Test
