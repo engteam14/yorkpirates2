@@ -11,6 +11,7 @@ import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Quests.KillQuest;
 import com.mygdx.game.Quests.LocateQuest;
+import com.mygdx.utils.Utilities;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,16 +48,39 @@ public class ShipTests {
 	public void shipMove() {
 		Player player = new Player();
 		RigidBody playerRb = (RigidBody) player.getComponent(ComponentType.RigidBody);
-		Vector2 startPos = playerRb.getPosition().cpy();
 
+		moveTest(playerRb, new Vector2(0,0));
+
+		moveTest(playerRb, new Vector2(1, 0));
+		moveTest(playerRb, new Vector2(-1,0));
+
+		moveTest(playerRb, new Vector2(0,1));
+		moveTest(playerRb, new Vector2(0,-1));
+
+		moveTest(playerRb, new Vector2(1,1));
+		moveTest(playerRb, new Vector2(1,-1));
+		moveTest(playerRb, new Vector2(-1,1));
+		moveTest(playerRb, new Vector2(-1,-1));
+	}
+
+	private void moveTest(RigidBody rb, Vector2 velocity){
+		Vector2 startPos = rb.getPosition().cpy();
+
+		// Move in desired direction
 		for (int i = 0; i < 500; i++) {
-			playerRb.setVelocity(new Vector2(1f,1f));
+			rb.setVelocity(velocity);
 			PhysicsManager.update();
 		}
-		Vector2 endPos = playerRb.getPosition().cpy();
 
-		assertNotEquals("Ship did not move (x axis)", endPos.x, startPos.x);
-		assertNotEquals("Ship did not move (y axis)", endPos.y, startPos.y);
+		// Calculate differences
+		Vector2 diff = rb.getPosition().cpy().sub(startPos);
+		boolean correctMovement =
+				(velocity.scl(diff).x > 0 || velocity.scl(diff).y > 0)
+				|| (velocity.x == 0 && diff.x == 0)
+				|| (velocity.y == 0 && diff.y == 0);
+
+		// Test that velocity applied
+		assertTrue(String.format("Ship moved from %s to %s when velocity of %s applied.", startPos.toString(), rb.getPosition().toString(), velocity.toString()), correctMovement);
 	}
 
 	@Test
