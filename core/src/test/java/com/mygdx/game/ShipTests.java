@@ -4,9 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.ComponentType;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.RigidBody;
+import com.mygdx.game.Entitys.Building;
+import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Quests.KillQuest;
 import com.mygdx.game.Quests.LocateQuest;
 import org.junit.After;
 import org.junit.Before;
@@ -70,7 +73,17 @@ public class ShipTests {
 		boolean questStatusB = questB.checkCompleted(player);
 
 		assertFalse("Locate Quest shown as complete when isn't",questStatusA);
-		assertTrue("Locate Quest shown as incomplete when is",questStatusB);
+		assertTrue("Locate Quest shown as incomplete when isn't",questStatusB);
+
+		College collegeToKill = new College(1);
+		KillQuest killCollege = new KillQuest(collegeToKill);
+		boolean questStatusC = killCollege.checkCompleted(player);
+
+		collegeToKill.killThisCollege();
+		boolean questStatusD = killCollege.checkCompleted(player);
+
+		assertFalse("Kill Quest shown as complete when isn't",questStatusC);
+		assertTrue("Kill Quest shown as incomplete when isn't",questStatusD);
 	}
 
 	@Test
