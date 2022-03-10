@@ -2,35 +2,32 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.ComponentType;
-import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Entitys.Building;
 import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Quests.KillQuest;
 import com.mygdx.game.Quests.LocateQuest;
-import com.mygdx.utils.Utilities;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-
 
 import static com.mygdx.utils.Constants.INIT_CONSTANTS;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(GdxTestRunner.class)
 public class ShipTests {
 
 	@Before
 	public void init(){
-		int id_ship = ResourceManager.addTexture("ship.png");
-		int id_map = ResourceManager.addTileMap("Map.tmx");
-		int atlas_id = ResourceManager.addTextureAtlas("Boats.txt");
-		int extras_id = ResourceManager.addTextureAtlas("UISkin/skin.atlas");
-		int buildings_id = ResourceManager.addTextureAtlas("Buildings.txt");
+		ResourceManager.addTexture("ship.png");
+		ResourceManager.addTileMap("Map.tmx");
+		ResourceManager.addTextureAtlas("Boats.txt");
+		ResourceManager.addTextureAtlas("UISkin/skin.atlas");
+		ResourceManager.addTextureAtlas("Buildings.txt");
 		ResourceManager.addTexture("menuBG.jpg");
 		ResourceManager.addTexture("Chest.png");
 		ResourceManager.loadAssets();
@@ -80,7 +77,7 @@ public class ShipTests {
 				|| (velocity.y == 0 && diff.y == 0);
 
 		// Test that velocity applied
-		assertTrue(String.format("Ship moved from %s to %s when velocity of %s applied.", startPos.toString(), rb.getPosition().toString(), velocity.toString()), correctMovement);
+		assertTrue(String.format("Ship moved from %s to %s when velocity of %s applied.", startPos, rb.getPosition(), velocity), correctMovement);
 	}
 
 	@Test
