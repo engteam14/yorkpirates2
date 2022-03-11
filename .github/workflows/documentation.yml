@@ -9,7 +9,7 @@ name: Deploy Project Docs
 
 on:
   workflow_run:
-    workflows: ["build"]
+    workflows: [build]
     types:
       - completed
 
