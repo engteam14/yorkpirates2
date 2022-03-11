@@ -38,7 +38,6 @@ public class GameScreen extends Page {
         super(parent);
         INIT_CONSTANTS();
         PhysicsManager.Initialize(false);
-
         /*int id_ship = ResourceManager.addTexture("ship.png");
         int id_map = ResourceManager.addTileMap("Map.tmx");
         int atlas_id = ResourceManager.addTextureAtlas("Boats.txt");
@@ -106,6 +105,8 @@ public class GameScreen extends Page {
      *
      * @param delta delta time
      */
+
+
     @Override
     public void render(float delta) {
         ScreenUtils.clear(BACKGROUND_COLOUR.x, BACKGROUND_COLOUR.y, BACKGROUND_COLOUR.z, 1);

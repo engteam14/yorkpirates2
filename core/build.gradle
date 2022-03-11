@@ -1,12 +1,17 @@
 sourceCompatibility = 1.8
 dependencies {
     implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    implementation 'junit:junit:4.+'
+    implementation "org.mockito:mockito-all:1.9.+"
+    implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation 'junit:junit:4.13.1'
 }
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/main/java/" ]
 sourceSets.test.java.srcDirs = [ "src/test/java/" ]
-sourceSets.test.resources.srcDirs = [ "src/test/res/" ]
+sourceSets.test.resources.srcDirs = [ "assets/" ]
 
 eclipse.project.name = appName + "-core"
 

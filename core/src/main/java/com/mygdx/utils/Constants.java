@@ -8,8 +8,30 @@ import com.badlogic.gdx.math.Vector3;
  * creates game constants and is updated when appropriate (I know some aren't technically constants)
  */
 public final class Constants {
+    public static int SCREEN_WIDTH;
+    public static int SCREEN_HEIGHT;
+    public static boolean FULLSCREEN;
+    public static float ASPECT_RATIO;
+    public static int VIEWPORT_HEIGHT;
+    public static int VIEWPORT_WIDTH;
+    public static int HALF_VIEWPORT_HEIGHT;
+    public static int HALF_VIEWPORT_WIDTH;
+    public static Vector2 DIMENSIONS;
+    public static Vector2 HALF_DIMENSIONS;
+    public static String VIEWPORT_TITLE;
+    public static float PHYSICS_TIME_STEP;
+    public static final float ZOOM = 2.15f;
+    public static final boolean VSYNC = true;
+    public static final float BUILDING_SCALE = 1.5f;
+
+    public static float TILE_SIZE;
+
+    public static Vector3 BACKGROUND_COLOUR;
+
+    public static String OPERATING_SYSTEM;
+
     /**
-     * Create constants need so it can properly source screen dimensions
+     * Create constants needed so it can properly source screen dimensions
      */
     public static void INIT_CONSTANTS() {
         // FULLSCREEN = !Boolean.parseBoolean(System.getProperty("windowed"));
@@ -52,26 +74,4 @@ public final class Constants {
         DIMENSIONS = new Vector2(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         HALF_DIMENSIONS = new Vector2(HALF_VIEWPORT_WIDTH, HALF_VIEWPORT_HEIGHT);
     }
-
-    public static int SCREEN_WIDTH;
-    public static int SCREEN_HEIGHT;
-    public static boolean FULLSCREEN;
-    public static float ASPECT_RATIO;
-    public static int VIEWPORT_HEIGHT;
-    public static int VIEWPORT_WIDTH;
-    public static int HALF_VIEWPORT_HEIGHT;
-    public static int HALF_VIEWPORT_WIDTH;
-    public static Vector2 DIMENSIONS;
-    public static Vector2 HALF_DIMENSIONS;
-    public static String VIEWPORT_TITLE;
-    public static float PHYSICS_TIME_STEP;
-    public static final float ZOOM = 2.15f;
-    public static final boolean VSYNC = true;
-    public static final float BUILDING_SCALE = 1.5f;
-
-    public static float TILE_SIZE;
-
-    public static Vector3 BACKGROUND_COLOUR;
-
-    public static String OPERATING_SYSTEM;
 }

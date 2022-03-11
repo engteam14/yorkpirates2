@@ -144,6 +144,9 @@ public class Ship extends Entity implements CollisionCallBack {
         getComponent(Pirate.class).shoot(dir);
     }
 
+    /**
+     * Calls shoot function of internal component
+     */
     public void shoot() {
         getComponent(Pirate.class).shoot(currentDir);
     }

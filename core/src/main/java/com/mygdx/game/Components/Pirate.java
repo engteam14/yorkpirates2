@@ -74,7 +74,7 @@ public class Pirate extends Component {
             return;
         }
         ammo--;
-        GameManager.shoot((Ship) parent, dir);
+        GameManager.shoot(parent, dir); // Changed for Assessment 2, casting from Entity to ship removed
     }
 
     /**

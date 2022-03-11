@@ -310,4 +310,16 @@ public final class ResourceManager {
             Initialize();
         }
     }
+
+    /**
+     * Added for Assessment 2
+     * Calls cleanup function and disposes of remaining assets
+     */
+    public static void dispose() {
+        cleanUp();
+        initialized = false;
+        loaded = false;
+        ids = new ArrayList<>();
+        fonts = new HashMap<>();
+    }
 }

@@ -83,7 +83,7 @@ class QueueFIFOTest {
         queue3.set(new ArrayList<>(Arrays.asList(1,2,3)));
         queue3.remove(2);
         queue0.remove(1);
-        System.out.println(queue0.get());
+        // System.out.println(queue0.get());
         assertAll(() -> assertEquals(queue3.get(), new ArrayList<>(Arrays.asList(1,2)) )
                 , () -> assertEquals(queue0.get(), new ArrayList<>())
                 , () -> assertEquals(1, queue3.getI())

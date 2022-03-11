@@ -83,8 +83,9 @@ public class College extends Entity {
 
     /**
      * True as long as unharmed buildings remain, false otherwise.
+     * Changed for Assessment 2, added boolean return for Kill Quest functionality.
      */
-    public void isAlive() {
+    public boolean isAlive() {
         boolean res = false;
         for (int i = 0; i < buildings.size() - 1; i++) {
             Building b = buildings.get(i);
@@ -95,6 +96,29 @@ public class College extends Entity {
         if (!res) {
             getComponent(Pirate.class).kill();
         }
+        return res;
+    }
+
+    /**
+     * Added for Assessment 2 to meet requirements
+     * Calls shoot function of internal component
+     */
+    public void shoot(Vector2 dir) {
+        getComponent(Pirate.class).shoot(dir);
+    }
+
+    /**
+     * Added for Assessment 2
+     * Systematically kills each building attached to this college, then marks the college as dead.
+     */
+    public void killThisCollege() {
+        for (int i = 0; i < buildings.size() - 1; i++) {
+            Building b = buildings.get(i);
+            if (b.isAlive()) {
+                b.destroy();
+            }
+        }
+        isAlive();
     }
 
     @Override
