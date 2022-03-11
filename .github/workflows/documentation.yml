@@ -44,6 +44,6 @@ jobs:
           deploy_key: ${{ secrets.SITE_DEPLOY_KEY }}
           external_repository: engteam14/website2
           publish_branch: main
-          publish_dir: ./core/build/reports
+          publish_dir: ./core/build/docs/javadoc
           destination_dir: javadoc
 
