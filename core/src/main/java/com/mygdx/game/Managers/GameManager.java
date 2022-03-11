@@ -183,7 +183,7 @@ public final class GameManager {
      * @param p   parent
      * @param dir shoot direction
      */
-    public static void shoot(Ship p, Vector2 dir) {
+    public static void shoot(Entity p, Vector2 dir) { // Changed for Assessment 2, type switched from Ship to Entity
         Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
         //pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
         ballCache.get(currentElement).fire(pos, dir, p);

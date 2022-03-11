@@ -100,6 +100,14 @@ public class College extends Entity {
     }
 
     /**
+     * Added for Assessment 2 to meet requirements
+     * Calls shoot function of internal component
+     */
+    public void shoot(Vector2 dir) {
+        getComponent(Pirate.class).shoot(dir);
+    }
+
+    /**
      * Added for Assessment 2
      * Systematically kills each building attached to this college, then marks the college as dead.
      */

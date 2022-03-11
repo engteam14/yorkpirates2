@@ -58,7 +58,7 @@ public class RigidBody extends Component {
         float h_y = r.sprite.getHeight() * 0.5f;
         halfDim.set(h_x, h_y);
 
-        def.position.set(t.getPosition().x + h_x, t.getPosition().y + h_y);
+        def.position.set(t.getPosition().x, t.getPosition().y); //Removed halfDim addition for Assessment 2
         h_x *= t.getScale().x;
         h_y *= t.getScale().y;
 
@@ -132,9 +132,11 @@ public class RigidBody extends Component {
      */
     public void setPosition(Vector2 position, boolean offset) {
         Body b = PhysicsManager.getBody(bodyId);
+        /* Removed in Assessment 2
         if (offset) {
             position.add(halfDim);
         }
+        */
         b.setTransform(position, 0);
     }
 
@@ -144,7 +146,7 @@ public class RigidBody extends Component {
      * @return player position.
      */
     public Vector2 getPosition(){
-        Body b = PhysicsManager.getBody(bodyId);
+        Body b = getBody();
         return b.getTransform().getPosition();
     }
 
@@ -162,7 +164,7 @@ public class RigidBody extends Component {
         Transform t = parent.getComponent(Transform.class);
         Body b = getBody();
         Vector2 p = b.getPosition().cpy();
-        p.sub(halfDim);
+        //p.sub(halfDim); //Removed in Assessment 2
         t.setPosition(p, false);
     }
 

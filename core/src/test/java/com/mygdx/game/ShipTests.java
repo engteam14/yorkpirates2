@@ -122,11 +122,11 @@ public class ShipTests {
 		CannonBall cannonBall = GameManager.getCurrentCannon();
 		Vector2 shootDirection = new Vector2(1,1);
 
-		RigidBody shipRb = (RigidBody) ship.getComponent(ComponentType.RigidBody);
+		Transform shipT = (Transform) ship.getComponent(ComponentType.Transform);
 		Transform cannonT = (Transform) cannonBall.getComponent(ComponentType.Transform);
 		Renderable cannonR = (Renderable) cannonBall.getComponent(ComponentType.Renderable);
 
-		Vector2 shipPos = shipRb.getPosition().cpy();
+		Vector2 shipPos = shipT.getPosition().cpy();
 		Vector2 cannonStartPos = cannonT.getPosition().cpy();
 
 		assertNotEquals("Ship and Cannonball at same location before firing", shipPos, cannonStartPos);
