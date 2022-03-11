@@ -17,4 +17,6 @@ tasks.withType(Test) {
         events "started", "skipped", "passed", "failed"
         showStandardStreams true
     }
+    finalizedBy jacocoTestReport
 }
+jacocoTestReport { dependsOn test}
