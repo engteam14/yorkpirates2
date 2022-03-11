@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AssetsTest {
     @Test
     void ArialFontAsset() {
-        assertTrue(new File("assets/Arial.ttf").isFile(), "Arial.ttf font Missing");
+        assertTrue(new File("assets/arial.ttf").isFile(), "Arial.ttf font Missing");
     }
 
     @Test
@@ -57,7 +57,7 @@ public class AssetsTest {
     }
     @Test
     void menuBGAsset() {
-        assertTrue(new File("assets/MenuBG.jpg").isFile(), "MenuBG.jpg Missing");
+        assertTrue(new File("assets/menuBG.jpg").isFile(), "MenuBG.jpg Missing");
     }
     @Test
     void OtherPngAsset() {
