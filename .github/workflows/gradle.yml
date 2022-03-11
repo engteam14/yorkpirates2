@@ -8,10 +8,10 @@
 name: Deploy Project Docs
 
 on:
-  workflow_run:
-    workflows: [build]
-    types:
-      - completed
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
 
