@@ -16,7 +16,6 @@ on:
 jobs:
 
   test:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -50,9 +49,8 @@ jobs:
           arguments: build
 
   build:
-
+    needs: test
     runs-on: ubuntu-latest
-    needs: [test]
 
     steps:
       - uses: actions/checkout@v2
@@ -84,9 +82,8 @@ jobs:
           keep_files: true
 
   documentation:
-
-    runs-on: ubuntu-latest
     needs: [test, build]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
