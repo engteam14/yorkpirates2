@@ -28,14 +28,10 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Gradle
+        continue-on-error: true
         uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
         with:
           arguments: build
-
-      - name: Run All Tests
-        uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
-        with:
-          arguments: -p core test
 
       - name: Deploy Test Reports to Website
         uses: peaceiris/actions-gh-pages@v3
@@ -45,3 +41,9 @@ jobs:
           publish_branch: main
           publish_dir: ./core/build/reports
           destination_dir: testreports
+
+      - name: Re-build to notify of errors
+        continue-on-error: true
+        uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
+        with:
+          arguments: build
