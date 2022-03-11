@@ -2,7 +2,6 @@ package com.mygdx.utils;
 
 import com.badlogic.gdx.Gdx;
 
-import com.mygdx.game.GdxTestRunner;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
@@ -12,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-@RunWith(GdxTestRunner.class)
 
 public class AssetsTest {
     @Test
