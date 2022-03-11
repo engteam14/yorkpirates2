@@ -1,7 +1,7 @@
 package com.mygdx.utils;
 
 /**
- * The id of tiles in the tiled map that should be considered an obstetrical or not
+ * The id of tiles in the tiled map that should be considered an obstacle or not
  * will need to be changed when the tiled map is changed dramatically
  */
 public final class TileMapCells {

@@ -14,3 +14,14 @@ sourceSets.test.java.srcDirs = [ "src/test/java/" ]
 sourceSets.test.resources.srcDirs = [ "assets/" ]
 
 eclipse.project.name = appName + "-core"
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
+    finalizedBy jacocoTestReport
+}
+jacocoTestReport { dependsOn test}
