@@ -170,15 +170,24 @@ public final class GameManager {
     }
 
     /**
+     * Added for Assessment 2
+     * @return Returns the next cannonball that would be fired from the cache
+     */
+    public static CannonBall getCurrentCannon() {
+        return ballCache.get(currentElement);
+    }
+
+    /**
      * Utilises the cached cannonballs to fire one
-     *
+     * Changed for Assessment 2, seperated incrementer for visual clarity
      * @param p   parent
      * @param dir shoot direction
      */
     public static void shoot(Ship p, Vector2 dir) {
         Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
         //pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
-        ballCache.get(currentElement++).fire(pos, dir, p);
+        ballCache.get(currentElement).fire(pos, dir, p);
+        currentElement++;
         currentElement %= cacheSize;
     }
 
@@ -187,7 +196,7 @@ public final class GameManager {
      *
      * @param loc src
      * @param dst dst
-     * @return queue of delta postions
+     * @return queue of delta positions
      */
     public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
         return mapGraph.findOptimisedPath(loc, dst);
