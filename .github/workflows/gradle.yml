@@ -47,6 +47,7 @@ jobs:
           destination_dir: testreports
 
       - name: Generate Documentation
+        continue-on-error: true
         uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
         with:
           arguments: -p core javadoc
