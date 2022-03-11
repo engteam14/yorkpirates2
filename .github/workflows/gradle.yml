@@ -48,15 +48,15 @@ jobs:
 
       - name: Generate Documentation
         uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
-          with:
-            arguments: -p core javadoc
+        with:
+          arguments: -p core javadoc
 
       - name: Deploy Documentation to Website
-          uses: peaceiris/actions-gh-pages@v3
-          with:
-            deploy_key: ${{ secrets.SITE_DEPLOY_KEY }}
-            external_repository: engteam14/website2
-            publish_branch: main
-            publish_dir: ./core/build/docs/javadoc
-            destination_dir: javadoc
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.SITE_DEPLOY_KEY }}
+          external_repository: engteam14/website2
+          publish_branch: main
+          publish_dir: ./core/build/reports
+          destination_dir: javadoc
 
