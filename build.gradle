@@ -54,6 +54,7 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java-library"
+    apply plugin: 'jacoco'
 
 
     dependencies {
@@ -61,6 +62,9 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+
+        testImplementation 'junit:junit:4.+'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.+'
 
     }
 }
