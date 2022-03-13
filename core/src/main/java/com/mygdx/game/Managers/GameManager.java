@@ -76,12 +76,24 @@ public final class GameManager {
     }
 
     /**
+     * Get an NPCShip in the current game
+     * @param id the ship's ID
+     * @return the NPCShip instance
+     */
+    public static NPCShip getNPCShip(int id) {
+        return (NPCShip) ships.get(id);
+    }
+
+    /**
      * Creates the game with player maps, NPCs, colleges
-     *
+     * // Change for Assessment 2  Start //
+     * Only creates world map if mapId is non-negative
+     * For test purposes
+     * // Change for Assessment 2  End //
      * @param mapId the resource id of the tilemap
      */
     public static void SpawnGame(int mapId) {
-        CreateWorldMap(mapId);
+        if (mapId >= 0) CreateWorldMap(mapId);
         CreatePlayer();
         final int cnt = settings.get("factionDefaults").getInt("shipCount");
         for (int i = 0; i < factions.size(); i++) {
