@@ -12,6 +12,7 @@ import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Entitys.Ship;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
+import com.mygdx.game.Managers.QuestManager;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Quests.KillQuest;
 import com.mygdx.game.Quests.LocateQuest;
@@ -142,6 +143,23 @@ public class ShipTests {
 
 	@Test
 	public void gainMoney() {
+		GameManager.CreatePlayer();
+		Player player = GameManager.getPlayer();
+		QuestManager.Initialize();
+		int initial = player.getPlunder();
+
+		College collegeToKill = new College(1);
+		KillQuest killCollege = new KillQuest(collegeToKill);
+
+		QuestManager.addQuest(killCollege);
+
+		collegeToKill.killThisCollege();
+
+		QuestManager.checkCompleted();
+		int after = player.getPlunder();
+
+		assertTrue("player hasnt gained loot after completing task", (after>initial) );
+
 
 	}
 

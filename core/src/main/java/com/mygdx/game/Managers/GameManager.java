@@ -93,6 +93,7 @@ public final class GameManager {
      * @param mapId the resource id of the tilemap
      */
     public static void SpawnGame(int mapId) {
+
         if (mapId >= 0) CreateWorldMap(mapId);
         CreatePlayer();
         final int cnt = settings.get("factionDefaults").getInt("shipCount");
@@ -107,6 +108,8 @@ public final class GameManager {
                 s.getComponent(Transform.class).setPosition(getFaction(i + 1).getSpawnPos());
             }
         }
+        QuestManager.Initialize(); // added for assessment 2 to stop tryInit being used (testing)
+        QuestManager.createRandomQuests(); // ""
     }
 
     /**

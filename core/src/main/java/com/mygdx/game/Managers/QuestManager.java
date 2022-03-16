@@ -27,7 +27,6 @@ public class QuestManager {
         allQuests = new ArrayList<>();
         chest = new Chest();
 
-        createRandomQuests();
     }
 
     /**
@@ -94,7 +93,7 @@ public class QuestManager {
     /**
      * Creates the quest line with the final quest being to kill a college
      */
-    private static void createRandomQuests() {
+    public static void createRandomQuests() {
         // the last quest added is the final quest
         int primaryEnemyId = new Random().nextInt(4) + 2;
         ArrayList<Integer> exclude = new ArrayList<>();
@@ -107,7 +106,7 @@ public class QuestManager {
     }
 
     public static void addQuest(Quest q) {
-        tryInit();
+     //   tryInit();
         allQuests.add(q);
     }
 
@@ -116,7 +115,7 @@ public class QuestManager {
      * Stops checking the quest after the first no completed quest (prevents quests being completed in any order)
      */
     public static void checkCompleted() {
-        tryInit();
+     //   tryInit();
         Player p = GameManager.getPlayer();
         for (Quest q : allQuests) {
             if (q.isCompleted()) {
@@ -147,7 +146,7 @@ public class QuestManager {
      * @return the quest null if no un-completed quests found
      */
     public static Quest currentQuest() {
-        tryInit();
+      //  tryInit();
         for (Quest q : allQuests) {
             if (!q.isCompleted()) {
                 return q;
@@ -162,7 +161,7 @@ public class QuestManager {
      * @return true if any non completed quest exirs
      */
     public static boolean anyQuests() {
-        tryInit();
+      //  tryInit();
         return currentQuest() != null;
     }
 }

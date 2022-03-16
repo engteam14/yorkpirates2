@@ -39,9 +39,11 @@ public class PirateGame extends Game {
         // cant load any more resources after this point (just functionally I choose not to implement)
         stage = new Stage(new ScreenViewport());
         createSkin();
+
         menu = new MenuScreen(this);
         game = new GameScreen(this, id_map);
         end = new EndScreen(this);
+
         setScreen(menu);
     }
 
