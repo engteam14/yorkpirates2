@@ -143,23 +143,35 @@ public class ShipTests {
 
 	@Test
 	public void gainMoney() {
+		// player
 		GameManager.CreatePlayer();
 		Player player = GameManager.getPlayer();
-		QuestManager.Initialize();
 		int initial = player.getPlunder();
-
+		Vector2 playerLoc = new Vector2(player.getPosition());
+		//quests
+		QuestManager.Initialize();
+		assertTrue("Player started with more than 0 loot", initial == 0);
 		College collegeToKill = new College(1);
 		KillQuest killCollege = new KillQuest(collegeToKill);
+		LocateQuest locateQuest = new LocateQuest(playerLoc, 1);
 
 		QuestManager.addQuest(killCollege);
 
 		collegeToKill.killThisCollege();
-
 		QuestManager.checkCompleted();
+
 		int after = player.getPlunder();
+		assertTrue("player hasn't gained loot after completing killCollege task", (after > initial));
 
-		assertTrue("player hasnt gained loot after completing task", (after>initial) );
 
+		initial = after; //new initial after 1 complete quest
+
+		QuestManager.addQuest(locateQuest);
+		QuestManager.checkCompleted();
+
+		after = player.getPlunder();
+		assertTrue("player hasn't gained loot after completing killCollege task", (after > initial));
+		//TODO: Check loot on enemy kill
 
 	}
 
