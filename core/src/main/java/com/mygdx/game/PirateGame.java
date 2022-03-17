@@ -26,7 +26,7 @@ public class PirateGame extends Game {
      */
     @Override
     public void create() {
-        RenderingManager.Initialize();
+        RenderingManager.Initialize(); // added for assesment 2 due to rendering refactoring for testing
         // load resources
         int id_ship = ResourceManager.addTexture("ship.png");
         int id_map = ResourceManager.addTileMap("Map.tmx");

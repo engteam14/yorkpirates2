@@ -92,8 +92,9 @@ public class QuestManager {
 
     /**
      * Creates the quest line with the final quest being to kill a college
+     * changed from private to public in assesment 2 to allow the seperation between initialize and creating quests for testing.
      */
-    public static void createRandomQuests() {
+    public static void createRandomQuests() { //Assesment 2 change, see javastring
         // the last quest added is the final quest
         int primaryEnemyId = new Random().nextInt(4) + 2;
         ArrayList<Integer> exclude = new ArrayList<>();
@@ -106,7 +107,7 @@ public class QuestManager {
     }
 
     public static void addQuest(Quest q) {
-     //   tryInit();
+     //   tryInit(); removed for assessment 2
         allQuests.add(q);
     }
 
@@ -115,7 +116,7 @@ public class QuestManager {
      * Stops checking the quest after the first no completed quest (prevents quests being completed in any order)
      */
     public static void checkCompleted() {
-     //   tryInit();
+     //   tryInit(); removed for assesment 2
         Player p = GameManager.getPlayer();
         for (Quest q : allQuests) {
             if (q.isCompleted()) {
@@ -161,7 +162,7 @@ public class QuestManager {
      * @return true if any non completed quest exirs
      */
     public static boolean anyQuests() {
-      //  tryInit();
+      //  tryInit(); removed for assesment 2
         return currentQuest() != null;
     }
 }

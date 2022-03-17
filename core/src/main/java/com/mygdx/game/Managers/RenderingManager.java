@@ -55,6 +55,8 @@ public final class RenderingManager {
      */
     public static void addItem(Component item, RenderLayer layer) {
         tryInit();
+
+        // start of change for assesment 2 - to initialise empty lists if initialise() hasnt already been called due to testing
         if(renderItems == null) renderItems = new ArrayList<>();
         if(layers == null) {
             layers = new ArrayList<>(RenderLayer.values().length);
@@ -68,7 +70,7 @@ public final class RenderingManager {
 
     private static void tryInit() {
         if (!initialized) {
-            //Initialize();
+            //Initialize(); removed for assesment 2
         }
     }
 
