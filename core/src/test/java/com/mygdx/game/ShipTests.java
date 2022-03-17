@@ -170,7 +170,7 @@ public class ShipTests {
 		QuestManager.checkCompleted();
 
 		after = player.getPlunder();
-		assertTrue("player hasn't gained loot after completing killCollege task", (after > initial));
+		assertTrue("player hasn't gained loot after picking up loot chest ", (after > initial));
 		//TODO: Check loot on enemy kill
 
 	}
