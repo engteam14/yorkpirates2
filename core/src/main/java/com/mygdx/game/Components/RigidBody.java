@@ -1,6 +1,7 @@
 package com.mygdx.game.Components;
 
 import com.badlogic.gdx.math.Vector2;
+//import com.badlogic.gdx.physics.box2d;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Physics.CollisionCallBack;
@@ -57,7 +58,7 @@ public class RigidBody extends Component {
         float h_y = r.sprite.getHeight() * 0.5f;
         halfDim.set(h_x, h_y);
 
-        def.position.set(t.getPosition().x + h_x, t.getPosition().y + h_y);
+        def.position.set(t.getPosition().x, t.getPosition().y); //Removed halfDim addition for Assessment 2
         h_x *= t.getScale().x;
         h_y *= t.getScale().y;
 
@@ -131,10 +132,22 @@ public class RigidBody extends Component {
      */
     public void setPosition(Vector2 position, boolean offset) {
         Body b = PhysicsManager.getBody(bodyId);
+        /* Removed in Assessment 2
         if (offset) {
             position.add(halfDim);
         }
+        */
         b.setTransform(position, 0);
+    }
+
+    /**
+     * Gets the current player position.
+     * // Change for Assessment 2 //
+     * @return player position.
+     */
+    public Vector2 getPosition(){
+        Body b = getBody();
+        return b.getTransform().getPosition();
     }
 
     public Body getBody() {
@@ -151,7 +164,7 @@ public class RigidBody extends Component {
         Transform t = parent.getComponent(Transform.class);
         Body b = getBody();
         Vector2 p = b.getPosition().cpy();
-        p.sub(halfDim);
+        //p.sub(halfDim); //Removed in Assessment 2
         t.setPosition(p, false);
     }
 

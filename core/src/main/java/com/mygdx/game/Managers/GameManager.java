@@ -76,12 +76,25 @@ public final class GameManager {
     }
 
     /**
+     * Get an NPCShip in the current game
+     * @param id the ship's ID
+     * @return the NPCShip instance
+     */
+    public static NPCShip getNPCShip(int id) {
+        return (NPCShip) ships.get(id);
+    }
+
+    /**
      * Creates the game with player maps, NPCs, colleges
-     *
+     * // Change for Assessment 2  Start //
+     * Only creates world map if mapId is non-negative
+     * For test purposes
+     * // Change for Assessment 2  End //
      * @param mapId the resource id of the tilemap
      */
     public static void SpawnGame(int mapId) {
-        CreateWorldMap(mapId);
+
+        if (mapId >= 0) CreateWorldMap(mapId);
         CreatePlayer();
         final int cnt = settings.get("factionDefaults").getInt("shipCount");
         for (int i = 0; i < factions.size(); i++) {
@@ -95,6 +108,8 @@ public final class GameManager {
                 s.getComponent(Transform.class).setPosition(getFaction(i + 1).getSpawnPos());
             }
         }
+        QuestManager.Initialize(); // added for assessment 2 to stop tryInit being used (testing)
+        QuestManager.createRandomQuests(); // ""
     }
 
     /**
@@ -170,15 +185,24 @@ public final class GameManager {
     }
 
     /**
+     * Added for Assessment 2
+     * @return Returns the next cannonball that would be fired from the cache
+     */
+    public static CannonBall getCurrentCannon() {
+        return ballCache.get(currentElement);
+    }
+
+    /**
      * Utilises the cached cannonballs to fire one
-     *
+     * Changed for Assessment 2, seperated incrementer for visual clarity
      * @param p   parent
      * @param dir shoot direction
      */
-    public static void shoot(Ship p, Vector2 dir) {
+    public static void shoot(Entity p, Vector2 dir) { // Changed for Assessment 2, type switched from Ship to Entity
         Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
         //pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
-        ballCache.get(currentElement++).fire(pos, dir, p);
+        ballCache.get(currentElement).fire(pos, dir, p);
+        currentElement++;
         currentElement %= cacheSize;
     }
 
@@ -187,7 +211,7 @@ public final class GameManager {
      *
      * @param loc src
      * @param dst dst
-     * @return queue of delta postions
+     * @return queue of delta positions
      */
     public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
         return mapGraph.findOptimisedPath(loc, dst);

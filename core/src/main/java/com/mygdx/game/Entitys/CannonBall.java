@@ -20,8 +20,7 @@ public class CannonBall extends Entity implements CollisionCallBack {
     private static float speed;
     private boolean toggleLife;
     private static final int MAX_AGE = 5;
-    // private float age = 0;
-    private Ship shooter;
+    private Entity shooter; // Changed for Assessment 2, type switched from Ship to Entity
 
     public CannonBall() {
         super(3);
@@ -76,9 +75,10 @@ public class CannonBall extends Entity implements CollisionCallBack {
      * @param dir    2D vector direction for its movement
      * @param sender ship entity firing it
      */
-    public void fire(Vector2 pos, Vector2 dir, Ship sender) {
+    public void fire(Vector2 pos, Vector2 dir, Entity sender) {
         Transform t = getComponent(Transform.class);
         t.setPosition(pos);
+        System.out.println(t.getPosition());
 
         RigidBody rb = getComponent(RigidBody.class);
         Vector2 ta = dir.cpy().scl(speed * EntityManager.getDeltaTime());
@@ -98,7 +98,7 @@ public class CannonBall extends Entity implements CollisionCallBack {
         toggleLife = false;
     }
 
-    public Ship getShooter() {
+    public Entity getShooter() { // Changed for Assessment 2, type switched from Ship to Entity
         return shooter;
     }
 

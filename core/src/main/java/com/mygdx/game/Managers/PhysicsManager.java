@@ -39,6 +39,7 @@ public final class PhysicsManager {
             return;
         }
         initialized = true;
+
         box2DWorld = new World(new Vector2(0, 0), true);
         box2DBodies = new ArrayList<>();
         box2DWorld.setContactListener(new CollisionManager());
