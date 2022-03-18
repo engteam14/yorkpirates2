@@ -16,8 +16,6 @@ import java.util.ArrayList;
 public class College extends Entity {
     private static ArrayList<String> buildingNames;
     private final ArrayList<Building> buildings;
-    private Faction mostRecentAttacker; //Added for Assessment 2, used to determine ownership after capturing
-    private Building flag; //Added for Assessment 2, allows flag to be referenced independently of other buildings.
 
     public College() {
         super();
@@ -78,36 +76,27 @@ public class College extends Entity {
 
 
         }
-        flag = new Building(this,true);
+        Building flag = new Building(this,true);
         buildings.add(flag);
         flag.create(origin, colour);
     }
 
     /**
      * True as long as unharmed buildings remain, false otherwise.
-     * Changed for Assessment 2:
-     *  - Added boolean return for Kill Quest functionality.
-     *  - Renamed boolean for readability
-     *  - Added functionality for changing Flag upon capture.
+     * Changed for Assessment 2, added boolean return for Kill Quest functionality.
      */
     public boolean isAlive() {
-        boolean buildingsRemain = false;
+        boolean res = false;
         for (int i = 0; i < buildings.size() - 1; i++) {
             Building b = buildings.get(i);
             if (b.isAlive()) {
-                buildingsRemain = true;
+                res = true;
             }
         }
-        if (!buildingsRemain) {
+        if (!res) {
             getComponent(Pirate.class).kill();
-            //Changes flag to that of conqueror upon defeat
-            if(mostRecentAttacker != null){
-                final Vector2 origin = getComponent(Transform.class).getPosition();
-                flag.create(origin,mostRecentAttacker.getColour());
-            }
-            //End of conqueror flag update changes
         }
-        return buildingsRemain;
+        return res;
     }
 
     /**
@@ -116,14 +105,6 @@ public class College extends Entity {
      */
     public Faction getFaction() {
         return getComponent(Pirate.class).getFaction();
-    }
-
-    /**
-     * Added for Assessment 2
-     * Sets the Faction which most recently attacked this College
-     */
-    public void setMostRecentAttacker(Faction conqueror){
-        mostRecentAttacker = conqueror;
     }
 
     /**
@@ -142,8 +123,7 @@ public class College extends Entity {
         for (int i = 0; i < buildings.size() - 1; i++) {
             Building b = buildings.get(i);
             if (b.isAlive()) {
-                Faction Tester = new Faction();
-                b.destroy(Tester);
+                b.destroy();
             }
         }
         isAlive();
