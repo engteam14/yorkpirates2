@@ -21,8 +21,14 @@ public class Building extends Entity implements CollisionCallBack {
     private String buildingName;
     private static int atlas_id;
     private boolean isFlag;
+    private final College college; //Added for Assessment 2
 
-    Building() {
+    /**
+     * Flags are indestructible and mark college locations.
+     *
+     * @param college added to signify ownership of building
+     */
+    Building(College college) {
         super();
         isFlag = false;
         Transform t = new Transform();
@@ -31,6 +37,7 @@ public class Building extends Entity implements CollisionCallBack {
         atlas_id = ResourceManager.getId("Buildings.txt");
         Renderable r = new Renderable(atlas_id, "big", RenderLayer.Transparent);
         addComponents(t, p, r);
+        this.college = college;
     }
 
     /**
@@ -38,8 +45,8 @@ public class Building extends Entity implements CollisionCallBack {
      *
      * @param isFlag set to true to create a flag
      */
-    Building(boolean isFlag) {
-        this();
+    Building(College college, boolean isFlag) {
+        this(college);
         this.isFlag = isFlag;
     }
 
@@ -91,19 +98,16 @@ public class Building extends Entity implements CollisionCallBack {
 
     /**
      * Destroys the building and marks cannonball for removal.
-     *
+     * Amended for Assessment 2, split if statement to separate kill call and added Faction checks
      * @param info CollisionInfo container
      */
     @Override
     public void EnterTrigger(CollisionInfo info) {
         if (info.a instanceof CannonBall && isAlive()) {
             CannonBall b = (CannonBall) info.a;
-            // the ball if from the same faction
-            /*if(Objects.equals(b.getShooter().getComponent(Pirate.class).getFaction().getName(),
-                    getComponent(Pirate.class).getFaction().getName())) {
-                return;
-            }*/
-            destroy();
+            if(b.getFaction() != college.getFaction()){
+                destroy();
+            }
             ((CannonBall) info.a).kill();
         }
     }

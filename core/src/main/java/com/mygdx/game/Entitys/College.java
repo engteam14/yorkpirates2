@@ -66,7 +66,7 @@ public class College extends Entity {
 
                 pos = Utilities.tilesToDistance(pos).add(origin);
 
-                Building b = new Building();
+                Building b = new Building(this);
                 buildings.add(b);
 
                 String b_name = Utilities.randomChoice(buildingNames);
@@ -76,7 +76,7 @@ public class College extends Entity {
 
 
         }
-        Building flag = new Building(true);
+        Building flag = new Building(this,true);
         buildings.add(flag);
         flag.create(origin, colour);
     }
@@ -97,6 +97,14 @@ public class College extends Entity {
             getComponent(Pirate.class).kill();
         }
         return res;
+    }
+
+    /**
+     * Added for Assessment 2
+     * @return The Faction of the Pirate Component attached to this entity
+     */
+    public Faction getFaction() {
+        return getComponent(Pirate.class).getFaction();
     }
 
     /**
