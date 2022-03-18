@@ -142,8 +142,7 @@ public class College extends Entity {
         for (int i = 0; i < buildings.size() - 1; i++) {
             Building b = buildings.get(i);
             if (b.isAlive()) {
-                Faction Tester = new Faction();
-                b.destroy(Tester);
+                b.destroy(null);
             }
         }
         isAlive();
