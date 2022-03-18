@@ -30,7 +30,7 @@ public class Building extends Entity implements CollisionCallBack {
      * Amended for Assessment 2: Added College parameter to keep track of parent
      * @param college added to signify ownership of building
      */
-    Building(College college) {
+    public Building(College college) {
         super();
         isFlag = false;
         Transform t = new Transform();

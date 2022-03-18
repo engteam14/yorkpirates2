@@ -51,6 +51,7 @@ public class CollegeTests {
 		CannonBall cannonBall = GameManager.getCurrentCannon();
 		Vector2 shootDirection = new Vector2(1,1);
 
+		Transform collegeT = (Transform) college.getComponent(ComponentType.Transform);
 		Transform cannonT = (Transform) cannonBall.getComponent(ComponentType.Transform);
 		Vector2 cannonStartPos = cannonT.getPosition().cpy();
 

@@ -79,8 +79,9 @@ public class OtherEntityTests {
 
 	@Test
 	public void projectileHits() {
-		Building allyBuilding = new Building();
-		Building enemyBuilding = new Building();
+		College college = new College();
+		Building allyBuilding = new Building(college);
+		Building enemyBuilding = new Building(college);
 
 		Vector2 allyPosition = new Vector2(10,10);
 		Vector2 enemyPosition = new Vector2(-10,-10);
