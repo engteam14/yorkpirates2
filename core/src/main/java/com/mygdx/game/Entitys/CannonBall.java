@@ -78,7 +78,7 @@ public class CannonBall extends Entity implements CollisionCallBack {
     public void fire(Vector2 pos, Vector2 dir, Entity sender) {
         Transform t = getComponent(Transform.class);
         t.setPosition(pos);
-        System.out.println(t.getPosition());
+        //System.out.println(t.getPosition());
 
         RigidBody rb = getComponent(RigidBody.class);
         Vector2 ta = dir.cpy().scl(speed * EntityManager.getDeltaTime());
