@@ -6,6 +6,7 @@ import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Physics.CollisionCallBack;
@@ -25,7 +26,7 @@ public class Building extends Entity implements CollisionCallBack {
 
     /**
      * Flags are indestructible and mark college locations.
-     *
+     * Amended for Assessment 2: Added College parameter to keep track of parent
      * @param college added to signify ownership of building
      */
     Building(College college) {
@@ -42,7 +43,7 @@ public class Building extends Entity implements CollisionCallBack {
 
     /**
      * Flags are indestructible and mark college locations.
-     *
+     * Amended for Assessment 2: Added College parameter to keep track of parent
      * @param isFlag set to true to create a flag
      */
     Building(College college, boolean isFlag) {
@@ -70,9 +71,11 @@ public class Building extends Entity implements CollisionCallBack {
 
     /**
      * Replace the building with ruins and mark as broken.
-     * Changed for Assessment 2: Made public for testing purposes
+     * Changed for Assessment 2
+     *  - Made public for testing purposes
+     *  - Sets destroyer as parent college's most recent attacker.
      */
-    public void destroy() {
+    public void destroy(Faction conqueror) {
         if (isFlag) {
             return;
         }
@@ -80,6 +83,7 @@ public class Building extends Entity implements CollisionCallBack {
         Renderable r = getComponent(Renderable.class);
         r.setTexture(s);
         getComponent(Pirate.class).kill();
+        college.setMostRecentAttacker(conqueror);
     }
 
     public boolean isAlive() {
@@ -98,15 +102,15 @@ public class Building extends Entity implements CollisionCallBack {
 
     /**
      * Destroys the building and marks cannonball for removal.
-     * Amended for Assessment 2, split if statement to separate kill call and added Faction checks
+     * Amended for Assessment 2, added Faction checks and now ignores flags
      * @param info CollisionInfo container
      */
     @Override
     public void EnterTrigger(CollisionInfo info) {
-        if (info.a instanceof CannonBall && isAlive()) {
+        if (info.a instanceof CannonBall && isAlive() && !isFlag) {
             CannonBall b = (CannonBall) info.a;
             if(b.getFaction() != college.getFaction()){
-                destroy();
+                destroy(b.getFaction());
             }
             ((CannonBall) info.a).kill();
         }
