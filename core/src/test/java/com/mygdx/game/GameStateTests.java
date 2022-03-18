@@ -5,12 +5,16 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Components.ComponentType;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.RigidBody;
+import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.NPCShip;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
+import com.mygdx.game.Managers.QuestManager;
 import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Quests.LocateQuest;
+import com.mygdx.game.Quests.Quest;
 import com.mygdx.utils.Utilities;
 import org.junit.After;
 import org.junit.Before;
@@ -122,7 +126,23 @@ public class GameStateTests {
 
 	@Test
 	public void winGame() {
+		// anyQuests is used in the GameScreen to check for win
+		QuestManager.Initialize();
+		GameManager.Initialize();
+		GameManager.CreatePlayer();
+		assertFalse("Player does not win when no quests are present", QuestManager.anyQuests());
 
+		LocateQuest locQuest = new LocateQuest(Vector2.Zero,1);
+		QuestManager.addQuest(locQuest);
+		assertTrue("Player wins despite not beating quest", QuestManager.anyQuests());
+
+		Player player = GameManager.getPlayer();
+		Transform pTransform = (Transform) player.getComponent(ComponentType.Transform);
+		pTransform.setPosition(locQuest.getLocation());
+
+		assertTrue("Quest becomes completed before checkCompleted is run", QuestManager.anyQuests());
+		QuestManager.checkCompleted();
+		assertFalse("Player does not win despite all quests completed", QuestManager.anyQuests());
 	}
 
 	@Test
