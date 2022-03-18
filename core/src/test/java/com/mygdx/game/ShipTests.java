@@ -150,7 +150,7 @@ public class ShipTests {
 		Vector2 playerLoc = new Vector2(player.getPosition());
 		//quests
 		QuestManager.Initialize();
-		assertTrue("Player started with more than 0 loot", initial == 0);
+		assertEquals("Player started with more than 0 loot", 0, initial);
 		College collegeToKill = new College(1);
 		KillQuest killCollege = new KillQuest(collegeToKill);
 		LocateQuest locateQuest = new LocateQuest(playerLoc, 1);
@@ -161,7 +161,7 @@ public class ShipTests {
 		QuestManager.checkCompleted();
 
 		int after = player.getPlunder();
-		assertTrue("player hasn't gained loot after completing killCollege task", (after > initial));
+		assertTrue("Player hasn't gained loot after completing killCollege task", (after > initial));
 
 
 		initial = after; //new initial after 1 complete quest
@@ -170,7 +170,7 @@ public class ShipTests {
 		QuestManager.checkCompleted();
 
 		after = player.getPlunder();
-		assertTrue("player hasn't gained loot after picking up loot chest ", (after > initial));
+		assertTrue("Player hasn't gained loot after picking up loot chest ", (after > initial));
 		//TODO: Check loot on enemy kill
 
 	}
