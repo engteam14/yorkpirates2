@@ -87,7 +87,7 @@ public class ShipTests {
 	}
 
 	@Test
-	public void progressTasks() {
+	public void playerProgressTasks() {
 		Player player = new Player();
 
 		Vector2 questLocA = new Vector2(100,100);
@@ -142,7 +142,7 @@ public class ShipTests {
 	}
 
 	@Test
-	public void gainMoney() {
+	public void playerMoney() {
 		// player
 		GameManager.Initialize();
 		GameManager.CreatePlayer();
@@ -177,7 +177,7 @@ public class ShipTests {
 	}
 
 	@Test
-	public void gainPoints() {
+	public void playerPoints() {
 
 	}
 }
