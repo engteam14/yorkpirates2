@@ -49,21 +49,21 @@ public class ShipTests {
 
 	@Test
 	public void shipMove() {
-		Player player = new Player();
-		RigidBody playerRb = (RigidBody) player.getComponent(ComponentType.RigidBody);
+		Ship ship = new Ship();
+		RigidBody shipRb = (RigidBody) ship.getComponent(ComponentType.RigidBody);
 
-		moveTest(playerRb, new Vector2(0,0));
+		moveTest(shipRb, new Vector2(0,0));
 
-		moveTest(playerRb, new Vector2(1, 0));
-		moveTest(playerRb, new Vector2(-1,0));
+		moveTest(shipRb, new Vector2(1, 0));
+		moveTest(shipRb, new Vector2(-1,0));
 
-		moveTest(playerRb, new Vector2(0,1));
-		moveTest(playerRb, new Vector2(0,-1));
+		moveTest(shipRb, new Vector2(0,1));
+		moveTest(shipRb, new Vector2(0,-1));
 
-		moveTest(playerRb, new Vector2(1,1));
-		moveTest(playerRb, new Vector2(1,-1));
-		moveTest(playerRb, new Vector2(-1,1));
-		moveTest(playerRb, new Vector2(-1,-1));
+		moveTest(shipRb, new Vector2(1,1));
+		moveTest(shipRb, new Vector2(1,-1));
+		moveTest(shipRb, new Vector2(-1,1));
+		moveTest(shipRb, new Vector2(-1,-1));
 	}
 
 	private void moveTest(RigidBody rb, Vector2 velocity){
