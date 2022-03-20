@@ -33,6 +33,10 @@ public class EndScreen extends Page {
         wonText.setText("Congrats You Have Won");
     }
 
+    /**
+     * // Change for assessment 2 //
+     * Set game end screen status to report a lose.
+     */
     public void lose() {
         wonText.setText("Game Over");
     }
