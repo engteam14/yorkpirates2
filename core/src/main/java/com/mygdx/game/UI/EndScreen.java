@@ -33,6 +33,10 @@ public class EndScreen extends Page {
         wonText.setText("Congrats You Have Won");
     }
 
+    public void lose() {
+        wonText.setText("Game Over");
+    }
+
     /**
      * Create game end screen widgets, initialised to game loss status.
      */
