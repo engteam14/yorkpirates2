@@ -3,10 +3,9 @@ package com.mygdx.game.UI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Components.ComponentEvent;
 import com.mygdx.game.Entitys.Player;
@@ -95,6 +94,46 @@ public class GameScreen extends Page {
         table.row();
         table.add(new Label("Quit", parent.skin)).left();
         table.add(new Image(parent.skin, "key-esc"));
+
+
+
+        // start of addition for assessment 2 to add a shop to the UI
+        Table shop = new Table();
+        Window shopWin = new Window("Shop", parent.skin);
+        Table shopTable = new Table();
+
+
+        shop.bottom().right();
+        shop.setFillParent(true);
+        shop.add(shopWin);
+        shopWin.add(shopTable);
+        TextButton powerUp1 = new TextButton("1", parent.skin);
+        shopTable.add(powerUp1);
+        powerUp1.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Power up1 ");
+            }
+        });
+        TextTooltip powerUp1TT = new TextTooltip("This is the powerup", parent.skin);
+        powerUp1TT.setInstant(true);
+        powerUp1.addListener(powerUp1TT);
+
+        shopTable.row();
+        TextButton powerUp2 = new TextButton("2", parent.skin);
+        shopTable.add(powerUp2);
+        powerUp2.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Power up 2 ");
+
+            }
+        });
+
+        shopTable.debug();
+
+        actors.add(shop);
+        // end of addition for assessment 2
 
     }
 
