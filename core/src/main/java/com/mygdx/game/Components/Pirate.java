@@ -13,6 +13,7 @@ import com.mygdx.utils.QueueFIFO;
 public class Pirate extends Component {
     private int factionId;
     private int plunder;
+    private int points;
     protected boolean isAlive;
     private int health;
     private int ammo;
@@ -27,10 +28,11 @@ public class Pirate extends Component {
         super();
         targets = new QueueFIFO<>();
         type = ComponentType.Pirate;
-        plunder = GameManager.getSettings().get("starting").getInt("plunder");
         factionId = 1;
         isAlive = true;
         JsonValue starting = GameManager.getSettings().get("starting");
+        plunder = starting.getInt("plunder");
+        points = starting.getInt("points");
         health = starting.getInt("health");
         attackDmg = starting.getInt("damage");
         ammo = starting.getInt("ammo");
@@ -44,8 +46,16 @@ public class Pirate extends Component {
         return plunder;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
     public void addPlunder(int money) {
         plunder += money;
+    }
+
+    public void addPoints(int increment) {
+        points += increment;
     }
 
     public Faction getFaction() {

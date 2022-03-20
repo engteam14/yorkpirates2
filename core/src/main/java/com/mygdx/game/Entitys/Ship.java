@@ -72,6 +72,10 @@ public class Ship extends Entity implements CollisionCallBack {
         getComponent(Pirate.class).addPlunder(money);
     }
 
+    public void points(int increment) {
+        getComponent(Pirate.class).addPoints(increment);
+    }
+
     /**
      * Associates ship with faction and orients it to the default northern direction.
      *
@@ -139,6 +143,10 @@ public class Ship extends Entity implements CollisionCallBack {
 
     public int getPlunder() {
         return getComponent(Pirate.class).getPlunder();
+    }
+
+    public int getPoints() {
+        return getComponent(Pirate.class).getPoints();
     }
 
     public void shoot(Vector2 dir) {

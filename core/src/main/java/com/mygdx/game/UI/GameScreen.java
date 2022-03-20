@@ -18,7 +18,8 @@ import static com.mygdx.utils.Constants.*;
 
 public class GameScreen extends Page {
     private Label healthLabel;
-    private Label dosh;
+    private Label money;
+    private Label points;
     private Label ammo;
     private final Label questDesc;
     private final Label questName;
@@ -171,7 +172,8 @@ public class GameScreen extends Page {
         Player p = GameManager.getPlayer();
 
         healthLabel.setText(String.valueOf(p.getHealth()));
-        dosh.setText(String.valueOf(p.getPlunder()));
+        money.setText(String.valueOf(p.getPlunder()));
+        points.setText(String.valueOf(p.getPoints()));
         ammo.setText(String.valueOf(p.getAmmo()));
         if (!QuestManager.anyQuests()) {
             parent.end.win();
@@ -215,8 +217,14 @@ public class GameScreen extends Page {
         table.setDebug(false);
 
         table.add(new Image(parent.skin.getDrawable("coin"))).top().left().size(1.25f * TILE_SIZE);
-        dosh = new Label("N/A", parent.skin);
-        table.add(dosh).top().left().size(50);
+        money = new Label("N/A", parent.skin);
+        table.add(money).top().left().size(50);
+
+        table.row();
+
+        table.add(new Image(parent.skin.getDrawable("point"))).top().left().size(1.25f * TILE_SIZE);
+        points = new Label("N/A", parent.skin);
+        table.add(points).top().left().size(50);
 
         table.row();
 
