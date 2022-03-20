@@ -2,7 +2,10 @@ package com.mygdx.game.UI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -14,6 +17,8 @@ import com.mygdx.game.Managers.*;
 import com.mygdx.game.PirateGame;
 import com.mygdx.game.Quests.Quest;
 
+import java.util.zip.Deflater;
+
 import static com.mygdx.utils.Constants.*;
 
 public class GameScreen extends Page {
@@ -22,6 +27,8 @@ public class GameScreen extends Page {
     private Label ammo;
     private final Label questDesc;
     private final Label questName;
+    public Pixmap pixmap;
+    private PauseScreen pause;
     /*private final Label questComplete;
     private float showTimer = 0;
     // in seconds
@@ -65,7 +72,6 @@ public class GameScreen extends Page {
         }
         /*questComplete = new Label("", parent.skin);
         actors.add(questComplete);*/
-
         t.add(questDesc).left();
         questWindow.add(t);
         actors.add(questWindow);
@@ -74,6 +80,8 @@ public class GameScreen extends Page {
         t1.top().right();
         t1.setFillParent(true);
         actors.add(t1);
+        t1.add();
+
 
         Window tutWindow = new Window("Controls", parent.skin);
         Table table = new Table();
@@ -93,8 +101,13 @@ public class GameScreen extends Page {
         table.add(new Label("Shoot in direction of ship", parent.skin)).left();
         table.add(new Image(parent.skin, "space"));
         table.row();
-        table.add(new Label("Quit", parent.skin)).left();
+        table.add(new Label("Pause", parent.skin)).left(); // changed to pause for Assessment 2
         table.add(new Image(parent.skin, "key-esc"));
+
+
+      //  table.debug();
+      //  t.debug();
+      //  t1.debug();
 
     }
 
@@ -109,6 +122,8 @@ public class GameScreen extends Page {
 
     @Override
     public void render(float delta) {
+        // Only update if not paused
+
         ScreenUtils.clear(BACKGROUND_COLOUR.x, BACKGROUND_COLOUR.y, BACKGROUND_COLOUR.z, 1);
 
         EntityManager.raiseEvents(ComponentEvent.Update, ComponentEvent.Render);
@@ -123,10 +138,15 @@ public class GameScreen extends Page {
 
         GameManager.update();
         // show end screen if esc is pressed
+        // TODO: make this better, eg. a blendable image?
+        //Start off Assessment 2 change, added for the image behind the pause screen. takes a screenshot
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            parent.setScreen(parent.end);
+            pixmap = Pixmap.createFromFrameBuffer(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            parent.setScreen(parent.pause);
         }
+
         super.render(delta);
+        //end of Assessment 2 change
     }
 
     /**
@@ -204,6 +224,7 @@ public class GameScreen extends Page {
     @Override
     protected void CreateActors() {
         Table table = new Table();
+      //  table.debug();
         table.setFillParent(true);
         actors.add(table);
 
@@ -212,7 +233,6 @@ public class GameScreen extends Page {
         table.add(healthLabel).top().left().size(50);
 
         table.row();
-        table.setDebug(false);
 
         table.add(new Image(parent.skin.getDrawable("coin"))).top().left().size(1.25f * TILE_SIZE);
         dosh = new Label("N/A", parent.skin);
@@ -226,4 +246,5 @@ public class GameScreen extends Page {
 
         table.top().left();
     }
+
 }
