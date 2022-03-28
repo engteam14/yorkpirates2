@@ -3,10 +3,7 @@ package com.mygdx.game.Entitys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.mygdx.game.Components.Pirate;
-import com.mygdx.game.Components.Renderable;
-import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Components.*;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -53,10 +50,11 @@ public class Ship extends Entity implements CollisionCallBack {
         rb.setCallback(this);
 
         Pirate p = new Pirate();
+        PowerUpAssigned pow = new PowerUpAssigned();
 
         // rb.setCallback(this);
 
-        addComponents(t, r, rb, p);
+        addComponents(t, r, rb, p, pow);
     }
 
     /**

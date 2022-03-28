@@ -1,5 +1,9 @@
 package com.mygdx.game.PowerUps;
 
+/**
+ * // Assessment 2 addition //
+ * For PowerUp requirement
+ */
 public enum PowerUpOperation {
     /**
      * Replace the key value with a new value.

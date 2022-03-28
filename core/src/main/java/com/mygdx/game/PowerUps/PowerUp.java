@@ -14,6 +14,7 @@ public class PowerUp {
     private float value;
     private long duration;
     private long startTime;
+    private boolean done;
 
     /**
      * Create a PowerUp which lasts for a permanent length of time.
@@ -37,6 +38,7 @@ public class PowerUp {
         this.oper = operation;
         this.value = value;
         this.duration = duration;
+        this.done = false;
     }
 
     /**
@@ -47,15 +49,29 @@ public class PowerUp {
         switch (oper){
             case replace:
                 pirate.setValue(key, value);
+                break;
             case increment:
                 pirate.setValue(key, pirate.getValue(key) + value);
+                break;
             case decrement:
                 pirate.setValue(key, pirate.getValue(key) - value);
+                break;
             case multiply:
                 pirate.multValue(key, value);
+                break;
             case divide:
                 pirate.multValue(key, 1f/value);
+                break;
         }
+        startTime = TimeUtils.millis();
+    }
+
+    /**
+     * Check whether the PowerUp is permanent or temporary.
+     * @return          True if the PowerUp is permanent
+     */
+    public boolean CheckPermanent() {
+        return (duration <= 0);
     }
 
     /**
@@ -72,8 +88,9 @@ public class PowerUp {
      * @return          Whether the PowerUp is done or not
      */
     public boolean CheckPowerUpDone(Pirate pirate) {
+        if (done) return true;
         if (duration > 0) {
-            long timeSoFar = TimeUtils.timeSinceMillis(startTime) * 1000;
+            long timeSoFar = TimeUtils.timeSinceMillis(startTime) / 1000;
             if (timeSoFar >= duration) {
                 if (pirate != null) DisablePowerUp(pirate);
                 return true;
@@ -87,6 +104,7 @@ public class PowerUp {
      */
     public void DisablePowerUp(Pirate pirate) {
         if (duration > 0) pirate.resetToDefault(key);
+        done = true;
     }
 
 }
