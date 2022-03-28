@@ -20,6 +20,7 @@ public class Pirate extends Component {
     protected boolean isAlive;
 
     /**
+     * // Assessment 2 Change: Refactored to use map for storing values which will be modified by powerups.
      * The enemy that is being targeted by the AI.
      */
     private final QueueFIFO<Ship> targets;
@@ -43,23 +44,52 @@ public class Pirate extends Component {
         defaults = new HashMap<>(values);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Get a Pirate value.
+     * @param key   The value to get
+     * @return      The value
+     */
     public float getValue(String key) {
         return values.get(key);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Set the default for a Pirate value.
+     * @param key       The value to set to
+     * @param value     The default to apply
+     */
     public void setDefault(String key, float value) {
         values.replace(key, value);
         defaults.replace(key, value);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Set a new value for Pirate while holding reference to what it was originally.
+     * @param key       The value to set to
+     * @param value     The float to apply
+     */
     public void setValue(String key, float value) {
         values.replace(key, value);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Multiply a value for Pirate while holding reference to what it was originally.
+     * @param key       The value to multiply
+     * @param mult      The multiplication factor
+     */
     public void multValue(String key, float mult) {
         values.replace(key, values.get(key) * mult);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Reset a Pirate value to what it originally was.
+     * @param key       The value to reset
+     */
     public void resetToDefault(String key) {
         values.replace(key, defaults.get(key));
     }
@@ -73,6 +103,7 @@ public class Pirate extends Component {
     }
 
     public void addPlunder(int money) {
+        // Assessment 2 change: Plunder additions are now multiplied by plunderRate value
         plunder += Math.round(money * values.get("plunderRate"));
     }
 
@@ -85,6 +116,7 @@ public class Pirate extends Component {
     }
 
     public void takeDamage(float dmg) {
+        // Assessment 2 change: Refactored to include key for health instead of variable, as well as factor in new defense value
         dmg *= (1f/values.get("defense"));
         values.replace("health", getHealth() - dmg);
         if (getHealth() <= 0) kill();
@@ -96,6 +128,7 @@ public class Pirate extends Component {
      * @param dir the direction to shoot in
      */
     public void shoot(Vector2 dir) {
+        // Assessment 2 change: Refactored to include key for ammo instead of variable
         if (getAmmo() == 0) {
             return;
         }
@@ -109,10 +142,12 @@ public class Pirate extends Component {
      * @param ammo amount to add
      */
     public void reload(int ammo) {
+        // Assessment 2 change: Refactored to use key for ammo instead of variable
         values.replace("ammo", (float) getAmmo()+ammo);
     }
 
     public int getHealth() {
+        // Assessment 2 change: Refactored to use key for health instead of variable
         return Math.round(values.get("health"));
     }
 
@@ -162,15 +197,18 @@ public class Pirate extends Component {
      * Kill its self
      */
     public void kill() {
+        // Assessment 2 change: Refactored to use key for health instead of variable
         values.replace("health", 0f);
         isAlive = false;
     }
 
     public void setAmmo(int ammo) {
+        // Assessment 2 change: Refactored to use key for ammo instead of variable
         values.replace("ammo", (float) ammo);
     }
 
     public int getAmmo() {
+        // Assessment 2 change: Refactored to use key for ammo instead of variable
         return Math.round(values.get("ammo"));
     }
 

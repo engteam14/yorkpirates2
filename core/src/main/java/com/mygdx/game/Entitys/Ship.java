@@ -59,22 +59,51 @@ public class Ship extends Entity implements CollisionCallBack {
         addComponents(t, r, rb, p);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Get a Pirate value.
+     * @param key   The value to get
+     * @return      The value
+     */
     public float getValue(String key) {
         return getComponent(Pirate.class).getValue(key);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Set the default for a Pirate value.
+     * @param key       The value to set to
+     * @param value     The default to apply
+     */
     public void setDefault(String key, float value) {
         getComponent(Pirate.class).setDefault(key, value);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Set a new value for Pirate while holding reference to what it was originally.
+     * @param key       The value to set to
+     * @param value     The float to apply
+     */
     public void setValue(String key, float value) {
         getComponent(Pirate.class).setValue(key, value);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Multiply a value for Pirate while holding reference to what it was originally.
+     * @param key       The value to multiply
+     * @param mult      The multiplication factor
+     */
     public void multValue(String key, float mult) {
         getComponent(Pirate.class).multValue(key, mult);
     }
 
+    /**
+     * // New for assessment 2 //
+     * Reset a Pirate value to what it originally was.
+     * @param key       The value to reset
+     */
     public void resetToDefault(String key) {
         getComponent(Pirate.class).resetToDefault(key);
     }
