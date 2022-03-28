@@ -59,6 +59,26 @@ public class Ship extends Entity implements CollisionCallBack {
         addComponents(t, r, rb, p);
     }
 
+    public float getValue(String key) {
+        return getComponent(Pirate.class).getValue(key);
+    }
+
+    public void setDefault(String key, float value) {
+        getComponent(Pirate.class).setDefault(key, value);
+    }
+
+    public void setValue(String key, float value) {
+        getComponent(Pirate.class).setValue(key, value);
+    }
+
+    public void multValue(String key, float mult) {
+        getComponent(Pirate.class).multValue(key, mult);
+    }
+
+    public void resetToDefault(String key) {
+        getComponent(Pirate.class).resetToDefault(key);
+    }
+
     public boolean isAlive() {
         return getComponent(Pirate.class).getHealth() > 0;
     }

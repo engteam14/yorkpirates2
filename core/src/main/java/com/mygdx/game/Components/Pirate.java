@@ -7,16 +7,17 @@ import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.utils.QueueFIFO;
 
+import java.util.HashMap;
+
 /**
  * Gives the concepts of health plunder, etc. Allows for firing of cannonballs, factions, death, targets
  */
 public class Pirate extends Component {
     private int factionId;
+    private HashMap<String,Float> defaults;
+    private HashMap<String,Float> values;
     private int plunder;
     protected boolean isAlive;
-    private int health;
-    private int ammo;
-    private final int attackDmg;
 
     /**
      * The enemy that is being targeted by the AI.
@@ -30,10 +31,37 @@ public class Pirate extends Component {
         plunder = GameManager.getSettings().get("starting").getInt("plunder");
         factionId = 1;
         isAlive = true;
+
+        values = new HashMap<>();
         JsonValue starting = GameManager.getSettings().get("starting");
-        health = starting.getInt("health");
-        attackDmg = starting.getInt("damage");
-        ammo = starting.getInt("ammo");
+        values.put("health", (float) starting.getInt("health"));
+        values.put("damage", (float) starting.getInt("damage"));
+        values.put("ammo", (float) starting.getInt("ammo"));
+        values.put("plunderRate", 1f);
+        values.put("defense", 1f);
+
+        defaults = new HashMap<>(values);
+    }
+
+    public float getValue(String key) {
+        return values.get(key);
+    }
+
+    public void setDefault(String key, float value) {
+        values.replace(key, value);
+        defaults.replace(key, value);
+    }
+
+    public void setValue(String key, float value) {
+        values.replace(key, value);
+    }
+
+    public void multValue(String key, float mult) {
+        values.replace(key, values.get(key) * mult);
+    }
+
+    public void resetToDefault(String key) {
+        values.replace(key, defaults.get(key));
     }
 
     public void addTarget(Ship target) {
@@ -45,7 +73,7 @@ public class Pirate extends Component {
     }
 
     public void addPlunder(int money) {
-        plunder += money;
+        plunder += Math.round(money * values.get("plunderRate"));
     }
 
     public Faction getFaction() {
@@ -57,11 +85,9 @@ public class Pirate extends Component {
     }
 
     public void takeDamage(float dmg) {
-        health -= dmg;
-        if (health <= 0) {
-            health = 0;
-            isAlive = false;
-        }
+        dmg *= (1f/values.get("defense"));
+        values.replace("health", getHealth() - dmg);
+        if (getHealth() <= 0) kill();
     }
 
     /**
@@ -70,10 +96,10 @@ public class Pirate extends Component {
      * @param dir the direction to shoot in
      */
     public void shoot(Vector2 dir) {
-        if (ammo == 0) {
+        if (getAmmo() == 0) {
             return;
         }
-        ammo--;
+        values.replace("ammo", getAmmo()-1f);
         GameManager.shoot(parent, dir); // Changed for Assessment 2, casting from Entity to ship removed
     }
 
@@ -83,11 +109,11 @@ public class Pirate extends Component {
      * @param ammo amount to add
      */
     public void reload(int ammo) {
-        this.ammo += ammo;
+        values.replace("ammo", (float) getAmmo()+ammo);
     }
 
     public int getHealth() {
-        return health;
+        return Math.round(values.get("health"));
     }
 
     /**
@@ -136,16 +162,16 @@ public class Pirate extends Component {
      * Kill its self
      */
     public void kill() {
-        health = 0;
+        values.replace("health", 0f);
         isAlive = false;
     }
 
     public void setAmmo(int ammo) {
-        this.ammo = ammo;
+        values.replace("ammo", (float) ammo);
     }
 
     public int getAmmo() {
-        return ammo;
+        return Math.round(values.get("ammo"));
     }
 
     public int targetCount() {
