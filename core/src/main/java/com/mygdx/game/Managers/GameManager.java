@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
 import com.mygdx.game.AI.TileMapGraph;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.*;
@@ -33,23 +32,17 @@ public final class GameManager {
 
     /**
      * facilitates creation of the game
-     * @param difficulty
+     * @param difficulty contains the ENUM for the difficulty that has been selected
      */
     public static void Initialize(GameDifficulty difficulty) {
-        System.out.println("Settingup now ");
         initialized = true;
         currentElement = 0;
         // start of change for assessment 2, adds functionality for changing difficulty
         JsonValue settingsAll = new JsonReader(). //change for assessment 2 for multiple difficulties
                 parse(Gdx.files.internal("GameSettings.json"));
         settings = settingsAll.get("default");
-        JsonValue editSet = null;
-        if (difficulty == GameDifficulty.Easy) {
-            changeDifficulty("Easy", settingsAll);
-        }
-        else if (difficulty == GameDifficulty.Hard) {
-            changeDifficulty("Hard", settingsAll);
-        }
+        if (difficulty != GameDifficulty.Regular){
+            changeDifficulty(difficulty.toString(), settingsAll);}
         // end of change
         
         factions = new ArrayList<>();
@@ -83,14 +76,12 @@ public final class GameManager {
         JsonValue.JsonIterator it = editSet.iterator();
         while(it.hasNext()) {
             JsonValue x = it.next();
-            System.out.println(x);
             JsonValue.JsonIterator it2 = x.iterator();
             while(it2.hasNext()){
                 JsonValue value = it2.next();
                 settings.get(x.name).get(value.name).set(value.asDouble(), null);
             }
         }
-        System.out.println(settings);
     }
     /**
      * called every fram checks id the quests are completed
