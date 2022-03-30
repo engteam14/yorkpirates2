@@ -7,7 +7,6 @@ import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
-import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -165,14 +164,6 @@ public class Ship extends Entity implements CollisionCallBack {
      */
     public Vector2 getPosition() {
         return getComponent(Transform.class).getPosition().cpy();
-    }
-
-    /**
-     * Added for Assessment 2
-     * @return The Faction of the Pirate Component attached to this entity
-     */
-    public Faction getFaction() {
-        return getComponent(Pirate.class).getFaction();
     }
 
     @Override
