@@ -69,7 +69,7 @@ public class BuildingTests {
 		assertNotEquals("Ship and Cannonball at same location before firing", shipPos, cannonStartPos);
 		assertFalse("Cannonball begins visible",cannonR.isVisible());
 
-		college.shoot(shootDirection);
+		college.shoot(collegeT.getPosition(),shootDirection);
 		Vector2 cannonNewPos = cannonT.getPosition().cpy();
 
 		assertNotEquals("Cannonball position has not updated", cannonStartPos, cannonNewPos);
