@@ -1,14 +1,10 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Components.ComponentType;
-import com.mygdx.game.Components.Renderable;
-import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.CannonBall;
 import com.mygdx.game.Entitys.College;
-import com.mygdx.game.Entitys.Ship;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
@@ -21,7 +17,7 @@ import static com.mygdx.utils.Constants.INIT_CONSTANTS;
 import static org.junit.Assert.*;
 
 @RunWith(GdxTestRunner.class)
-public class BuildingTests {
+public class CollegeTests {
 
 	@Before
 	public void init(){
@@ -44,13 +40,13 @@ public class BuildingTests {
 	}
 
 	@Test
-	public void buildingExists() {
+	public void collegeExists() {
 		College college = new College(1);
 		assertTrue("College is spawned dead",college.isAlive());
 	}
 
 	@Test
-	public void buildingFires() {
+	public void collegeFires() {
 		College college = new College();
 		CannonBall cannonBall = GameManager.getCurrentCannon();
 		Vector2 shootDirection = new Vector2(1,1);
@@ -64,7 +60,7 @@ public class BuildingTests {
 	}
 
 	@Test
-	public void buildingIsCaptured() {
+	public void collegeIsCaptured() {
 
 	}
 }
