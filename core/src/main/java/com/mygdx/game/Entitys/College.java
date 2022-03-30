@@ -200,9 +200,10 @@ public class College extends Entity {
         super.update();
         isAlive();
 
+        Player p = GameManager.getPlayer();
         long current = TimeUtils.millis() / 1000;
-        if (current > lastShootTime) {
-            Player p = GameManager.getPlayer();
+        if ( (current > lastShootTime) && !getFaction().equals(p.getFaction()) ) {
+
             ArrayList<Vector2> displacementToPlayer = displacementFromShip(p);
             Vector2 distanceToPlayer = displacementToPlayer.get(0);
 
