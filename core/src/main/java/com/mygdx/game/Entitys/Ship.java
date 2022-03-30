@@ -7,6 +7,7 @@ import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -69,6 +70,10 @@ public class Ship extends Entity implements CollisionCallBack {
 
     public void plunder(int money) {
         getComponent(Pirate.class).addPlunder(money);
+    }
+
+    public void points(int increment) {
+        getComponent(Pirate.class).addPoints(increment);
     }
 
     /**
@@ -140,6 +145,10 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getPlunder();
     }
 
+    public int getPoints() {
+        return getComponent(Pirate.class).getPoints();
+    }
+
     public void shoot(Vector2 dir) {
         getComponent(Pirate.class).shoot(dir);
     }
@@ -156,6 +165,14 @@ public class Ship extends Entity implements CollisionCallBack {
      */
     public Vector2 getPosition() {
         return getComponent(Transform.class).getPosition().cpy();
+    }
+
+    /**
+     * Added for Assessment 2
+     * @return The Faction of the Pirate Component attached to this entity
+     */
+    public Faction getFaction() {
+        return getComponent(Pirate.class).getFaction();
     }
 
     @Override
