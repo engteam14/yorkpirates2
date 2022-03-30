@@ -102,5 +102,93 @@
       77,
       50
     ]
-  }
+  },
+  "powerups": [
+    {
+      "name": "Max Health+",
+      "sprite": "health-up",
+      "key": "health",
+      "operation": 1,
+      "value": 10,
+      "duration": -1,
+      "spawnCooldown": 100,
+      "positions": [
+        [63, 57],
+        [21, 15]
+      ]
+    },
+    {
+      "name": "Ammo Refill",
+      "sprite": "ammo-up",
+      "key": "ammo",
+      "operation": 0,
+      "value": 50,
+      "duration": -1,
+      "spawnCooldown": 40,
+      "positions": [
+        [67, 25],
+        [29, 53]
+      ]
+    },
+    {
+      "name": "Defense Up!",
+      "sprite": "defense-up",
+      "key": "defense",
+      "operation": 3,
+      "value": 2,
+      "duration": 30,
+      "spawnCooldown": 60,
+      "positions": [
+        [85, 45]
+      ]
+    },
+    {
+      "name": "Damage Up!",
+      "sprite": "damage-up",
+      "key": "damage",
+      "operation": 3,
+      "value": 2,
+      "duration": 15,
+      "spawnCooldown": 60,
+      "positions": [
+        [55, 70]
+      ]
+    },
+    {
+      "name": "Loot Rate Up!",
+      "sprite": "lootrate-up",
+      "key": "plunderRate",
+      "operation": 3,
+      "value": 2,
+      "duration": 20,
+      "spawnCooldown": 60,
+      "positions": [
+        [17, 67]
+      ]
+    },
+    {
+      "name": "Invincible!",
+      "sprite": "health-max",
+      "key": "defense",
+      "operation": 0,
+      "value": 10000,
+      "duration": 15,
+      "spawnCooldown": 120,
+      "positions": [
+        [88, 90]
+      ]
+    },
+    {
+      "name": "Ultimate Damage!",
+      "sprite": "damage-max",
+      "key": "damage",
+      "operation": 0,
+      "value": 10000,
+      "duration": 15,
+      "spawnCooldown": 120,
+      "positions": [
+        [88, 10]
+      ]
+    }
+  ]
 }

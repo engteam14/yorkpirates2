@@ -98,12 +98,6 @@ public final class GameManager {
 
         if (mapId >= 0) CreateWorldMap(mapId);
         CreatePlayer();
-        PowerUpPickup testPow = new PowerUpPickup( // TODO: Remove and include proper way of adding powerups
-                new PowerUp("health", PowerUpOperation.increment, 10f),
-                "health-up",
-                getPlayer().getPosition().add(100f, -100f),
-                5
-        );
         final int cnt = settings.get("factionDefaults").getInt("shipCount");
         for (int i = 0; i < factions.size(); i++) {
             CreateCollege(i + 1);
@@ -118,6 +112,22 @@ public final class GameManager {
         }
         QuestManager.Initialize(); // added for assessment 2 to stop tryInit being used (testing)
         QuestManager.createRandomQuests(); // ""
+
+        // Assessment 2 change: spawns in powerups based on settings
+        for (JsonValue powData : settings.get("powerups")) {
+            String texName = powData.getString("sprite");
+            int cooldown = powData.getInt("spawnCooldown");
+            PowerUp pow = new PowerUp(
+                    powData.getString("key"),
+                    PowerUpOperation.values()[powData.getInt("operation")],
+                    powData.getFloat("value"),
+                    powData.getInt("duration")
+            );
+            for (JsonValue pos : powData.get("positions")) {
+                Vector2 position = new Vector2(pos.getFloat(0), pos.getFloat(1));
+                new PowerUpPickup(pow, texName, Utilities.tilesToDistance(position), cooldown);
+            }
+        }
     }
 
     /**

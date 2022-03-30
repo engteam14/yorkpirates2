@@ -8,25 +8,25 @@ public enum PowerUpOperation {
     /**
      * Replace the key value with a new value.
      */
-    replace,
+    replace, // 0
 
     /**
      * Increment the key value by an amount.
      */
-    increment,
+    increment, // 1
 
     /**
      * Decrement the key value by an amount.
      */
-    decrement,
+    decrement, // 2
 
     /**
      * Multiply the key value by an amount.
      */
-    multiply,
+    multiply, // 3
 
     /**
      * Divide the key value by an amount.
      */
-    divide
+    divide // 4
 }
