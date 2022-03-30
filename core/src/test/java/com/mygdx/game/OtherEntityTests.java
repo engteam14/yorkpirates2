@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Components.ComponentType;
 import com.mygdx.game.Components.Renderable;
-import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.CannonBall;
 import com.mygdx.game.Entitys.College;
@@ -21,7 +20,7 @@ import static com.mygdx.utils.Constants.INIT_CONSTANTS;
 import static org.junit.Assert.*;
 
 @RunWith(GdxTestRunner.class)
-public class BuildingTests {
+public class OtherEntityTests {
 
 	@Before
 	public void init(){
@@ -44,27 +43,33 @@ public class BuildingTests {
 	}
 
 	@Test
-	public void buildingExists() {
-		College college = new College(1);
-		assertTrue("College is spawned dead",college.isAlive());
+	public void projectileAmmoExists() {
+		JsonValue starting = GameManager.getSettings().get("starting");
+		int ammo = starting.getInt("ammo");
+		assertTrue("No ammunition present",ammo>0);
 	}
 
 	@Test
-	public void buildingFires() {
-		College college = new College();
+	public void projectileFires() {
+		Ship ship = new Ship();
 		CannonBall cannonBall = GameManager.getCurrentCannon();
 		Vector2 shootDirection = new Vector2(1,1);
 
+		Transform shipT = (Transform) ship.getComponent(ComponentType.Transform);
 		Transform cannonT = (Transform) cannonBall.getComponent(ComponentType.Transform);
+		Renderable cannonR = (Renderable) cannonBall.getComponent(ComponentType.Renderable);
+
+		Vector2 shipPos = shipT.getPosition().cpy();
 		Vector2 cannonStartPos = cannonT.getPosition().cpy();
 
-		college.shoot(collegeT.getPosition(),shootDirection);
+		assertNotEquals("Ship and Cannonball at same location before firing", shipPos, cannonStartPos);
+		assertFalse("Cannonball begins visible",cannonR.isVisible());
+
+		ship.shoot(shootDirection);
 		Vector2 cannonNewPos = cannonT.getPosition().cpy();
-		assertNotEquals("Cannonball position has not been fired", cannonStartPos, cannonNewPos);
-	}
 
-	@Test
-	public void buildingIsCaptured() {
-
+		assertNotEquals("Cannonball position has not updated", cannonStartPos, cannonNewPos);
+		assertEquals("Cannonball moved to incorrect location",shipPos,cannonNewPos);
+		assertTrue("Cannonball remains invisible",cannonR.isVisible());
 	}
 }
