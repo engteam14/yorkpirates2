@@ -17,7 +17,10 @@ public class Pirate extends Component {
     protected boolean isAlive;
     private int health;
     private int ammo;
+    private boolean infiniteAmmo; // Added for Assessment 2 for power-ups and colleges
+    private float buffer; // Added for Assessment 2 to shift projectile spawn area
     private final int attackDmg;
+
 
     /**
      * The enemy that is being targeted by the AI.
@@ -36,6 +39,8 @@ public class Pirate extends Component {
         health = starting.getInt("health");
         attackDmg = starting.getInt("damage");
         ammo = starting.getInt("ammo");
+        infiniteAmmo = false;
+        buffer = 0;
     }
 
     public void addTarget(Ship target) {
@@ -66,6 +71,22 @@ public class Pirate extends Component {
         this.factionId = factionId;
     }
 
+    /**
+     * Added for Assessment 2, sets whether the pirate can ignore ammo costs for firing
+     * @param status boolean value to set infiniteAmmo to
+     */
+    public void setInfiniteAmmo(boolean status) {
+        infiniteAmmo = status;
+    }
+
+    /**
+     * Added for Assessment 2, sets the buffer radius of this pirate
+     * @param radius float value to set the buffer to
+     */
+    public void setBuffer(float radius) {
+        buffer = radius;
+    }
+
     public void takeDamage(float dmg) {
         health -= dmg;
         if (health <= 0) {
@@ -75,21 +96,32 @@ public class Pirate extends Component {
     }
 
     /**
-     * Will shoot a cannonball assigning this.parent as the cannonball's parent (must be Ship atm)
-     *
-     * @param dir the direction to shoot in
+     * Changed for Assessment 2:
+     *  - Removed functionality and replaced with function call to a different function,
+     *    to allow for differentiation between when a start position is or isn't provided.
+     * @param direction the direction to shoot in
      */
-    public void shoot(Vector2 dir) {
-        if (ammo == 0) {
+    public void shoot(Vector2 direction) {
+        shoot(parent.getComponent(Transform.class).getPosition().cpy(),direction);
+    }
+
+    /**
+     * Added for Assessment 2
+     * Will shoot a cannonball from the startPos in the direction, assigning this.parent as the cannonball's parent
+     * @param direction the direction to shoot in
+     */
+    public void shoot(Vector2 startPos, Vector2 direction){
+        if(!infiniteAmmo && (ammo == 0)){
             return;
         }
-        ammo--;
-        GameManager.shoot(parent, dir); // Changed for Assessment 2, casting from Entity to ship removed
+        if(!infiniteAmmo){
+            ammo--;
+        }
+        GameManager.shoot(parent, startPos, direction);
     }
 
     /**
      * Adds ammo
-     *
      * @param ammo amount to add
      */
     public void reload(int ammo) {

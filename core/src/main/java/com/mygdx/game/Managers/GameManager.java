@@ -194,14 +194,13 @@ public final class GameManager {
 
     /**
      * Utilises the cached cannonballs to fire one
-     * Changed for Assessment 2, seperated incrementer for visual clarity
-     * @param p   parent
-     * @param dir shoot direction
+     * Changed for Assessment 2, separated incrementer for visual clarity and parameterised startPos
+     * @param p     parent
+     * @param pos   position projectile is spawned at
+     * @param dir   shoot direction
      */
-    public static void shoot(Entity p, Vector2 dir) { // Changed for Assessment 2, type switched from Ship to Entity
-        Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
-        //pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
-        ballCache.get(currentElement).fire(pos, dir, p);
+    public static void shoot(Entity p, Vector2 pos, Vector2 dir) { // Changed for Assessment 2, type switched from Ship to Entity
+        ballCache.get(currentElement).fire(p,pos, dir);
         currentElement++;
         currentElement %= cacheSize;
     }

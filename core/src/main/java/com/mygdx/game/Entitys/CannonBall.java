@@ -71,16 +71,16 @@ public class CannonBall extends Entity implements CollisionCallBack {
     }
 
     /**
-     * Teleport the cannonball in from offscreen and set in flying away from the ship.
+     * Teleport the cannonball in from offscreen and send in flying away from the ship.
      *
      * @param pos    2D vector location from where it sets off
      * @param dir    2D vector direction for its movement
      * @param sender ship entity firing it
      */
-    public void fire(Vector2 pos, Vector2 dir, Entity sender) {
+    public void fire(Entity sender, Vector2 pos, Vector2 dir) {
         Transform t = getComponent(Transform.class);
         t.setPosition(pos);
-        System.out.println(t.getPosition());
+        //System.out.println(t.getPosition());
 
         RigidBody rb = getComponent(RigidBody.class);
         Vector2 ta = dir.cpy().scl(speed * EntityManager.getDeltaTime());
