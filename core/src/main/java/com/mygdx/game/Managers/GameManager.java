@@ -8,6 +8,8 @@ import com.mygdx.game.AI.TileMapGraph;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.*;
 import com.mygdx.game.Faction;
+import com.mygdx.game.PowerUps.PowerUp;
+import com.mygdx.game.PowerUps.PowerUpOperation;
 import com.mygdx.utils.QueueFIFO;
 import com.mygdx.utils.Utilities;
 
@@ -96,6 +98,12 @@ public final class GameManager {
 
         if (mapId >= 0) CreateWorldMap(mapId);
         CreatePlayer();
+        PowerUpPickup testPow = new PowerUpPickup( // TODO: Remove and include proper way of adding powerups
+                new PowerUp("health", PowerUpOperation.increment, 10f),
+                "big",
+                getPlayer().getPosition().add(100f, -100f),
+                5
+        );
         final int cnt = settings.get("factionDefaults").getInt("shipCount");
         for (int i = 0; i < factions.size(); i++) {
             CreateCollege(i + 1);
