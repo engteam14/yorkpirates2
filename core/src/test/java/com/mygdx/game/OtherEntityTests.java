@@ -79,14 +79,20 @@ public class OtherEntityTests {
 
 	@Test
 	public void projectileHits() {
-		College college = new College();
-		Building allyBuilding = new Building(college);
-		Building enemyBuilding = new Building(college);
+		College allyCollegeOne = new College(0);
+		College allyCollegeTwo = new College(0);
+		College enemyCollege = new College(1);
 
-		Vector2 allyPosition = new Vector2(10,10);
+		Building allyBuildingOne = new Building(allyCollegeOne);
+		Building allyBuildingTwo = new Building(allyCollegeTwo);
+		Building enemyBuilding = new Building(enemyCollege);
+
+		Vector2 allyPositionOne = new Vector2(10,10);
+		Vector2 allyPositionTwo = new Vector2(0,0);
 		Vector2 enemyPosition = new Vector2(-10,-10);
 
-		allyBuilding.create(allyPosition, "big");
+		allyBuildingOne.create(allyPositionOne, "big");
+		allyBuildingTwo.create(allyPositionTwo, "big");
 		enemyBuilding.create(enemyPosition, "big");
 
 		CannonBall cannonBall = GameManager.getCurrentCannon();
