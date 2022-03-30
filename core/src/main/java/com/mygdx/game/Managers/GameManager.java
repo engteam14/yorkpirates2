@@ -100,7 +100,7 @@ public final class GameManager {
         CreatePlayer();
         PowerUpPickup testPow = new PowerUpPickup( // TODO: Remove and include proper way of adding powerups
                 new PowerUp("health", PowerUpOperation.increment, 10f),
-                "big",
+                "health-up",
                 getPlayer().getPosition().add(100f, -100f),
                 5
         );

@@ -29,7 +29,7 @@ public class PowerUpPickup extends Entity implements CollisionCallBack {
         super(3);
 
         Transform t = new Transform();
-        Renderable r = new Renderable(ResourceManager.getId("Buildings.txt"), texName, RenderLayer.Transparent); // TODO: Add atlas for powerup icons
+        Renderable r = new Renderable(ResourceManager.getId("powerups.txt"), texName, RenderLayer.Transparent);
         RigidBody rb = new RigidBody(PhysicsBodyType.Kinematic, r, t, true);
         rb.setCallback(this);
 
