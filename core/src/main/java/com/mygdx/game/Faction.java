@@ -36,6 +36,14 @@ public class Faction {
         return name;
     }
 
+    /**
+     * Added for Assessment 2
+     * @return the ID associated with this faction
+     */
+    public int getID() {
+        return id;
+    }
+
     public String getColour() {
         return shipColour;
     }

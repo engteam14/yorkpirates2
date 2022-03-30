@@ -112,6 +112,7 @@ public class College extends Entity {
             if(mostRecentAttacker != null){
                 final Vector2 origin = getComponent(Transform.class).getPosition();
                 flag.create(origin,mostRecentAttacker.getColour());
+                getComponent(Pirate.class).setFactionId(mostRecentAttacker.getID());
             }
             //End of conqueror flag update changes
         }

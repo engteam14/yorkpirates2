@@ -67,6 +67,14 @@ public class Pirate extends Component {
         return GameManager.getFaction(factionId);
     }
 
+    /**
+     * Added for Assessment 2
+     * @return the faction ID of this component
+     */
+    public int getFactionId() {
+        return factionId;
+    }
+
     public void setFactionId(int factionId) {
         this.factionId = factionId;
     }

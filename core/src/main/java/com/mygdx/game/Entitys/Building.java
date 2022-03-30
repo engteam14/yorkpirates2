@@ -112,7 +112,7 @@ public class Building extends Entity implements CollisionCallBack {
             if(b.getFaction() != college.getFaction()){
                 destroy(b.getFaction());
             }
-            ((CannonBall) info.a).kill();
+            b.kill();
         }
     }
 
