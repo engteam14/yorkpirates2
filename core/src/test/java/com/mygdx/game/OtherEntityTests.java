@@ -5,16 +5,20 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Components.ComponentType;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Entitys.Building;
 import com.mygdx.game.Entitys.CannonBall;
 import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Ship;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.utils.Utilities;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
 
 import static com.mygdx.utils.Constants.INIT_CONSTANTS;
 import static org.junit.Assert.*;
@@ -71,5 +75,20 @@ public class OtherEntityTests {
 		assertNotEquals("Cannonball position has not updated", cannonStartPos, cannonNewPos);
 		assertEquals("Cannonball moved to incorrect location",shipPos,cannonNewPos);
 		assertTrue("Cannonball remains invisible",cannonR.isVisible());
+	}
+
+	@Test
+	public void projectileHits() {
+		Building allyBuilding = new Building();
+		Building enemyBuilding = new Building();
+
+		Vector2 allyPosition = new Vector2(10,10);
+		Vector2 enemyPosition = new Vector2(-10,-10);
+
+		allyBuilding.create(allyPosition, "big");
+		enemyBuilding.create(enemyPosition, "big");
+
+		CannonBall cannonBall = GameManager.getCurrentCannon();
+
 	}
 }

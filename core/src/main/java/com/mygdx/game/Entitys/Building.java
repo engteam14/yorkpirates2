@@ -17,6 +17,7 @@ import static com.mygdx.utils.Constants.BUILDING_SCALE;
 
 /**
  * Buildings that you see in game.
+ * Changed for Assessment 2 (made class public)
  */
 public class Building extends Entity implements CollisionCallBack {
     private String buildingName;
