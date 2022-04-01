@@ -3,10 +3,12 @@ package com.mygdx.game.UI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Managers.GameDifficulty;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.PirateGame;
 
@@ -16,6 +18,8 @@ import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
  * Contains widgets defining the start-of-game menu screen.
  */
 public class MenuScreen extends Page {
+    private SelectBox<String> hardness;
+
     public MenuScreen(PirateGame parent) {
         super(parent);
     }
@@ -36,11 +40,24 @@ public class MenuScreen extends Page {
         t.add(l).top().spaceBottom(space * 0.5f);
         t.row();
 
+        hardness = new SelectBox<String>(parent.skin);
+
+
+        String[] values = new String[]{"Easy", "Regular", "Hard"};
+        hardness.setItems(values);
+        hardness.setSelected(values[1]);
+        t.add(hardness);
+        t.row();
+        t.add().pad(20);
+        t.row();
         TextButton play = new TextButton("Play", parent.skin);
         play.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.setScreen(parent.game);
+                // start of assessment 2 change
+                parent.setDifficulty(hardness.getSelected());
+                parent.StartGame();
+                //end of assessment 2 change
             }
         });
         t.add(play).top().size(100, 25).spaceBottom(space);
@@ -60,6 +77,8 @@ public class MenuScreen extends Page {
 
         actors.add(t);
     }
+
+
 
     @Override
     public void show() {

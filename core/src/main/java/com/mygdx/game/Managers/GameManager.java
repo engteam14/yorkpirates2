@@ -32,13 +32,19 @@ public final class GameManager {
 
     /**
      * facilitates creation of the game
+     * @param difficulty contains the ENUM for the difficulty that has been selected
      */
-    public static void Initialize() {
+    public static void Initialize(GameDifficulty difficulty) {
         initialized = true;
         currentElement = 0;
-        settings = new JsonReader().
+        // start of change for assessment 2, adds functionality for changing difficulty
+        JsonValue settingsAll = new JsonReader(). //change for assessment 2 for multiple difficulties
                 parse(Gdx.files.internal("GameSettings.json"));
-
+        settings = settingsAll.get("default");
+        if (difficulty != GameDifficulty.Regular){
+            changeDifficulty(difficulty.toString(), settingsAll);}
+        // end of change
+        
         factions = new ArrayList<>();
         ships = new ArrayList<>();
         ballCache = new ArrayList<>(cacheSize);
@@ -59,6 +65,24 @@ public final class GameManager {
         }
     }
 
+    /**
+     * added for assessment 2
+     * loads the part of the json file for the chosen difficulty and overwrites the settings values with these values
+     * @param difficulty the chosen difficulty as a string
+     * @param settingsAll the jsonValue containing the original settings file with all options
+     */
+    public static void changeDifficulty(String difficulty, JsonValue settingsAll){
+        JsonValue editSet = settingsAll.get(difficulty);
+        JsonValue.JsonIterator it = editSet.iterator();
+        while(it.hasNext()) {
+            JsonValue x = it.next();
+            JsonValue.JsonIterator it2 = x.iterator();
+            while(it2.hasNext()){
+                JsonValue value = it2.next();
+                settings.get(x.name).get(value.name).set(value.asDouble(), null);
+            }
+        }
+    }
     /**
      * called every fram checks id the quests are completed
      */
@@ -116,7 +140,6 @@ public final class GameManager {
      * Creates player that belongs the faction with id 1
      */
     public static void CreatePlayer() {
-        tryInit();
         Player p = new Player();
         p.setFaction(1);
         ships.add(p);
@@ -129,7 +152,6 @@ public final class GameManager {
      * @return the created ship
      */
     public static NPCShip CreateNPCShip(int factionId) {
-        tryInit();
         NPCShip e = new NPCShip();
         e.setFaction(factionId);
         ships.add(e);
@@ -142,7 +164,6 @@ public final class GameManager {
      * @param mapId resource id
      */
     public static void CreateWorldMap(int mapId) {
-        tryInit();
         WorldMap map = new WorldMap(mapId);
         mapGraph = new TileMapGraph(map.getTileMap());
     }
@@ -153,19 +174,12 @@ public final class GameManager {
      * @param factionId desired faction
      */
     public static void CreateCollege(int factionId) {
-        tryInit();
         College c = new College(factionId);
         colleges.add(c);
     }
 
-    private static void tryInit() {
-        if (!initialized) {
-            Initialize();
-        }
-    }
 
     public static Faction getFaction(int factionId) {
-        tryInit();
         return factions.get(factionId - 1);
     }
 
@@ -175,12 +189,10 @@ public final class GameManager {
      * @return the JSON representation fo settings
      */
     public static JsonValue getSettings() {
-        tryInit();
         return settings;
     }
 
     public static College getCollege(int factionId) {
-        tryInit();
         return colleges.get(factionId - 1);
     }
 
@@ -215,4 +227,6 @@ public final class GameManager {
     public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
         return mapGraph.findOptimisedPath(loc, dst);
     }
+
+
 }

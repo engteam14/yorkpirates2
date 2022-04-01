@@ -7,10 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Entitys.Player;
-import com.mygdx.game.Managers.EntityManager;
-import com.mygdx.game.Managers.GameManager;
-import com.mygdx.game.Managers.RenderingManager;
-import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Managers.*;
 import com.mygdx.game.UI.EndScreen;
 import com.mygdx.game.UI.GameScreen;
 import com.mygdx.game.UI.MenuScreen;
@@ -27,13 +24,14 @@ public class PirateGame extends Game {
     public Skin skin;
     public PauseScreen pause;
     public int id_map;
+    public GameDifficulty difficulty;
 
     /**
      * Create instances of game stage and UI screens.
      */
     @Override
     public void create() {
-        RenderingManager.Initialize(); // added for assesment 2 due to rendering refactoring for testing
+        RenderingManager.Initialize(); // added for assessment 2 due to rendering refactoring for testing
         // load resources
         int id_ship = ResourceManager.addTexture("ship.png");
         id_map = ResourceManager.addTileMap("Map.tmx");
@@ -42,16 +40,15 @@ public class PirateGame extends Game {
         int buildings_id = ResourceManager.addTextureAtlas("Buildings.txt");
 
         ResourceManager.addTexture("menuBG.jpg");
-        ResourceManager.addTexture("pauseBG.png");
 
         ResourceManager.addTexture("Chest.png");
         ResourceManager.loadAssets();
-        // cant load any more resources after this point (just functionally I choose not to implement)
+        // can't load any more resources after this point (just functionally I choose not to implement)
         stage = new Stage(new ScreenViewport());
         createSkin();
 
         menu = new MenuScreen(this);
-        game = new GameScreen(this, id_map);
+        //game = new GameScreen(this, id_map); moved to game screen for assessment 2
         end = new EndScreen(this);
         pause = new PauseScreen(this);
 
@@ -96,11 +93,11 @@ public class PirateGame extends Game {
      * New for assessment 2
      * Restarts the game by reinitialising the Managers and creating a new instance of GameScreen
      */
-    public void restartGane(){
-        // cant load any more resources after this point (just functionally I choose not to implement)
+    public void restartGame(){
+        // can't load any more resources after this point (just functionally I choose not to implement)
         RenderingManager.Initialize();
         EntityManager.Initialize();
-        GameManager.Initialize();
+        GameManager.Initialize(difficulty);
 
         game = new GameScreen(this, id_map);
 
@@ -108,4 +105,37 @@ public class PirateGame extends Game {
 
 
     }
+
+    /**
+     * New for assesment 2
+     * Changes the difficulty for the game by changing the enum and calling GameMananger.getSettings()
+     */
+    public void setDifficulty(String selected){
+        if (selected == "Easy"){
+            difficulty = GameDifficulty.Easy;
+        }
+        else if (selected == "Regular") {
+            difficulty = GameDifficulty.Regular;
+        }
+        else if (selected == "Hard") {
+            difficulty = GameDifficulty.Hard;
+        }
+        else{
+            difficulty = GameDifficulty.Regular;
+
+        }
+    }
+    /**
+    Added for assessment 2 so that the game doesn't start until after the difficulty has been chosen by the player
+     */
+    public void StartGame(){
+        //GameManager.Initialize(difficulty);
+        PhysicsManager.Initialize();
+        GameManager.Initialize(difficulty);
+        game = new GameScreen(this, id_map);
+        setScreen(game);
+
+
+    }
 }
+
