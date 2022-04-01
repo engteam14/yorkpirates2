@@ -10,6 +10,7 @@ import com.mygdx.game.Quests.Quest;
 import com.mygdx.utils.Utilities;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 import static com.mygdx.utils.Constants.TILE_SIZE;
@@ -154,6 +155,21 @@ public class QuestManager {
             }
         }
         return null;
+    }
+
+    /**
+     * added for assesment 2
+     * sets the current quest to the one that corresponds to a given name.
+     * @param current string containing the name of the quest to be set as current
+     */
+    public static void setCurrentQuest(String current) {
+        //  tryInit();
+        for (Quest q : allQuests) {
+            if (Objects.equals(q.getName(), current)) {
+                allQuests.remove(q);
+                allQuests.add(0, q);
+            }
+        }
     }
 
     /**

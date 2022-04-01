@@ -12,6 +12,7 @@ import com.mygdx.utils.QueueFIFO;
 import com.mygdx.utils.Utilities;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Responsible for creating most entity's associated with the game. Also the cached chest and cannonballs
@@ -29,6 +30,7 @@ public final class GameManager {
     private static JsonValue settings;
 
     private static TileMapGraph mapGraph;
+    private static JsonValue settingsAll;
 
     /**
      * facilitates creation of the game
@@ -38,11 +40,11 @@ public final class GameManager {
         initialized = true;
         currentElement = 0;
         // start of change for assessment 2, adds functionality for changing difficulty
-        JsonValue settingsAll = new JsonReader(). //change for assessment 2 for multiple difficulties
+        settingsAll = new JsonReader(). //change for assessment 2 for multiple difficulties
                 parse(Gdx.files.internal("GameSettings.json"));
-        settings = settingsAll.get("default");
-        if (difficulty != GameDifficulty.Regular){
-            changeDifficulty(difficulty.toString(), settingsAll);}
+        settings = settingsAll.get("Regular");
+
+        changeDifficulty(difficulty.toString());
         // end of change
         
         factions = new ArrayList<>();
@@ -69,17 +71,20 @@ public final class GameManager {
      * added for assessment 2
      * loads the part of the json file for the chosen difficulty and overwrites the settings values with these values
      * @param difficulty the chosen difficulty as a string
-     * @param settingsAll the jsonValue containing the original settings file with all options
      */
-    public static void changeDifficulty(String difficulty, JsonValue settingsAll){
-        JsonValue editSet = settingsAll.get(difficulty);
-        JsonValue.JsonIterator it = editSet.iterator();
-        while(it.hasNext()) {
-            JsonValue x = it.next();
-            JsonValue.JsonIterator it2 = x.iterator();
-            while(it2.hasNext()){
-                JsonValue value = it2.next();
-                settings.get(x.name).get(value.name).set(value.asDouble(), null);
+    public static void changeDifficulty(String difficulty) {
+        if (!Objects.equals(difficulty, "Regular")) {
+            JsonValue editSet = settingsAll.get(difficulty);
+            JsonValue.JsonIterator it = editSet.iterator();
+            while (it.hasNext()) {
+                JsonValue x = it.next();
+                JsonValue.JsonIterator it2 = x.iterator();
+                while (it2.hasNext()) {
+                    JsonValue value = it2.next();
+                    System.out.println(value);
+                    System.out.println("." + difficulty+ ".");
+                    settings.get(x.name).get(value.name).set(value.asDouble(), null);
+                }
             }
         }
     }
@@ -88,6 +93,7 @@ public final class GameManager {
      */
     public static void update() {
         QuestManager.checkCompleted();
+        System.out.println(getPlayer().getPosition());
     }
 
     /**
@@ -105,6 +111,7 @@ public final class GameManager {
      * @return the NPCShip instance
      */
     public static NPCShip getNPCShip(int id) {
+
         return (NPCShip) ships.get(id);
     }
 
@@ -228,6 +235,15 @@ public final class GameManager {
     public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
         return mapGraph.findOptimisedPath(loc, dst);
     }
+
+    public static ArrayList<Ship> getShips(){
+        return ships;
+    }
+    public static ArrayList<College> getColleges(){
+        return colleges;
+    }
+
+
 
 
 }

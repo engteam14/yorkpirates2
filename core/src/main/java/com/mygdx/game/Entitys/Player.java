@@ -19,7 +19,6 @@ public class Player extends Ship {
 
         PlayerController pc = new PlayerController(this, speed);
         addComponent(pc);
-
         setName("Player");
     }
 
