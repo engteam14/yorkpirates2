@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Components.ComponentType;
@@ -9,6 +10,7 @@ import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.CannonBall;
 import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Ship;
+import com.mygdx.game.Managers.GameDifficulty;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
@@ -36,11 +38,13 @@ public class BuildingTests {
 
 		INIT_CONSTANTS();
 		PhysicsManager.Initialize(false);
+		GameManager.Initialize(GameDifficulty.Regular);
 	}
 
 	@After
 	public void dispose(){
 		ResourceManager.dispose();
+		GameManager.dispose();
 	}
 
 	@Test

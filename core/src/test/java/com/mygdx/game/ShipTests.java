@@ -10,10 +10,7 @@ import com.mygdx.game.Entitys.CannonBall;
 import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Entitys.Ship;
-import com.mygdx.game.Managers.GameManager;
-import com.mygdx.game.Managers.PhysicsManager;
-import com.mygdx.game.Managers.QuestManager;
-import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Managers.*;
 import com.mygdx.game.Quests.KillQuest;
 import com.mygdx.game.Quests.LocateQuest;
 import org.junit.After;
@@ -40,6 +37,7 @@ public class ShipTests {
 
 		INIT_CONSTANTS();
 		PhysicsManager.Initialize(false);
+		GameManager.Initialize(GameDifficulty.Regular);
 	}
 
 	@After
