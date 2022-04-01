@@ -34,7 +34,7 @@ public class PauseScreen extends Page{
         Table t = new Table();
       //  t.debug();
 
-        float space = VIEWPORT_HEIGHT * 0.15f;
+        float space = VIEWPORT_HEIGHT * 0.10f;
         t.setFillParent(true);
         actors.add(t);
         t.add();
@@ -66,8 +66,8 @@ public class PauseScreen extends Page{
         t.add(restart).fill().spaceBottom(space);
         t.row();
 
-        TextButton b = new TextButton("Exit", parent.skin);
-        b.addListener(new ChangeListener() {
+        TextButton SExit = new TextButton("Save + Exit", parent.skin);
+        SExit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 SaveManager.SaveGame();
@@ -77,8 +77,19 @@ public class PauseScreen extends Page{
 
             }
         });
-        t.add(b).fill().spaceBottom(space);
+        t.add(SExit).fill().spaceBottom(space);
         t.row();
+        TextButton exit = new TextButton("Exit", parent.skin);
+        exit.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                Gdx.app.exit();
+                System.exit(0);
+
+            }
+        });
+        t.add(exit).fill().spaceBottom(space);
 
     }
 
