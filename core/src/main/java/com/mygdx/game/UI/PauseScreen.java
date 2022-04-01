@@ -57,7 +57,7 @@ public class PauseScreen extends Page{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.game.hide();
-                parent.restartGane();
+                parent.restartGame();
 
 
             }
