@@ -21,7 +21,6 @@ public final class SaveManager {
      * Saves the state of the game. Added for assesment 2
      */
     public static void SaveGame(){
-        System.out.println("Save ");
         prefs = Gdx.app.getPreferences("pirate/GameSave_game_1");
         prefs.putString("Difficulty", GameManager.getSettings().name);
 
@@ -38,7 +37,7 @@ public final class SaveManager {
         ArrayList<College> colleges = GameManager.getColleges();
         //saves wether each college is alive of not
         for (College college : colleges) {
-            prefs.putBoolean(college.getName() + "Alive", college.isAlive());
+            prefs.putBoolean(college.f.id + "Alive", college.isAlive());
         }
         prefs.flush();
 
@@ -49,9 +48,7 @@ public final class SaveManager {
      * loads the preferences file and sets the difficulty of the saved game
      */
     public static void LoadGame(){
-        System.out.println("Loading");
         prefs = Gdx.app.getPreferences("pirate/GameSave_game_1");
-        System.out.println(prefs.get().isEmpty());
         String diff = prefs.getString("Difficulty", "Regular");
         GameManager.changeDifficulty(diff);
 
@@ -64,7 +61,6 @@ public final class SaveManager {
         ArrayList<Ship> shipsAll = GameManager.getShips();
         for (int i = 0; i< shipsAll.size(); i++){
             Ship ship = shipsAll.get(i);
-            System.out.println(ship.getName());
             float shipX = prefs.getFloat("ship" + i + "X", ship.getPosition().x);
             float shipY = prefs.getFloat("ship" + i + "Y", ship.getPosition().y);
             float shipH = prefs.getFloat("ship" + i + "H", ship.getHealth());
@@ -81,7 +77,7 @@ public final class SaveManager {
         }
         ArrayList<College> Colleges = GameManager.getColleges();
         for (College college : Colleges) {
-            boolean isAlive = prefs.getBoolean(college.getName(), true);
+            boolean isAlive = prefs.getBoolean(college.f.id+"Alive", true);
             if (!isAlive) {
                 college.killThisCollege();
             }
