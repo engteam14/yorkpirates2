@@ -32,6 +32,7 @@ public final class GameManager {
     private static TileMapGraph mapGraph;
     private static JsonValue settingsAll;
 
+
     /**
      * facilitates creation of the game
      * @param difficulty contains the ENUM for the difficulty that has been selected
@@ -40,9 +41,6 @@ public final class GameManager {
         initialized = true;
         currentElement = 0;
         // start of change for assessment 2, adds functionality for changing difficulty
-        settingsAll = new JsonReader(). //change for assessment 2 for multiple difficulties
-                parse(Gdx.files.internal("GameSettings.json"));
-        settings = settingsAll.get("Regular");
 
         changeDifficulty(difficulty.toString());
         // end of change
@@ -72,7 +70,12 @@ public final class GameManager {
      * loads the part of the json file for the chosen difficulty and overwrites the settings values with these values
      * @param difficulty the chosen difficulty as a string
      */
-    public static void changeDifficulty(String difficulty) {
+
+    public static void changeDifficulty(String difficulty){
+        JsonValue settingsAll = new JsonReader(). //change for assessment 2 for multiple difficulties
+                parse(Gdx.files.internal("GameSettings.json"));
+        settings = settingsAll.get("Regular");
+
         if (!Objects.equals(difficulty, "Regular")) {
             JsonValue editSet = settingsAll.get(difficulty);
             JsonValue.JsonIterator it = editSet.iterator();
@@ -131,7 +134,7 @@ public final class GameManager {
         for (int i = 0; i < factions.size(); i++) {
             CreateCollege(i + 1);
             for (int j = 0; j < cnt; j++) {
-                // prevents halifax from having shipcount + player
+                // prevents halifax from having ship count + player
                 if (i == 0 && j > cnt - 2) {
                     break;
                 }
@@ -213,14 +216,13 @@ public final class GameManager {
 
     /**
      * Utilises the cached cannonballs to fire one
-     * Changed for Assessment 2, seperated incrementer for visual clarity
-     * @param p   parent
-     * @param dir shoot direction
+     * Changed for Assessment 2, separated incrementer for visual clarity and parameterised startPos
+     * @param p     parent
+     * @param pos   position projectile is spawned at
+     * @param dir   shoot direction
      */
-    public static void shoot(Entity p, Vector2 dir) { // Changed for Assessment 2, type switched from Ship to Entity
-        Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
-        //pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
-        ballCache.get(currentElement).fire(pos, dir, p);
+    public static void shoot(Entity p, Vector2 pos, Vector2 dir) { // Changed for Assessment 2, type switched from Ship to Entity
+        ballCache.get(currentElement).fire(p,pos, dir);
         currentElement++;
         currentElement %= cacheSize;
     }
@@ -245,5 +247,14 @@ public final class GameManager {
 
 
 
+    public static void dispose(){
+        initialized = true;
+        currentElement = 0;
 
+        factions = new ArrayList<>();
+        ships = new ArrayList<>();
+        ballCache = new ArrayList<>(cacheSize);
+        colleges = new ArrayList<>();
+
+    }
 }

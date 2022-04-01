@@ -1,5 +1,6 @@
 package com.mygdx.game.Entitys;
 
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.PlayerController;
 import com.mygdx.game.Managers.GameManager;
@@ -8,6 +9,8 @@ import com.mygdx.game.Managers.GameManager;
  * Player's ship entity.
  */
 public class Player extends Ship {
+
+    private long lastPointTime;
 
     /**
      * Adds ship with PlayerController component and sets its speed.
@@ -20,6 +23,8 @@ public class Player extends Ship {
         PlayerController pc = new PlayerController(this, speed);
         addComponent(pc);
         setName("Player");
+
+        lastPointTime = TimeUtils.millis() / 1000;
     }
 
     /**
@@ -27,6 +32,16 @@ public class Player extends Ship {
      */
     public Player() {
         this(GameManager.getSettings().get("starting").getFloat("playerSpeed"));
+    }
+
+    @Override
+    public void update(){
+        super.update();
+        long current = TimeUtils.millis() / 1000;
+        if (current > lastPointTime) {
+            points(1);
+        }
+        lastPointTime = current;
     }
 
     @Override

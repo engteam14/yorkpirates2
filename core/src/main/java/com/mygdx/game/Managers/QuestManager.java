@@ -125,7 +125,8 @@ public class QuestManager {
             }
             boolean completed = q.checkCompleted(p);
             if (completed) {
-                p.plunder(q.getReward());
+                p.plunder(q.getPlunderReward());
+                p.points(q.getPointReward());
             } else if (q instanceof LocateQuest) {
                 chest.setPosition(((LocateQuest) q).getLocation());
                 break;
