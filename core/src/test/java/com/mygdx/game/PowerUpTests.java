@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.*;
 import com.mygdx.game.Entitys.Player;
+import com.mygdx.game.Entitys.PowerUpPickup;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.PowerUps.PowerUp;
@@ -114,6 +116,26 @@ public class PowerUpTests {
 		// Test removing powerup
 		player.resetToDefault(key);
 		assertEquals("PowerUp does not reset to correct value", player.getValue(key), starter, 0f);
+	}
+
+	@Test
+	public void powerUpPickup() {
+		// Init the player
+		Player player = new Player();
+		RigidBody playerRb = player.getComponent(RigidBody.class);
+		float startHealth = player.getValue("health");
+
+		// Init the powerup pickup
+		PowerUp pow = new PowerUp("health", PowerUpOperation.increment, 10f);
+		PowerUpPickup powPickup = new PowerUpPickup(pow, "health-up", new Vector2(100,100).add(player.getPosition()), 1000);
+
+		// Make sure the PowerUp hasn't already applied
+		assertEquals("PowerUp applied without player touching it", player.getValue("health"), startHealth, 0f);
+
+		// Move the player to the PowerUp
+		playerRb.setPosition(powPickup.getComponent(RigidBody.class).getPosition());
+		PhysicsManager.update();
+		assertNotEquals("PowerUp did not apply on collision", player.getValue("health"), startHealth);
 	}
 
 }
