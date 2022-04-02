@@ -85,7 +85,6 @@ public final class GameManager {
                 while (it2.hasNext()) {
                     JsonValue value = it2.next();
                     System.out.println(value);
-                    System.out.println("." + difficulty+ ".");
                     settings.get(x.name).get(value.name).set(value.asDouble(), null);
                 }
             }
@@ -96,7 +95,6 @@ public final class GameManager {
      */
     public static void update() {
         QuestManager.checkCompleted();
-        System.out.println(getPlayer().getPosition());
     }
 
     /**
