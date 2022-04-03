@@ -109,11 +109,11 @@ public class Building extends Entity implements CollisionCallBack {
     @Override
     public void EnterTrigger(CollisionInfo info) {
         if (info.a instanceof CannonBall && isAlive() && !isFlag) {
-            CannonBall b = (CannonBall) info.a;
-            if(b.getFaction() != college.getFaction()){
-                destroy(b.getFaction());
+            CannonBall a = (CannonBall) info.a;
+            if(a.getFaction() != college.getFaction()){
+                destroy(a.getFaction());
             }
-            b.kill();
+            a.kill();
         }
     }
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Components.ComponentType;
 import com.mygdx.game.Components.Renderable;
+import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.Building;
 import com.mygdx.game.Entitys.CannonBall;
@@ -12,6 +13,7 @@ import com.mygdx.game.Entitys.Ship;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
+import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.utils.Utilities;
 import org.junit.After;
 import org.junit.Before;
@@ -78,24 +80,33 @@ public class OtherEntityTests {
 	}
 
 	@Test
-	public void projectileHits() {
-		College allyCollegeOne = new College(0);
-		College allyCollegeTwo = new College(0);
-		College enemyCollege = new College(1);
+	public void projectileHitsBuildings() {
+		College allyCollegeOne = new College(1);
+		College allyCollegeTwo = new College(1);
+		College enemyCollege = new College(2);
 
-		Building allyBuildingOne = new Building(allyCollegeOne);
-		Building allyBuildingTwo = new Building(allyCollegeTwo);
-		Building enemyBuilding = new Building(enemyCollege);
+		Building building = new Building(allyCollegeTwo);
 
 		Vector2 allyPositionOne = new Vector2(10,10);
 		Vector2 allyPositionTwo = new Vector2(0,0);
 		Vector2 enemyPosition = new Vector2(-10,-10);
 
-		allyBuildingOne.create(allyPositionOne, "big");
-		allyBuildingTwo.create(allyPositionTwo, "big");
-		enemyBuilding.create(enemyPosition, "big");
+		building.create(allyPositionTwo, "big");
 
-		CannonBall cannonBall = GameManager.getCurrentCannon();
+		//Fire cannonball from ally to ally
+		CannonBall cannonBallA = GameManager.getCurrentCannon();
 
+		allyCollegeOne.shoot(allyPositionOne,enemyPosition);
+		building.EnterTrigger(new CollisionInfo(null,null,null,null,cannonBallA,null));
+
+		assertTrue("Ally college damages allies",building.isAlive());
+
+		//Fire cannonball from enemy to ally
+		CannonBall cannonBallB = GameManager.getCurrentCannon();
+
+		enemyCollege.shoot(enemyPosition,allyPositionOne);
+		building.EnterTrigger(new CollisionInfo(null,null,null,null,cannonBallB,null));
+
+		assertFalse("Enemy college fails to damage enemies",building.isAlive());
 	}
 }

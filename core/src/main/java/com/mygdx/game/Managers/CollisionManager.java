@@ -36,15 +36,7 @@ public class CollisionManager implements ContactListener {
         Object ob = bb.getUserData();
         CollisionCallBack cbB = (CollisionCallBack) ob;
 
-        final CollisionInfo info = new CollisionInfo();
-        info.fA = fa;
-        info.fB = fb;
-
-        info.bA = ba;
-        info.bB = bb;
-
-        info.a = (Entity) cbA;
-        info.b = (Entity) cbB;
+        final CollisionInfo info = new CollisionInfo(fa,fb,ba,bb,(Entity) cbA,(Entity) cbB);
 
         if (cbA != null) {
             // fa is sensor but not fb
@@ -82,15 +74,7 @@ public class CollisionManager implements ContactListener {
         Object ob = bb.getUserData();
         CollisionCallBack cbB = (CollisionCallBack) ob;
 
-        final CollisionInfo info = new CollisionInfo();
-        info.fA = fa;
-        info.fB = fb;
-
-        info.bA = ba;
-        info.bB = bb;
-
-        info.a = (Entity) cbA;
-        info.b = (Entity) cbB;
+        final CollisionInfo info = new CollisionInfo(fa,fb,ba,bb,(Entity) cbA,(Entity) cbB);
 
         if (cbA != null) {
             if (fa.isSensor() && cbB != null && !fb.isSensor()) {
