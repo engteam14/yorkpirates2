@@ -16,7 +16,8 @@ public class LocateQuest extends Quest {
         super();
         name = "Find a chest";
         description = "North east";
-        reward = 100;
+        plunderReward = 100;
+        pointReward = 150;
         loc = new Vector2();
         radius = -1;
     }

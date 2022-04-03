@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.mygdx.game.Components.*;
+import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -118,6 +119,10 @@ public class Ship extends Entity implements CollisionCallBack {
         getComponent(Pirate.class).addPlunder(money);
     }
 
+    public void points(int increment) {
+        getComponent(Pirate.class).addPoints(increment);
+    }
+
     /**
      * Associates ship with faction and orients it to the default northern direction.
      *
@@ -187,6 +192,10 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getPlunder();
     }
 
+    public int getPoints() {
+        return getComponent(Pirate.class).getPoints();
+    }
+
     public void shoot(Vector2 dir) {
         getComponent(Pirate.class).shoot(dir);
     }
@@ -203,6 +212,14 @@ public class Ship extends Entity implements CollisionCallBack {
      */
     public Vector2 getPosition() {
         return getComponent(Transform.class).getPosition().cpy();
+    }
+
+    /**
+     * Added for Assessment 2
+     * @return The Faction of the Pirate Component attached to this entity
+     */
+    public Faction getFaction() {
+        return getComponent(Pirate.class).getFaction();
     }
 
     @Override

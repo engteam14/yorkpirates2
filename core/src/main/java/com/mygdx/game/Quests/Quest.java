@@ -8,13 +8,15 @@ import com.mygdx.game.Entitys.Player;
 public abstract class Quest {
     protected String name;
     protected String description;
-    protected int reward;
+    protected int plunderReward;
+    protected int pointReward;
     protected boolean isCompleted;
 
     public Quest() {
         name = "";
         description = "";
-        reward = 0;
+        plunderReward = 0;
+        pointReward = 0;
         isCompleted = false;
     }
 
@@ -26,8 +28,12 @@ public abstract class Quest {
      */
     public abstract boolean checkCompleted(Player p);
 
-    public int getReward() {
-        return reward;
+    public int getPlunderReward() {
+        return plunderReward;
+    }
+
+    public int getPointReward() {
+        return pointReward;
     }
 
     public boolean isCompleted() {

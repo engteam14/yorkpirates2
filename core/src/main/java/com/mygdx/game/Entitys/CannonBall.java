@@ -1,9 +1,11 @@
 package com.mygdx.game.Entitys;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.Renderable;
 import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.EntityManager;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
@@ -69,16 +71,15 @@ public class CannonBall extends Entity implements CollisionCallBack {
     }
 
     /**
-     * Teleport the cannonball in from offscreen and set in flying away from the ship.
+     * Teleport the cannonball in from offscreen and send in flying away from the ship.
      *
      * @param pos    2D vector location from where it sets off
      * @param dir    2D vector direction for its movement
      * @param sender ship entity firing it
      */
-    public void fire(Vector2 pos, Vector2 dir, Entity sender) {
+    public void fire(Entity sender, Vector2 pos, Vector2 dir) {
         Transform t = getComponent(Transform.class);
         t.setPosition(pos);
-        System.out.println(t.getPosition());
 
         RigidBody rb = getComponent(RigidBody.class);
         Vector2 ta = dir.cpy().scl(speed * EntityManager.getDeltaTime());
@@ -95,11 +96,19 @@ public class CannonBall extends Entity implements CollisionCallBack {
      * Marks cannonball for removal on next update.
      */
     public void kill() {
-        toggleLife = false;
+        toggleLife = true;
     }
 
     public Entity getShooter() { // Changed for Assessment 2, type switched from Ship to Entity
         return shooter;
+    }
+
+    /**
+     * Added for Assessment 2
+     * @return The Faction of the Pirate Component attached to this entity
+     */
+    public Faction getFaction() {
+        return shooter.getComponent(Pirate.class).getFaction();
     }
 
     @Override
