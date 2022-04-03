@@ -8,6 +8,7 @@ import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.NPCShip;
 import com.mygdx.game.Entitys.Player;
+import com.mygdx.game.Managers.GameDifficulty;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
@@ -30,21 +31,26 @@ public class GameStateTests {
 		ResourceManager.addTextureAtlas("Boats.txt");
 		ResourceManager.addTextureAtlas("UISkin/skin.atlas");
 		ResourceManager.addTextureAtlas("Buildings.txt");
+		ResourceManager.addTextureAtlas("powerups.txt");
 		ResourceManager.addTexture("menuBG.jpg");
 		ResourceManager.addTexture("Chest.png");
 		ResourceManager.loadAssets();
 
 		INIT_CONSTANTS();
 		PhysicsManager.Initialize(false);
+		GameManager.Initialize(GameDifficulty.Regular);
+
 	}
 
 	@After
 	public void dispose(){
 		ResourceManager.dispose();
+		GameManager.dispose();
 	}
 
 	@Test
 	public void gameStart() {
+		GameManager.changeDifficulty("Regular");
 		GameManager.SpawnGame(-1);
 		Player player = GameManager.getPlayer();
 		RigidBody playerRb = (RigidBody) player.getComponent(ComponentType.RigidBody);

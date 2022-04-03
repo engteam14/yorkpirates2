@@ -3,10 +3,8 @@ package com.mygdx.game.Entitys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.mygdx.game.Components.Pirate;
-import com.mygdx.game.Components.Renderable;
-import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Components.*;
+import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
 import com.mygdx.game.Managers.ResourceManager;
@@ -53,10 +51,60 @@ public class Ship extends Entity implements CollisionCallBack {
         rb.setCallback(this);
 
         Pirate p = new Pirate();
+        PowerUpAssigned pow = new PowerUpAssigned();
 
         // rb.setCallback(this);
 
-        addComponents(t, r, rb, p);
+        addComponents(t, r, rb, p, pow);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Get a Pirate value.
+     * @param key   The value to get
+     * @return      The value
+     */
+    public float getValue(String key) {
+        return getComponent(Pirate.class).getValue(key);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Set the default for a Pirate value.
+     * @param key       The value to set to
+     * @param value     The default to apply
+     */
+    public void setDefault(String key, float value) {
+        getComponent(Pirate.class).setDefault(key, value);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Set a new value for Pirate while holding reference to what it was originally.
+     * @param key       The value to set to
+     * @param value     The float to apply
+     */
+    public void setValue(String key, float value) {
+        getComponent(Pirate.class).setValue(key, value);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Multiply a value for Pirate while holding reference to what it was originally.
+     * @param key       The value to multiply
+     * @param mult      The multiplication factor
+     */
+    public void multValue(String key, float mult) {
+        getComponent(Pirate.class).multValue(key, mult);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Reset a Pirate value to what it originally was.
+     * @param key       The value to reset
+     */
+    public void resetToDefault(String key) {
+        getComponent(Pirate.class).resetToDefault(key);
     }
 
     public boolean isAlive() {
@@ -69,6 +117,10 @@ public class Ship extends Entity implements CollisionCallBack {
 
     public void plunder(int money) {
         getComponent(Pirate.class).addPlunder(money);
+    }
+
+    public void points(int increment) {
+        getComponent(Pirate.class).addPoints(increment);
     }
 
     /**
@@ -140,6 +192,10 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getPlunder();
     }
 
+    public int getPoints() {
+        return getComponent(Pirate.class).getPoints();
+    }
+
     public void shoot(Vector2 dir) {
         getComponent(Pirate.class).shoot(dir);
     }
@@ -158,6 +214,14 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Transform.class).getPosition().cpy();
     }
 
+    /**
+     * Added for Assessment 2
+     * @return The Faction of the Pirate Component attached to this entity
+     */
+    public Faction getFaction() {
+        return getComponent(Pirate.class).getFaction();
+    }
+
     @Override
     public void BeginContact(CollisionInfo info) {
 
@@ -169,11 +233,18 @@ public class Ship extends Entity implements CollisionCallBack {
     }
 
     /**
+     * Amended for Assessment 2 (added functionality for when attacked by cannonball)
      * if called on a Player against anything else call it on the other thing
      */
     @Override
     public void EnterTrigger(CollisionInfo info) {
-        if (this instanceof Player && !(info.b instanceof Player)) {
+        if (info.a instanceof CannonBall) {
+            CannonBall a = (CannonBall) info.a;
+            if(a.getFaction() != getFaction()){
+                getComponent(Pirate.class).takeDamage( a.getAttackDmg() );
+                a.kill();
+            }
+        }else if (this instanceof Player && !(info.b instanceof Player)) {
             ((CollisionCallBack) info.b).EnterTrigger(info);
         }
     }

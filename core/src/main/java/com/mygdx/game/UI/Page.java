@@ -1,6 +1,7 @@
 package com.mygdx.game.UI;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.PirateGame;
@@ -55,6 +56,9 @@ public abstract class Page extends ScreenAdapter {
         super.render(delta);
         parent.stage.act(delta);
         parent.stage.draw();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            parent.setScreen(parent.game);
+        }
     }
 
     /**

@@ -137,4 +137,10 @@ public class Entity {
     public void update() {
 
     }
+
+    public void dispose() {
+        for (Component component : components) {
+            component = null;
+        }
+    }
 }

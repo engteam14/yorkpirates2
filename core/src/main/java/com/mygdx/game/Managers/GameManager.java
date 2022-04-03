@@ -8,10 +8,13 @@ import com.mygdx.game.AI.TileMapGraph;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.*;
 import com.mygdx.game.Faction;
+import com.mygdx.game.PowerUps.PowerUp;
+import com.mygdx.game.PowerUps.PowerUpOperation;
 import com.mygdx.utils.QueueFIFO;
 import com.mygdx.utils.Utilities;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Responsible for creating most entity's associated with the game. Also the cached chest and cannonballs
@@ -29,16 +32,21 @@ public final class GameManager {
     private static JsonValue settings;
 
     private static TileMapGraph mapGraph;
+    private static JsonValue settingsAll;
+
 
     /**
      * facilitates creation of the game
+     * @param difficulty contains the ENUM for the difficulty that has been selected
      */
-    public static void Initialize() {
+    public static void Initialize(GameDifficulty difficulty) {
         initialized = true;
         currentElement = 0;
-        settings = new JsonReader().
-                parse(Gdx.files.internal("GameSettings.json"));
+        // start of change for assessment 2, adds functionality for changing difficulty
 
+        changeDifficulty(difficulty.toString());
+        // end of change
+        
         factions = new ArrayList<>();
         ships = new ArrayList<>();
         ballCache = new ArrayList<>(cacheSize);
@@ -59,6 +67,31 @@ public final class GameManager {
         }
     }
 
+    /**
+     * added for assessment 2
+     * loads the part of the json file for the chosen difficulty and overwrites the settings values with these values
+     * @param difficulty the chosen difficulty as a string
+     */
+
+    public static void changeDifficulty(String difficulty){
+        JsonValue settingsAll = new JsonReader(). //change for assessment 2 for multiple difficulties
+                parse(Gdx.files.internal("GameSettings.json"));
+        settings = settingsAll.get("Regular");
+
+        if (!Objects.equals(difficulty, "Regular")) {
+            JsonValue editSet = settingsAll.get(difficulty);
+            JsonValue.JsonIterator it = editSet.iterator();
+            while (it.hasNext()) {
+                JsonValue x = it.next();
+                JsonValue.JsonIterator it2 = x.iterator();
+                while (it2.hasNext()) {
+                    JsonValue value = it2.next();
+                    System.out.println(value);
+                    settings.get(x.name).get(value.name).set(value.asDouble(), null);
+                }
+            }
+        }
+    }
     /**
      * called every fram checks id the quests are completed
      */
@@ -81,6 +114,7 @@ public final class GameManager {
      * @return the NPCShip instance
      */
     public static NPCShip getNPCShip(int id) {
+
         return (NPCShip) ships.get(id);
     }
 
@@ -100,7 +134,7 @@ public final class GameManager {
         for (int i = 0; i < factions.size(); i++) {
             CreateCollege(i + 1);
             for (int j = 0; j < cnt; j++) {
-                // prevents halifax from having shipcount + player
+                // prevents halifax from having ship count + player
                 if (i == 0 && j > cnt - 2) {
                     break;
                 }
@@ -110,13 +144,28 @@ public final class GameManager {
         }
         QuestManager.Initialize(); // added for assessment 2 to stop tryInit being used (testing)
         QuestManager.createRandomQuests(); // ""
+
+        // Assessment 2 change: spawns in powerups based on settings
+        for (JsonValue powData : settings.get("powerups")) {
+            String texName = powData.getString("sprite");
+            int cooldown = powData.getInt("spawnCooldown");
+            PowerUp pow = new PowerUp(
+                    powData.getString("key"),
+                    PowerUpOperation.values()[powData.getInt("operation")],
+                    powData.getFloat("value"),
+                    powData.getInt("duration")
+            );
+            for (JsonValue pos : powData.get("positions")) {
+                Vector2 position = new Vector2(pos.getFloat(0), pos.getFloat(1));
+                new PowerUpPickup(pow, texName, Utilities.tilesToDistance(position), cooldown);
+            }
+        }
     }
 
     /**
      * Creates player that belongs the faction with id 1
      */
     public static void CreatePlayer() {
-        tryInit();
         Player p = new Player();
         p.setFaction(1);
         ships.add(p);
@@ -129,7 +178,6 @@ public final class GameManager {
      * @return the created ship
      */
     public static NPCShip CreateNPCShip(int factionId) {
-        tryInit();
         NPCShip e = new NPCShip();
         e.setFaction(factionId);
         ships.add(e);
@@ -142,7 +190,6 @@ public final class GameManager {
      * @param mapId resource id
      */
     public static void CreateWorldMap(int mapId) {
-        tryInit();
         WorldMap map = new WorldMap(mapId);
         mapGraph = new TileMapGraph(map.getTileMap());
     }
@@ -153,19 +200,12 @@ public final class GameManager {
      * @param factionId desired faction
      */
     public static void CreateCollege(int factionId) {
-        tryInit();
         College c = new College(factionId);
         colleges.add(c);
     }
 
-    private static void tryInit() {
-        if (!initialized) {
-            Initialize();
-        }
-    }
 
     public static Faction getFaction(int factionId) {
-        tryInit();
         return factions.get(factionId - 1);
     }
 
@@ -175,12 +215,10 @@ public final class GameManager {
      * @return the JSON representation fo settings
      */
     public static JsonValue getSettings() {
-        tryInit();
         return settings;
     }
 
     public static College getCollege(int factionId) {
-        tryInit();
         return colleges.get(factionId - 1);
     }
 
@@ -194,14 +232,13 @@ public final class GameManager {
 
     /**
      * Utilises the cached cannonballs to fire one
-     * Changed for Assessment 2, seperated incrementer for visual clarity
-     * @param p   parent
-     * @param dir shoot direction
+     * Changed for Assessment 2, separated incrementer for visual clarity and parameterised startPos
+     * @param p     parent
+     * @param pos   position projectile is spawned at
+     * @param dir   shoot direction
      */
-    public static void shoot(Entity p, Vector2 dir) { // Changed for Assessment 2, type switched from Ship to Entity
-        Vector2 pos = p.getComponent(Transform.class).getPosition().cpy();
-        //pos.add(dir.x * TILE_SIZE * 0.5f, dir.y * TILE_SIZE * 0.5f);
-        ballCache.get(currentElement).fire(pos, dir, p);
+    public static void shoot(Entity p, Vector2 pos, Vector2 dir) { // Changed for Assessment 2, type switched from Ship to Entity
+        ballCache.get(currentElement).fire(p,pos, dir);
         currentElement++;
         currentElement %= cacheSize;
     }
@@ -215,5 +252,25 @@ public final class GameManager {
      */
     public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
         return mapGraph.findOptimisedPath(loc, dst);
+    }
+
+    public static ArrayList<Ship> getShips(){
+        return ships;
+    }
+    public static ArrayList<College> getColleges(){
+        return colleges;
+    }
+
+
+
+    public static void dispose(){
+        initialized = true;
+        currentElement = 0;
+
+        factions = new ArrayList<>();
+        ships = new ArrayList<>();
+        ballCache = new ArrayList<>(cacheSize);
+        colleges = new ArrayList<>();
+
     }
 }

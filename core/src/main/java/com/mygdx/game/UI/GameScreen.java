@@ -2,7 +2,14 @@ package com.mygdx.game.UI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.PixmapIO;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -13,14 +20,19 @@ import com.mygdx.game.Managers.*;
 import com.mygdx.game.PirateGame;
 import com.mygdx.game.Quests.Quest;
 
+import java.util.zip.Deflater;
+
 import static com.mygdx.utils.Constants.*;
 
 public class GameScreen extends Page {
     private Label healthLabel;
-    private Label dosh;
+    private Label money;
+    private Label points;
     private Label ammo;
     private final Label questDesc;
     private final Label questName;
+    public Pixmap pixmap;
+    private PauseScreen pause;
     /*private final Label questComplete;
     private float showTimer = 0;
     // in seconds
@@ -94,46 +106,6 @@ public class GameScreen extends Page {
         table.row();
         table.add(new Label("Quit", parent.skin)).left();
         table.add(new Image(parent.skin, "key-esc"));
-
-
-
-        // start of addition for assessment 2 to add a shop to the UI
-        Table shop = new Table();
-        Window shopWin = new Window("Shop", parent.skin);
-        Table shopTable = new Table();
-
-
-        shop.bottom().right();
-        shop.setFillParent(true);
-        shop.add(shopWin);
-        shopWin.add(shopTable);
-        TextButton powerUp1 = new TextButton("1", parent.skin);
-        shopTable.add(powerUp1);
-        powerUp1.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Power up1 ");
-            }
-        });
-        TextTooltip powerUp1TT = new TextTooltip("This is the powerup", parent.skin);
-        powerUp1TT.setInstant(true);
-        powerUp1.addListener(powerUp1TT);
-
-        shopTable.row();
-        TextButton powerUp2 = new TextButton("2", parent.skin);
-        shopTable.add(powerUp2);
-        powerUp2.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Power up 2 ");
-
-            }
-        });
-
-        shopTable.debug();
-
-        actors.add(shop);
-        // end of addition for assessment 2
 
     }
 
@@ -210,7 +182,8 @@ public class GameScreen extends Page {
         Player p = GameManager.getPlayer();
 
         healthLabel.setText(String.valueOf(p.getHealth()));
-        dosh.setText(String.valueOf(p.getPlunder()));
+        money.setText(String.valueOf(p.getPlunder()));
+        points.setText(String.valueOf(p.getPoints()));
         ammo.setText(String.valueOf(p.getAmmo()));
         if (!QuestManager.anyQuests()) {
             parent.end.win();
@@ -254,8 +227,14 @@ public class GameScreen extends Page {
         table.setDebug(false);
 
         table.add(new Image(parent.skin.getDrawable("coin"))).top().left().size(1.25f * TILE_SIZE);
-        dosh = new Label("N/A", parent.skin);
-        table.add(dosh).top().left().size(50);
+        money = new Label("N/A", parent.skin);
+        table.add(money).top().left().size(50);
+
+        table.row();
+
+        table.add(new Image(parent.skin.getDrawable("point"))).top().left().size(1.25f * TILE_SIZE);
+        points = new Label("N/A", parent.skin);
+        table.add(points).top().left().size(50);
 
         table.row();
 
@@ -265,4 +244,5 @@ public class GameScreen extends Page {
 
         table.top().left();
     }
+
 }
