@@ -63,6 +63,7 @@ public enum EnemyState implements State<NPCShip> {
         @Override
         public void update(NPCShip e) {
             super.update(e);
+            e.attackPlayer();
             //System.out.println("ATTACK");
         }
     };
@@ -82,10 +83,6 @@ public enum EnemyState implements State<NPCShip> {
                     m.changeState(PURSUE);
                 } else if (p.canAttack()) {
                     m.changeState(ATTACK);
-                }
-                // if college attacked hunt
-                else if (false) {
-                    m.changeState(HUNT);
                 }
                 break;
             case PURSUE:

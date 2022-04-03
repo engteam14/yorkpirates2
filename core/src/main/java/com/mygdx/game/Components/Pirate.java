@@ -95,6 +95,14 @@ public class Pirate extends Component {
         buffer = radius;
     }
 
+    /**
+     * Added for Assessment 2
+     * @return the damage dealt by attacks from this unit
+     */
+    public int getAttackDmg() {
+        return attackDmg;
+    }
+
     public void takeDamage(float dmg) {
         health -= dmg;
         if (health <= 0) {
