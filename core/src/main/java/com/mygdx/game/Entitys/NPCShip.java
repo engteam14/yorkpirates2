@@ -6,16 +6,14 @@ import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.AI.EnemyState;
-import com.mygdx.game.Components.AINavigation;
-import com.mygdx.game.Components.Pirate;
-import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Components.*;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.utils.QueueFIFO;
 import com.mygdx.utils.Utilities;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -52,6 +50,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
 
         // agro trigger
         rb.addTrigger(Utilities.tilesToDistance(starting.getFloat("argoRange_tiles")), "agro");
+        getComponent(Pirate.class).setInfiniteAmmo(true);
 
     }
 
@@ -69,10 +68,29 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     @Override
     public void update() {
-        super.update();
-        stateMachine.update();
+        if(!isAlive()) {
+           kill();
+           stateMachine = null;
+        }else{
+            super.update();
+            stateMachine.update();
+        }
+    }
 
-        // System.out.println(getComponent(Pirate.class).targetCount());
+    /**
+     * Added for Assessment 2
+     * Removes the ship from play
+     */
+    private void kill() {
+        getComponent(Renderable.class).hide();
+        Transform t = getComponent(Transform.class);
+        t.setPosition(20000, 20000);
+
+        RigidBody rb = getComponent(RigidBody.class);
+        rb.setPosition(t.getPosition());
+        rb.setVelocity(0, 0);
+
+        dispose();
     }
 
     /**
@@ -136,21 +154,21 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     @Override
     public void EnterTrigger(CollisionInfo info) {
-        if (!(info.a instanceof Ship)) {
-            return;
+        super.EnterTrigger(info);
+        if (info.a instanceof Ship) {
+            Ship other = (Ship) info.a;
+            if (Objects.equals(other.getComponent(Pirate.class).getFaction().getName(), getComponent(Pirate.class).getFaction().getName())) {
+                // is the same faction
+                return;
+            }
+            // add the new collision as a new target
+            Pirate pirate = getComponent(Pirate.class);
+            pirate.addTarget(other);
         }
-        Ship other = (Ship) info.a;
-        if (Objects.equals(other.getComponent(Pirate.class).getFaction().getName(), getComponent(Pirate.class).getFaction().getName())) {
-            // is the same faction
-            return;
-        }
-        // add the new collision as a new target
-        Pirate pirate = getComponent(Pirate.class);
-        pirate.addTarget(other);
     }
 
     /**
-     * if a taget has left remove it from the potential targets Queue
+     * if a target has left remove it from the potential targets Queue
      *
      * @param info collision info
      */

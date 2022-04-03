@@ -186,11 +186,18 @@ public class Ship extends Entity implements CollisionCallBack {
     }
 
     /**
+     * Amended for Assessment 2 (added functionality for when attacked by cannonball)
      * if called on a Player against anything else call it on the other thing
      */
     @Override
     public void EnterTrigger(CollisionInfo info) {
-        if (this instanceof Player && !(info.b instanceof Player)) {
+        if (info.a instanceof CannonBall) {
+            CannonBall a = (CannonBall) info.a;
+            if(a.getFaction() != getFaction()){
+                getComponent(Pirate.class).takeDamage( a.getAttackDmg() );
+                a.kill();
+            }
+        }else if (this instanceof Player && !(info.b instanceof Player)) {
             ((CollisionCallBack) info.b).EnterTrigger(info);
         }
     }
