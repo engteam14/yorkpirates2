@@ -58,12 +58,12 @@ public enum EnemyState implements State<NPCShip> {
         @Override
         public void enter(NPCShip e) {
             e.stopMovement();
-            e.attackPlayer();
         }
 
         @Override
         public void update(NPCShip e) {
             super.update(e);
+            e.attackPlayer();
             //System.out.println("ATTACK");
         }
     };

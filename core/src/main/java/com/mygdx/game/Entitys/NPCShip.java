@@ -141,7 +141,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
     public void wander() {}
 
     /**
-     * Added for Assessment 2, shoots a cannonball towards the player ship
+     * Added for Assessment 2, calculates the direction the Player is in
      */
     public Vector2 directionToPlayer() {
         Player p = GameManager.getPlayer();
