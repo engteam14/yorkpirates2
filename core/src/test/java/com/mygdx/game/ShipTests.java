@@ -106,7 +106,7 @@ public class ShipTests {
 		KillQuest killCollege = new KillQuest(collegeToKill);
 		boolean questStatusC = killCollege.checkCompleted(player);
 
-		collegeToKill.killThisCollege();
+		collegeToKill.killThisCollege(null);
 		boolean questStatusD = killCollege.checkCompleted(player);
 
 		assertFalse("Kill Quest shown as complete when isn't",questStatusC);
@@ -144,7 +144,7 @@ public class ShipTests {
 
 		QuestManager.addQuest(killCollege);
 
-		collegeToKill.killThisCollege();
+		collegeToKill.killThisCollege(null);
 		QuestManager.checkCompleted();
 
 		int after = player.getPlunder();

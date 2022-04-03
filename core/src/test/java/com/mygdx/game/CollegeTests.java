@@ -3,8 +3,10 @@ package com.mygdx.game;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.ComponentType;
 import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Entitys.Building;
 import com.mygdx.game.Entitys.CannonBall;
 import com.mygdx.game.Entitys.College;
+import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
@@ -62,6 +64,14 @@ public class CollegeTests {
 
 	@Test
 	public void collegeIsCaptured() {
+		College college = new College(5);
+		Player player = new Player();
 
+		Faction factionPrior = college.getFaction();
+		college.killThisCollege(player.getFaction());
+		Faction factionPost = college.getFaction();
+
+		assertNotEquals("College has not changed factions", factionPrior, factionPost);
+		assertEquals("College faction not changed to match conqueror", factionPost, player.getFaction());
 	}
 }
