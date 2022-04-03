@@ -3,10 +3,7 @@ package com.mygdx.game.Entitys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.mygdx.game.Components.Pirate;
-import com.mygdx.game.Components.Renderable;
-import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Components.Transform;
+import com.mygdx.game.Components.*;
 import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.RenderLayer;
@@ -54,10 +51,60 @@ public class Ship extends Entity implements CollisionCallBack {
         rb.setCallback(this);
 
         Pirate p = new Pirate();
+        PowerUpAssigned pow = new PowerUpAssigned();
 
         // rb.setCallback(this);
 
-        addComponents(t, r, rb, p);
+        addComponents(t, r, rb, p, pow);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Get a Pirate value.
+     * @param key   The value to get
+     * @return      The value
+     */
+    public float getValue(String key) {
+        return getComponent(Pirate.class).getValue(key);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Set the default for a Pirate value.
+     * @param key       The value to set to
+     * @param value     The default to apply
+     */
+    public void setDefault(String key, float value) {
+        getComponent(Pirate.class).setDefault(key, value);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Set a new value for Pirate while holding reference to what it was originally.
+     * @param key       The value to set to
+     * @param value     The float to apply
+     */
+    public void setValue(String key, float value) {
+        getComponent(Pirate.class).setValue(key, value);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Multiply a value for Pirate while holding reference to what it was originally.
+     * @param key       The value to multiply
+     * @param mult      The multiplication factor
+     */
+    public void multValue(String key, float mult) {
+        getComponent(Pirate.class).multValue(key, mult);
+    }
+
+    /**
+     * // New for assessment 2 //
+     * Reset a Pirate value to what it originally was.
+     * @param key       The value to reset
+     */
+    public void resetToDefault(String key) {
+        getComponent(Pirate.class).resetToDefault(key);
     }
 
     public boolean isAlive() {

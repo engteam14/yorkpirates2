@@ -8,6 +8,8 @@ import com.mygdx.game.AI.TileMapGraph;
 import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.*;
 import com.mygdx.game.Faction;
+import com.mygdx.game.PowerUps.PowerUp;
+import com.mygdx.game.PowerUps.PowerUpOperation;
 import com.mygdx.utils.QueueFIFO;
 import com.mygdx.utils.Utilities;
 
@@ -142,6 +144,22 @@ public final class GameManager {
         }
         QuestManager.Initialize(); // added for assessment 2 to stop tryInit being used (testing)
         QuestManager.createRandomQuests(); // ""
+
+        // Assessment 2 change: spawns in powerups based on settings
+        for (JsonValue powData : settings.get("powerups")) {
+            String texName = powData.getString("sprite");
+            int cooldown = powData.getInt("spawnCooldown");
+            PowerUp pow = new PowerUp(
+                    powData.getString("key"),
+                    PowerUpOperation.values()[powData.getInt("operation")],
+                    powData.getFloat("value"),
+                    powData.getInt("duration")
+            );
+            for (JsonValue pos : powData.get("positions")) {
+                Vector2 position = new Vector2(pos.getFloat(0), pos.getFloat(1));
+                new PowerUpPickup(pow, texName, Utilities.tilesToDistance(position), cooldown);
+            }
+        }
     }
 
     /**

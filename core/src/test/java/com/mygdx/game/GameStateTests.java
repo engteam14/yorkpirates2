@@ -31,6 +31,7 @@ public class GameStateTests {
 		ResourceManager.addTextureAtlas("Boats.txt");
 		ResourceManager.addTextureAtlas("UISkin/skin.atlas");
 		ResourceManager.addTextureAtlas("Buildings.txt");
+		ResourceManager.addTextureAtlas("powerups.txt");
 		ResourceManager.addTexture("menuBG.jpg");
 		ResourceManager.addTexture("Chest.png");
 		ResourceManager.loadAssets();
