@@ -30,6 +30,7 @@ public final class GameManager {
     private static JsonValue settings;
 
     private static TileMapGraph mapGraph;
+    private static JsonValue settingsAll;
 
 
     /**
@@ -40,6 +41,7 @@ public final class GameManager {
         initialized = true;
         currentElement = 0;
         // start of change for assessment 2, adds functionality for changing difficulty
+
         changeDifficulty(difficulty.toString());
         // end of change
         
@@ -68,6 +70,7 @@ public final class GameManager {
      * loads the part of the json file for the chosen difficulty and overwrites the settings values with these values
      * @param difficulty the chosen difficulty as a string
      */
+
     public static void changeDifficulty(String difficulty){
         JsonValue settingsAll = new JsonReader(). //change for assessment 2 for multiple difficulties
                 parse(Gdx.files.internal("GameSettings.json"));
@@ -82,7 +85,6 @@ public final class GameManager {
                 while (it2.hasNext()) {
                     JsonValue value = it2.next();
                     System.out.println(value);
-                    System.out.println("." + difficulty+ ".");
                     settings.get(x.name).get(value.name).set(value.asDouble(), null);
                 }
             }
@@ -110,6 +112,7 @@ public final class GameManager {
      * @return the NPCShip instance
      */
     public static NPCShip getNPCShip(int id) {
+
         return (NPCShip) ships.get(id);
     }
 
@@ -232,6 +235,15 @@ public final class GameManager {
     public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
         return mapGraph.findOptimisedPath(loc, dst);
     }
+
+    public static ArrayList<Ship> getShips(){
+        return ships;
+    }
+    public static ArrayList<College> getColleges(){
+        return colleges;
+    }
+
+
 
     public static void dispose(){
         initialized = true;

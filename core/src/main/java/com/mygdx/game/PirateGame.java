@@ -24,7 +24,7 @@ public class PirateGame extends Game {
     public Skin skin;
     public PauseScreen pause;
     public int id_map;
-    public GameDifficulty difficulty;
+    public GameDifficulty difficulty = GameDifficulty.Regular;
 
     /**
      * Create instances of game stage and UI screens.
@@ -129,13 +129,27 @@ public class PirateGame extends Game {
     Added for assessment 2 so that the game doesn't start until after the difficulty has been chosen by the player
      */
     public void StartGame(){
-        //GameManager.Initialize(difficulty);
         PhysicsManager.Initialize();
         GameManager.Initialize(difficulty);
         game = new GameScreen(this, id_map);
         setScreen(game);
-
-
     }
-}
+
+    /**
+     * New for assesment 2
+     * Loads the game from the saved data
+     */
+    public void LoadGame(){
+        PhysicsManager.Initialize();
+        SaveManager.LoadGame();
+
+        GameManager.Initialize(difficulty);
+        game = new GameScreen(this, id_map);
+
+        SaveManager.SpawnGame();
+
+        setScreen(game);
+    }
+ }
+
 

@@ -17,10 +17,12 @@ import java.util.ArrayList;
 public class College extends Entity {
     private static ArrayList<String> buildingNames;
     private final ArrayList<Building> buildings;
+    public Faction f;
     private Faction mostRecentAttacker; //Added for Assessment 2, used to determine ownership after capturing
     private Building flag; //Added for Assessment 2, allows flag to be referenced independently of other buildings.
     private long lastShootTime;
     private float buffer;
+
 
     public College() {
         super();
@@ -43,7 +45,7 @@ public class College extends Entity {
      */
     public College(int factionId) {
         this();
-        Faction f = GameManager.getFaction(factionId);
+        f = GameManager.getFaction(factionId);
         Transform t = getComponent(Transform.class);
         t.setPosition(f.getPosition());
         Pirate p = getComponent(Pirate.class);
