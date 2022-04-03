@@ -36,6 +36,7 @@ public class SaveManagerTest {
     @After
     public void dispose(){
         ResourceManager.dispose();
+        GameManager.dispose();
     }
 
 

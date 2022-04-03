@@ -115,7 +115,7 @@ public class CannonBall extends Entity implements CollisionCallBack {
      * Added for Assessment 2
      * @return the damage dealt by the unit shooting this cannonball
      */
-    public int getAttackDmg() {
+    public Float getAttackDmg() {
         return shooter.getComponent(Pirate.class).getAttackDmg();
     }
 
