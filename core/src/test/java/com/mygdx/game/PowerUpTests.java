@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Components.*;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Entitys.PowerUpPickup;
+import com.mygdx.game.Managers.GameDifficulty;
+import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.PowerUps.PowerUp;
@@ -33,11 +35,13 @@ public class PowerUpTests {
 
 		INIT_CONSTANTS();
 		PhysicsManager.Initialize(false);
+		GameManager.Initialize(GameDifficulty.Regular);
 	}
 
 	@After
 	public void dispose(){
 		ResourceManager.dispose();
+		GameManager.dispose();
 	}
 
 	@Test

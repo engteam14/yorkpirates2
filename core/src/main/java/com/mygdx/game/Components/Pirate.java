@@ -20,12 +20,8 @@ public class Pirate extends Component {
     private int points;
     protected boolean isAlive;
 
-    // Kept in due to git conflict, but mainly redundant
-    private int health;
-    private int ammo;
     private boolean infiniteAmmo; // Added for Assessment 2 for power-ups and colleges
     private float buffer; // Added for Assessment 2 to shift projectile spawn area
-    private final int attackDmg;
 
 
     /**
@@ -159,8 +155,8 @@ public class Pirate extends Component {
      * Added for Assessment 2
      * @return the damage dealt by attacks from this unit
      */
-    public int getAttackDmg() {
-        return attackDmg;
+    public Float getAttackDmg() {
+        return values.get("damage");
     }
 
     public void takeDamage(float dmg) {
