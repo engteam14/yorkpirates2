@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.AI.EnemyState;
 import com.mygdx.game.Components.*;
 import com.mygdx.game.Managers.GameManager;
@@ -23,9 +24,12 @@ public class NPCShip extends Ship implements CollisionCallBack {
     public StateMachine<NPCShip, EnemyState> stateMachine;
     private static JsonValue AISettings;
     private final QueueFIFO<Vector2> path;
+    private long lastShootTime; //Added for Assessment 2, stores the time when the ship last attacked
 
     /**
      * Creates an initial state machine
+     * Changed for Assessment 2:
+     *  - Added lastShootTime to store the time when the ship last attacked
      */
     public NPCShip() {
         super();
@@ -52,6 +56,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
         rb.addTrigger(Utilities.tilesToDistance(starting.getFloat("argoRange_tiles")), "agro");
         getComponent(Pirate.class).setInfiniteAmmo(true);
 
+        lastShootTime = TimeUtils.millis() / 1000;
     }
 
     /**
@@ -133,8 +138,32 @@ public class NPCShip extends Ship implements CollisionCallBack {
     /**
      * Meant to cause the npc to wander
      */
-    public void wander() {
+    public void wander() {}
 
+    /**
+     * Added for Assessment 2, shoots a cannonball towards the player ship
+     */
+    public Vector2 directionToPlayer() {
+        Player p = GameManager.getPlayer();
+        Vector2 shipLocale = p.getPosition();
+        Vector2 thisPosition = getPosition();
+
+        float xDiff = shipLocale.x-thisPosition.x;
+        float yDiff = shipLocale.y-thisPosition.y;
+
+        return new Vector2(xDiff,yDiff);
+    }
+
+    /**
+     * Added for Assessment 2, shoots a cannonball towards the player ship
+     */
+    public void attackPlayer() {
+        long current = TimeUtils.millis() / 1000;
+        if (current > lastShootTime) {
+            Vector2 direction = directionToPlayer();
+            shoot(direction);
+        }
+        lastShootTime = current;
     }
 
     @Override

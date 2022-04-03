@@ -20,10 +20,14 @@ public class College extends Entity {
     public Faction f;
     private Faction mostRecentAttacker; //Added for Assessment 2, used to determine ownership after capturing
     private Building flag; //Added for Assessment 2, allows flag to be referenced independently of other buildings.
-    private long lastShootTime;
-    private float buffer;
+    private long lastShootTime; //Added for Assessment 2, stores the time when the college last attacked
+    private float buffer; //Added for Assessment 2, stores the radius of the college's area
 
-
+    /**
+     * Creates a college.
+     * Changed for Assessment 2:
+     *  - Added lastShootTime to store the time when the college last attacked
+     */
     public College() {
         super();
         buildings = new ArrayList<>();
