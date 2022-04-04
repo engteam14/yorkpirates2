@@ -1,7 +1,10 @@
 package com.mygdx.game.PowerUps;
 
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Components.Pirate;
+import com.mygdx.game.Components.PowerUpAssigned;
+import com.mygdx.game.Managers.GameManager;
 
 /**
  * // Assessment 2 requirement //
@@ -9,6 +12,8 @@ import com.mygdx.game.Components.Pirate;
  */
 public class PowerUp {
 
+    private String name;
+    private int cost;
     private String key;
     private PowerUpOperation oper;
     private float value;
@@ -21,25 +26,31 @@ public class PowerUp {
      * @param key           The key of the value to affect
      * @param operation     The way the key is applied to the value
      * @param value         The value that is applied to the key
+     * @param cost          The cost of the powerup
      */
-    public PowerUp(String key, PowerUpOperation operation, float value) {
-        this(key, operation, value, -1);
+    public PowerUp(String key, PowerUpOperation operation, float value, int cost) {
+        this.key = key;
+        this.oper = operation;
+        this.value = value;
+        this.duration = -1;
+        this.done = false;
+        this.cost = cost ;
     }
 
     /**
      * Create a PowerUp that lasts for a limited duration of time.
-     * @param key           The key of the value to affect
-     * @param operation     The way the key is applied to the value
-     * @param value         The value that is applied to the key
-     * @param duration      The duration that the PowerUp is active
+     * @param settings the json file containing the settings for the power up
      */
-    public PowerUp(String key, PowerUpOperation operation, float value, int duration) {
-        this.key = key;
-        this.oper = operation;
-        this.value = value;
-        this.duration = duration;
+    public PowerUp(JsonValue settings) {
+        this.key = settings.getString("key");
+        this.oper = PowerUpOperation.values()[settings.getInt("operation")];
+        this.value = settings.getInt("value");
+        this.duration = settings.getInt("duration");
         this.done = false;
+        this.cost = settings.getInt("cost") ;
+        this.name = settings.getString("name");
     }
+
 
     /**
      * Apply PowerUp modifiers to the Pirate.
@@ -107,4 +118,18 @@ public class PowerUp {
         done = true;
     }
 
+    public Boolean buyPowerUp(){
+        if (GameManager.getPlayer().getPlunder() > this.cost) {
+            GameManager.getPlayer().plunder((-this.cost));
+            GameManager.getPlayer().getComponent(PowerUpAssigned.class).AssignPowerUp(this);
+            return true;
+        }else {
+            return false;
+            }
+      }
+
+
+    public String getName() {
+        return name;
+    }
 }

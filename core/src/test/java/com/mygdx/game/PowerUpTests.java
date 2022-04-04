@@ -92,7 +92,7 @@ public class PowerUpTests {
 		} catch(Exception e) {
 			assert false : String.format("Key %s for PowerUp does not exist", key);
 		}
-		PowerUp pow = new PowerUp(key, oper, value);
+		PowerUp pow = new PowerUp(key, oper, value, 0);
 
 		// Test applying powerups
 		playerPow.AssignPowerUp(pow);
@@ -130,7 +130,7 @@ public class PowerUpTests {
 		float startHealth = player.getValue("health");
 
 		// Init the powerup pickup
-		PowerUp pow = new PowerUp("health", PowerUpOperation.increment, 10f);
+		PowerUp pow = new PowerUp("health", PowerUpOperation.increment, 10f, 0);
 		PowerUpPickup powPickup = new PowerUpPickup(pow, "health-up", new Vector2(100,100).add(player.getPosition()), 1000);
 
 		// Make sure the PowerUp hasn't already applied

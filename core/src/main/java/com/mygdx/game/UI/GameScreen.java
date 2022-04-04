@@ -2,25 +2,21 @@ package com.mygdx.game.UI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.PixmapIO;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Components.ComponentEvent;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Managers.*;
 import com.mygdx.game.PirateGame;
+import com.mygdx.game.PowerUps.PowerUp;
 import com.mygdx.game.Quests.Quest;
 
-import java.util.zip.Deflater;
+import java.util.HashMap;
 
 import static com.mygdx.utils.Constants.*;
 
@@ -104,9 +100,139 @@ public class GameScreen extends Page {
         table.add(new Label("Shoot in direction of ship", parent.skin)).left();
         table.add(new Image(parent.skin, "space"));
         table.row();
-        table.add(new Label("Quit", parent.skin)).left();
+        table.add(new Label("Pause", parent.skin)).left(); // changed to pause for assessment 2
         table.add(new Image(parent.skin, "key-esc"));
 
+
+        HashMap<String, PowerUp> powerUps = new HashMap<>();
+
+        //create power ups
+        for (JsonValue powData : GameManager.getSettings().get("powerups")) {
+            //String texName = powData.getString("sprite");
+            int cooldown = powData.getInt("spawnCooldown");
+            PowerUp pow = new PowerUp(powData);
+            powerUps.put(powData.getString("id"), pow);
+        }
+
+
+        // start of addition for assessment 2 to add a shop to the UI
+        Table shop = new Table();
+        Window shopWin = new Window("Shop", parent.skin);
+        Table shopTable = new Table();
+
+        shop.bottom().right();
+        shop.setFillParent(true);
+        shop.add(shopWin);
+        shopWin.add(shopTable);
+        shopTable.pad(10);
+        //power up 1
+        PowerUp pow1 = powerUps.get("1");
+        TextButton powerUp1 = new TextButton(pow1.getName(), parent.skin);
+        shopTable.add(powerUp1).pad(10);
+        powerUp1.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                pow1.buyPowerUp();
+            }
+        });
+        TextTooltip powerUp1TT = new TextTooltip(pow1.getName(), parent.skin);
+        powerUp1TT.setInstant(true);
+        powerUp1.addListener(powerUp1TT);
+        shopTable.row();
+        //power up 2
+        PowerUp pow2 = powerUps.get("2");
+
+        TextButton powerUp2 = new TextButton(pow2.getName(), parent.skin);
+        shopTable.add(powerUp2).pad(10);
+        powerUp2.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                pow2.buyPowerUp();
+            }
+        });
+        TextTooltip powerUp2TT = new TextTooltip(pow2.getName(), parent.skin);
+        powerUp2TT.setInstant(true);
+        powerUp2.addListener(powerUp2TT);
+        shopTable.row();
+
+        //power up 3
+        PowerUp pow3 = powerUps.get("3");
+        TextButton powerUp3 = new TextButton(pow3.getName(), parent.skin);
+        shopTable.add(powerUp3).pad(10);
+        powerUp3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                pow3.buyPowerUp();
+            }
+        });
+        TextTooltip powerUp3TT = new TextTooltip(pow3.getName(), parent.skin);
+        powerUp3TT.setInstant(true);
+        powerUp3.addListener(powerUp3TT);
+        shopTable.row();
+
+        //power up 4
+        PowerUp pow4 = powerUps.get("4");
+        TextButton powerUp4 = new TextButton(pow4.getName(), parent.skin);
+        shopTable.add(powerUp4).pad(10);
+        powerUp4.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                pow4.buyPowerUp();
+            }
+        });
+        TextTooltip powerUp4TT = new TextTooltip(pow4.getName(), parent.skin);
+        powerUp4TT.setInstant(true);
+        powerUp4.addListener(powerUp4TT);
+        shopTable.row();
+
+        //power up 5
+        PowerUp pow5 = powerUps.get("5");
+        TextButton powerUp5 = new TextButton(pow5.getName(), parent.skin);
+        shopTable.add(powerUp5).pad(10);
+        powerUp5.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                pow5.buyPowerUp();
+            }
+        });
+        TextTooltip powerUp5TT = new TextTooltip(pow5.getName(), parent.skin);
+        powerUp4TT.setInstant(true);
+        powerUp4.addListener(powerUp5TT);
+        shopTable.row();
+
+        //power up 6
+        PowerUp pow6 = powerUps.get("6");
+        TextButton powerUp6 = new TextButton(pow6.getName(), parent.skin);
+        shopTable.add(powerUp6).pad(10);
+        powerUp6.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                pow6.buyPowerUp();
+            }
+        });
+        TextTooltip powerUp6TT = new TextTooltip(pow6.getName(), parent.skin);
+        powerUp4TT.setInstant(true);
+        powerUp4.addListener(powerUp6TT);
+        shopTable.row();
+
+
+        //power up 7
+        PowerUp pow7 = powerUps.get("7");
+        TextButton powerUp7 = new TextButton(pow7.getName(), parent.skin);
+        shopTable.add(powerUp7).pad(10);
+        powerUp7.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                pow7.buyPowerUp();
+            }
+        });
+        TextTooltip powerUp7TT = new TextTooltip(pow7.getName(), parent.skin);
+        powerUp4TT.setInstant(true);
+        powerUp4.addListener(powerUp7TT);
+        //shopTable.debug();
+
+        actors.add(shop);
+        // end of addition for assessment 2
     }
 
     private float accumulator;
@@ -198,6 +324,7 @@ public class GameScreen extends Page {
                 questComplete.setText("Quest Competed");
                 prevQuest = "";
             }*/
+            assert q != null;
             questName.setText(q.getName());
             questDesc.setText(q.getDescription());
         }
