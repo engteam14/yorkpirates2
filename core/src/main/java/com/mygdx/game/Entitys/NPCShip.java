@@ -14,7 +14,6 @@ import com.mygdx.game.Physics.CollisionInfo;
 import com.mygdx.utils.QueueFIFO;
 import com.mygdx.utils.Utilities;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -23,7 +22,6 @@ import java.util.Objects;
 public class NPCShip extends Ship implements CollisionCallBack {
     public StateMachine<NPCShip, EnemyState> stateMachine;
     private static JsonValue AISettings;
-    private final QueueFIFO<Vector2> path;
     private long lastShootTime; //Added for Assessment 2, stores the time when the ship last attacked
 
     /**
@@ -33,7 +31,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     public NPCShip() {
         super();
-        path = new QueueFIFO<>();
+        QueueFIFO<Vector2> path = new QueueFIFO<>();
 
         if (AISettings == null) {
             AISettings = GameManager.getSettings().get("AI");
@@ -69,6 +67,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
     }
 
     /**
+     * Amended for Assessment 2: Added check for life and kills stateMachine and ship in case of death
      * updates the state machine
      */
     @Override
@@ -96,15 +95,6 @@ public class NPCShip extends Ship implements CollisionCallBack {
         rb.setVelocity(0, 0);
 
         dispose();
-    }
-
-    /**
-     * is meant to path find to the target but didn't work
-     */
-    public void goToTarget() {
-        /*path = GameManager.getPath(
-                Utilities.distanceToTiles(getPosition()),
-                Utilities.distanceToTiles(getTarget().getPosition()));*/
     }
 
     /**
@@ -136,11 +126,6 @@ public class NPCShip extends Ship implements CollisionCallBack {
     }
 
     /**
-     * Meant to cause the npc to wander
-     */
-    public void wander() {}
-
-    /**
      * Added for Assessment 2, calculates the direction the Player is in
      */
     public Vector2 directionToPlayer() {
@@ -166,19 +151,12 @@ public class NPCShip extends Ship implements CollisionCallBack {
         lastShootTime = current;
     }
 
-    @Override
-    public void BeginContact(CollisionInfo info) {
-
-    }
-
-    @Override
-    public void EndContact(CollisionInfo info) {
-
+    public EnemyState getCurrentState() {
+        return stateMachine.getCurrentState();
     }
 
     /**
      * if the agro fixture hit a ship set it as the target
-     *
      * @param info the collision info
      */
     @Override
@@ -198,7 +176,6 @@ public class NPCShip extends Ship implements CollisionCallBack {
 
     /**
      * if a target has left remove it from the potential targets Queue
-     *
      * @param info collision info
      */
     @Override

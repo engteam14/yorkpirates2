@@ -2,14 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
-import com.mygdx.game.Components.ComponentType;
-import com.mygdx.game.Components.Renderable;
-import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Components.Transform;
-import com.mygdx.game.Entitys.CannonBall;
-import com.mygdx.game.Entitys.College;
-import com.mygdx.game.Entitys.Player;
-import com.mygdx.game.Entitys.Ship;
+import com.mygdx.game.Components.*;
+import com.mygdx.game.Entitys.*;
 import com.mygdx.game.Managers.*;
 import com.mygdx.game.Quests.KillQuest;
 import com.mygdx.game.Quests.LocateQuest;
@@ -18,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static com.mygdx.game.AI.EnemyState.ATTACK;
 import static com.mygdx.utils.Constants.INIT_CONSTANTS;
 import static org.junit.Assert.*;
 
@@ -97,5 +92,23 @@ public class ShipTests {
 		ship.shoot(shootDirection);
 		Vector2 cannonNewPos = cannonT.getPosition().cpy();
 		assertNotEquals("Cannonball has not been fired", cannonStartPos, cannonNewPos);
+	}
+
+	@Test
+	public void NPCShipTargetsPlayer() {
+		Player player = new Player();
+		NPCShip ship = new NPCShip();
+
+		ship.setFaction(1);
+		player.setFaction(2);
+
+		Transform playerT = player.getComponent(Transform.class);
+		Transform shipT = ship.getComponent(Transform.class);
+		Pirate pirate = ship.getComponent(Pirate.class);
+
+		pirate.addTarget(player);
+		assertTrue("ship not in attack range",pirate.canAttack());
+		ship.update();
+		assertSame("ship not in attack mode", ATTACK, ship.getCurrentState());
 	}
 }

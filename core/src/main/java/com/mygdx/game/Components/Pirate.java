@@ -13,9 +13,13 @@ import java.util.HashMap;
  * Gives the concepts of health plunder, etc. Allows for firing of cannonballs, factions, death, targets
  */
 public class Pirate extends Component {
+    /**
+     * // Assessment 2 Change: Refactored to use map for storing values which will be modified by powerups.
+     * The enemy that is being targeted by the AI.
+     */
     private int factionId;
-    private HashMap<String,Float> defaults;
-    private HashMap<String,Float> values;
+    private final HashMap<String,Float> defaults;
+    private final HashMap<String,Float> values;
     private int plunder;
     private int points;
     protected boolean isAlive;
@@ -23,11 +27,6 @@ public class Pirate extends Component {
     private boolean infiniteAmmo; // Added for Assessment 2 for power-ups and colleges
     private float buffer; // Added for Assessment 2 to shift projectile spawn area
 
-
-    /**
-     * // Assessment 2 Change: Refactored to use map for storing values which will be modified by powerups.
-     * The enemy that is being targeted by the AI.
-     */
     private final QueueFIFO<Ship> targets;
 
     public Pirate() {
