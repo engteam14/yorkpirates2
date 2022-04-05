@@ -3,6 +3,7 @@ package com.mygdx.game.Entitys;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.PlayerController;
+import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
 
 /**
@@ -52,4 +53,12 @@ public class Player extends Ship {
     public int getAmmo() {
         return getComponent(Pirate.class).getAmmo();
     }
+
+    /**
+     * Added for Assessment 2
+     * @return the Faction attached to the pirate component of this object
+     */
+	public Faction getFaction() {
+        return getComponent(Pirate.class).getFaction();
+	}
 }

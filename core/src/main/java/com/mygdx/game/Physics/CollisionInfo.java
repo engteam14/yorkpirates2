@@ -11,4 +11,15 @@ public class CollisionInfo {
     public Fixture fA, fB;
     public Body bA, bB;
     public Entity a, b;
+
+    public CollisionInfo(Fixture f1, Fixture f2, Body b1, Body b2, Entity e1, Entity e2) {
+        fA = f1;
+        fB = f2;
+
+        bA = b1;
+        bB = b2;
+
+        a = e1;
+        b = e2;
+    }
 }
