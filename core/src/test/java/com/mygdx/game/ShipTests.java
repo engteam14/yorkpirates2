@@ -48,21 +48,21 @@ public class ShipTests {
 
 	@Test
 	public void shipMove() {
-		Player player = new Player();
-		RigidBody playerRb = (RigidBody) player.getComponent(ComponentType.RigidBody);
+		Ship ship = new Ship();
+		RigidBody shipRb = (RigidBody) ship.getComponent(ComponentType.RigidBody);
 
-		moveTest(playerRb, new Vector2(0,0));
+		moveTest(shipRb, new Vector2(0,0));
 
-		moveTest(playerRb, new Vector2(1, 0));
-		moveTest(playerRb, new Vector2(-1,0));
+		moveTest(shipRb, new Vector2(1, 0));
+		moveTest(shipRb, new Vector2(-1,0));
 
-		moveTest(playerRb, new Vector2(0,1));
-		moveTest(playerRb, new Vector2(0,-1));
+		moveTest(shipRb, new Vector2(0,1));
+		moveTest(shipRb, new Vector2(0,-1));
 
-		moveTest(playerRb, new Vector2(1,1));
-		moveTest(playerRb, new Vector2(1,-1));
-		moveTest(playerRb, new Vector2(-1,1));
-		moveTest(playerRb, new Vector2(-1,-1));
+		moveTest(shipRb, new Vector2(1,1));
+		moveTest(shipRb, new Vector2(1,-1));
+		moveTest(shipRb, new Vector2(-1,1));
+		moveTest(shipRb, new Vector2(-1,-1));
 	}
 
 	private void moveTest(RigidBody rb, Vector2 velocity){
@@ -86,7 +86,7 @@ public class ShipTests {
 	}
 
 	@Test
-	public void progressTasks() {
+	public void playerProgressTasks() {
 		Player player = new Player();
 
 		Vector2 questLocA = new Vector2(100,100);
@@ -105,7 +105,7 @@ public class ShipTests {
 		KillQuest killCollege = new KillQuest(collegeToKill);
 		boolean questStatusC = killCollege.checkCompleted(player);
 
-		collegeToKill.killThisCollege();
+		collegeToKill.killThisCollege(null);
 		boolean questStatusD = killCollege.checkCompleted(player);
 
 		assertFalse("Kill Quest shown as complete when isn't",questStatusC);
@@ -114,53 +114,40 @@ public class ShipTests {
 
 	@Test
 	public void shipFires() {
-		JsonValue starting = GameManager.getSettings().get("starting");
-		int ammo = starting.getInt("ammo");
-		assertTrue("No ammunition present",ammo>0);
-
 		Ship ship = new Ship();
 		CannonBall cannonBall = GameManager.getCurrentCannon();
 		Vector2 shootDirection = new Vector2(1,1);
 
-		Transform shipT = (Transform) ship.getComponent(ComponentType.Transform);
 		Transform cannonT = (Transform) cannonBall.getComponent(ComponentType.Transform);
-		Renderable cannonR = (Renderable) cannonBall.getComponent(ComponentType.Renderable);
-
-		Vector2 shipPos = shipT.getPosition().cpy();
 		Vector2 cannonStartPos = cannonT.getPosition().cpy();
-
-		assertNotEquals("Ship and Cannonball at same location before firing", shipPos, cannonStartPos);
-		assertFalse("Cannonball begins visible",cannonR.isVisible());
 
 		ship.shoot(shootDirection);
 		Vector2 cannonNewPos = cannonT.getPosition().cpy();
-
-		assertNotEquals("Cannonball position has not updated", cannonStartPos, cannonNewPos);
-		assertEquals("Cannonball moved to incorrect location",shipPos,cannonNewPos);
-		assertTrue("Cannonball remains invisible",cannonR.isVisible());
+		assertNotEquals("Cannonball has not been fired", cannonStartPos, cannonNewPos);
 	}
 
 	@Test
-	public void gainMoney() {
+	public void playerMoney() {
 		// player
+		GameManager.Initialize();
 		GameManager.CreatePlayer();
 		Player player = GameManager.getPlayer();
 		int initial = player.getPlunder();
 		Vector2 playerLoc = new Vector2(player.getPosition());
 		//quests
 		QuestManager.Initialize();
-		assertTrue("Player started with more than 0 loot", initial == 0);
+		assertEquals("Player started with more than 0 loot", 0, initial);
 		College collegeToKill = new College(1);
 		KillQuest killCollege = new KillQuest(collegeToKill);
 		LocateQuest locateQuest = new LocateQuest(playerLoc, 1);
 
 		QuestManager.addQuest(killCollege);
 
-		collegeToKill.killThisCollege();
+		collegeToKill.killThisCollege(null);
 		QuestManager.checkCompleted();
 
 		int after = player.getPlunder();
-		assertTrue("player hasn't gained loot after completing killCollege task", (after > initial));
+		assertTrue("Player hasn't gained loot after completing killCollege task", (after > initial));
 
 
 		initial = after; //new initial after 1 complete quest
@@ -169,13 +156,13 @@ public class ShipTests {
 		QuestManager.checkCompleted();
 
 		after = player.getPlunder();
-		assertTrue("player hasn't gained loot after picking up loot chest ", (after > initial));
+		assertTrue("Player hasn't gained loot after picking up loot chest ", (after > initial));
 		//TODO: Check loot on enemy kill
 
 	}
 
 	@Test
-	public void gainPoints() {
+	public void playerPoints() {
 
 	}
 }

@@ -17,6 +17,7 @@ import static com.mygdx.utils.Constants.BUILDING_SCALE;
 
 /**
  * Buildings that you see in game.
+ * Changed for Assessment 2 (made class public)
  */
 public class Building extends Entity implements CollisionCallBack {
     private String buildingName;
@@ -29,7 +30,7 @@ public class Building extends Entity implements CollisionCallBack {
      * Amended for Assessment 2: Added College parameter to keep track of parent
      * @param college added to signify ownership of building
      */
-    Building(College college) {
+    public Building(College college) {
         super();
         isFlag = false;
         Transform t = new Transform();
@@ -108,11 +109,11 @@ public class Building extends Entity implements CollisionCallBack {
     @Override
     public void EnterTrigger(CollisionInfo info) {
         if (info.a instanceof CannonBall && isAlive() && !isFlag) {
-            CannonBall b = (CannonBall) info.a;
-            if(b.getFaction() != college.getFaction()){
-                destroy(b.getFaction());
+            CannonBall a = (CannonBall) info.a;
+            if(a.getFaction() != college.getFaction()){
+                destroy(a.getFaction());
             }
-            b.kill();
+            a.kill();
         }
     }
 

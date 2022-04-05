@@ -186,11 +186,11 @@ public class College extends Entity {
      * Added for Assessment 2
      * Systematically kills each building attached to this college, then marks the college as dead.
      */
-    public void killThisCollege() {
+    public void killThisCollege(Faction conqueror) {
         for (int i = 0; i < buildings.size() - 1; i++) {
             Building b = buildings.get(i);
             if (b.isAlive()) {
-                b.destroy(null);
+                b.destroy(conqueror);
             }
         }
         isAlive();
