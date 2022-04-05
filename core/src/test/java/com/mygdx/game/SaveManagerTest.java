@@ -58,14 +58,13 @@ public class SaveManagerTest {
         GameManager.getPlayer().getComponent(Pirate.class).takeDamage(10);
         int playerHealth2 = GameManager.getPlayer().getComponent(Pirate.class).getHealth();
         GameManager.CreateCollege(1);
-        GameManager.getCollege(1).killThisCollege();
+        GameManager.getCollege(1).killThisCollege(null);
         SaveManager.SaveGame();
 
         GameManager.Initialize(GameDifficulty.Hard);
 
         GameManager.CreatePlayer();
         int playerHealth3 = GameManager.getPlayer().getHealth();
-;
 
         SaveManager.LoadGame();
         QuestManager.Initialize();

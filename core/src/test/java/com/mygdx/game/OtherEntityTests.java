@@ -10,6 +10,7 @@ import com.mygdx.game.Entitys.Building;
 import com.mygdx.game.Entitys.CannonBall;
 import com.mygdx.game.Entitys.College;
 import com.mygdx.game.Entitys.Ship;
+import com.mygdx.game.Managers.GameDifficulty;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.ResourceManager;
@@ -41,6 +42,7 @@ public class OtherEntityTests {
 
 		INIT_CONSTANTS();
 		PhysicsManager.Initialize(false);
+		GameManager.Initialize(GameDifficulty.Regular);
 	}
 
 	@After

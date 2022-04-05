@@ -134,7 +134,6 @@ public class GameStateTests {
 	public void winGame() {
 		// anyQuests is used in the GameScreen to check for win
 		QuestManager.Initialize();
-		GameManager.Initialize();
 		GameManager.CreatePlayer();
 		assertFalse("Player does not win when no quests are present", QuestManager.anyQuests());
 

@@ -79,7 +79,7 @@ public final class SaveManager {
         for (College college : Colleges) {
             boolean isAlive = prefs.getBoolean(college.f.id+"Alive", true);
             if (!isAlive) {
-                college.killThisCollege();
+                college.killThisCollege(null);
             }
         }
         QuestManager.setCurrentQuest(prefs.getString("currentQuest"));

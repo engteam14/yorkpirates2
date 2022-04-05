@@ -129,7 +129,6 @@ public class ShipTests {
 	@Test
 	public void playerMoney() {
 		// player
-		GameManager.Initialize();
 		GameManager.CreatePlayer();
 		Player player = GameManager.getPlayer();
 		int initial = player.getPlunder();
