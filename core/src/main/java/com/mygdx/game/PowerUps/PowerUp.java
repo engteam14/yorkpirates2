@@ -22,23 +22,23 @@ public class PowerUp {
     private boolean done;
 
     /**
-     * Create a PowerUp which lasts for a permanent length of time.
+     * Create a PowerUp manually, used for testing.
      * @param key           The key of the value to affect
      * @param operation     The way the key is applied to the value
      * @param value         The value that is applied to the key
      * @param cost          The cost of the powerup
      */
-    public PowerUp(String key, PowerUpOperation operation, float value, int cost) {
+    public PowerUp(String key, PowerUpOperation operation, float value, int cost, int duration) {
         this.key = key;
         this.oper = operation;
         this.value = value;
-        this.duration = -1;
+        this.duration = duration;
         this.done = false;
         this.cost = cost ;
     }
 
     /**
-     * Create a PowerUp that lasts for a limited duration of time.
+     * Create a PowerUp from the settings file
      * @param settings the json file containing the settings for the power up
      */
     public PowerUp(JsonValue settings) {
@@ -119,7 +119,7 @@ public class PowerUp {
     }
 
     public Boolean buyPowerUp(){
-        if (GameManager.getPlayer().getPlunder() > this.cost) {
+        if (GameManager.getPlayer().getPlunder() >= this.cost) {
             GameManager.getPlayer().plunder((-this.cost));
             GameManager.getPlayer().getComponent(PowerUpAssigned.class).AssignPowerUp(this);
             return true;
