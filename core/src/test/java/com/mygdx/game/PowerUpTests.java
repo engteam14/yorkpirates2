@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Components.*;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Entitys.PowerUpPickup;
@@ -92,7 +93,7 @@ public class PowerUpTests {
 		} catch(Exception e) {
 			assert false : String.format("Key %s for PowerUp does not exist", key);
 		}
-		PowerUp pow = new PowerUp(key, oper, value);
+		PowerUp pow = new PowerUp(key, oper, value, 0,-1);
 
 		// Test applying powerups
 		playerPow.AssignPowerUp(pow);
@@ -130,7 +131,7 @@ public class PowerUpTests {
 		float startHealth = player.getValue("health");
 
 		// Init the powerup pickup
-		PowerUp pow = new PowerUp("health", PowerUpOperation.increment, 10f);
+		PowerUp pow = new PowerUp("health", PowerUpOperation.increment, 10f, 0, -1);
 		PowerUpPickup powPickup = new PowerUpPickup(pow, "health-up", new Vector2(100,100).add(player.getPosition()), 1000);
 
 		// Make sure the PowerUp hasn't already applied
@@ -141,5 +142,39 @@ public class PowerUpTests {
 		PhysicsManager.update();
 		assertNotEquals("PowerUp did not apply on collision", player.getValue("health"), startHealth);
 	}
+	@Test
+	public void buyPowerUp(){
+		GameManager.CreatePlayer();
+		Player player = GameManager.getPlayer();
+		int health1 = player.getHealth();
+		PowerUp pow = new PowerUp("health", PowerUpOperation.increment, 10f, 0,-1);
+		pow.buyPowerUp();
+		int health2 = player.getHealth();
+		assertTrue((health1<health2));
+	}
 
+	@Test
+	public void powerUpDuration(){
+		GameManager.CreatePlayer();
+		Player player = GameManager.getPlayer();
+		int health1 = player.getHealth();
+		PowerUp pow = new PowerUp("damage", PowerUpOperation.replace, 50f, 0,1);
+		player.getComponent(PowerUpAssigned.class).AssignPowerUp(pow);
+		long startTime = TimeUtils.millis();
+		int health2 = player.getHealth();
+		player.getComponent(PowerUpAssigned.class).update();
+		assertFalse(pow.CheckPowerUpDone());
+		while ((TimeUtils.timeSinceMillis(startTime) < 1000)){
+			TimeUtils.timeSinceMillis(startTime);
+			assertTrue(player.getComponent(Pirate.class).getAttackDmg() == 50.0);
+			pow.CheckPowerUpDone();
+			player.getComponent(PowerUpAssigned.class).update();}
+		assertTrue(pow.CheckPowerUpDone());
+		assertTrue(player.getComponent(Pirate.class).getAttackDmg() == 10.0);
+
+		player.getComponent(PowerUpAssigned.class).update();
+		System.out.println(player.getComponent(Pirate.class).getAttackDmg());
+
+
+	}
 }

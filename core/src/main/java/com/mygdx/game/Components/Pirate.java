@@ -41,6 +41,8 @@ public class Pirate extends Component {
         values.put("health", (float) starting.getInt("health"));
         values.put("damage", (float) starting.getInt("damage"));
         values.put("ammo", (float) starting.getInt("ammo"));
+        values.put("plunder", (float) starting.getInt("plunder"));
+
         values.put("plunderRate", 1f);
         values.put("defense", 1f);
 
@@ -102,7 +104,7 @@ public class Pirate extends Component {
     }
 
     public int getPlunder() {
-        return plunder;
+        return values.get("plunder").intValue();
     }
 
     public int getPoints() {
@@ -111,7 +113,7 @@ public class Pirate extends Component {
 
     public void addPlunder(int money) {
         // Assessment 2 change: Plunder additions are now multiplied by plunderRate value
-        plunder += Math.round(money * values.get("plunderRate"));
+        values.replace("plunder" , values.get("plunder")+ Math.round(money * values.get("plunderRate")));
     }
 
     public void addPoints(int increment) {
