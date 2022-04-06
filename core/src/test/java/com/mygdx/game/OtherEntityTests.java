@@ -111,4 +111,34 @@ public class OtherEntityTests {
 
 		assertFalse("Enemy college fails to damage enemies",building.isAlive());
 	}
+
+	@Test
+	public void projectileHitsShips() {
+		Ship allyShipOne = new Ship();
+		Ship allyShipTwo = new Ship();
+		Ship enemyShip = new Ship();
+
+		allyShipOne.setFaction(1);
+		allyShipTwo.setFaction(1);
+		enemyShip.setFaction(2);
+
+		//Fire cannonball from ally to ally
+		CannonBall cannonBallA = GameManager.getCurrentCannon();
+
+		allyShipOne.shoot(new Vector2(-10,-10));
+		int healthPrior = allyShipTwo.getHealth();
+		allyShipTwo.EnterTrigger(new CollisionInfo(null,null,null,null,cannonBallA,null));
+		int healthPost = allyShipTwo.getHealth();
+
+		assertSame("Ally ship damages allies",healthPrior,healthPost);
+
+		//Fire cannonball from enemy to ally
+		CannonBall cannonBallB = GameManager.getCurrentCannon();
+
+		enemyShip.shoot(new Vector2(10,10));
+		allyShipTwo.EnterTrigger(new CollisionInfo(null,null,null,null,cannonBallB,null));
+		int healthPostPost = allyShipTwo.getHealth();
+
+		assertNotSame("Enemy ship fails to damage enemies",healthPost,healthPostPost);
+	}
 }

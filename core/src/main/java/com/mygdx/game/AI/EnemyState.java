@@ -17,13 +17,11 @@ public enum EnemyState implements State<NPCShip> {
         @Override
         public void enter(NPCShip e) {
             e.stopMovement();
-            e.wander();
         }
 
         @Override
         public void update(NPCShip e) {
             super.update(e);
-            //System.out.println("WANDER");
         }
     },
     /**
@@ -33,13 +31,11 @@ public enum EnemyState implements State<NPCShip> {
         @Override
         public void enter(NPCShip e) {
             e.followTarget();
-            // e.goToTarget();
         }
 
         @Override
         public void update(NPCShip e) {
             super.update(e);
-            //System.out.println("PURSUE");
         }
     },
     /**
@@ -64,13 +60,11 @@ public enum EnemyState implements State<NPCShip> {
         public void update(NPCShip e) {
             super.update(e);
             e.attackPlayer();
-            //System.out.println("ATTACK");
         }
     };
 
     /**
      * Called every from for every NPC ship (there or there abouts)
-     *
      * @param e the sender
      */
     @Override
@@ -116,7 +110,6 @@ public enum EnemyState implements State<NPCShip> {
 
     /**
      * Called when a state is left
-     *
      * @param e the sender
      */
     @Override
@@ -126,7 +119,6 @@ public enum EnemyState implements State<NPCShip> {
 
     /**
      * Called when a state is entered
-     *
      * @param entity the sender
      */
     @Override
