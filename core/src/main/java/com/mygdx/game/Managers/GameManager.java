@@ -15,6 +15,7 @@ import com.mygdx.utils.Utilities;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * Responsible for creating most entity's associated with the game. Also the cached chest and cannonballs
@@ -159,6 +160,32 @@ public final class GameManager {
                 Vector2 position = new Vector2(pos.getFloat(0), pos.getFloat(1));
                 new PowerUpPickup(pow, texName, Utilities.tilesToDistance(position), cooldown);
             }
+        }
+
+        // Assessment 2 change: spawns in obstacles based on settings
+        JsonValue obstaclesData = settings.get("obstacles");
+        JsonValue types = obstaclesData.get("types");
+
+        for (JsonValue pos : obstaclesData.get("positions")) {
+            Vector2 position = new Vector2(pos.getFloat(0), pos.getFloat(1));
+            JsonValue obstacle = types.get(new Random().nextInt(types.size));
+
+            if (Objects.equals(obstacle.getString("name"), "storm")) {
+                new Weather(
+                        obstacle.getFloat("damage"),
+                        obstacle.getFloat("rate", -1)
+                ).getComponent(Transform.class).setPosition(Utilities.tilesToDistance(position));
+            } else {
+                new Obstacle(
+                        obstacle.getString("name"),
+                        obstacle.getBoolean("trigger"),
+                        obstacle.getFloat("damage"),
+                        obstacle.getFloat("rate", -1),
+                        obstacle.getInt("limit", -1)
+                ).getComponent(Transform.class).setPosition(Utilities.tilesToDistance(position));
+            }
+
+            System.out.printf(String.format("%s at %s\n", obstacle.getString("name"), position));
         }
     }
 
