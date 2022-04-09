@@ -15,7 +15,7 @@ public class Weather extends Obstacle {
     private Vector2 dir;
 
     public Weather(float damage, float hitRate) {
-        super(true, damage, hitRate, -1);
+        super("storm", true, damage, hitRate, -1);
 
         speed = GameManager.getSettings().get("Weather").getFloat("maxSpeed");
         freq = GameManager.getSettings().get("Weather").getInt("moveFreq");

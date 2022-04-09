@@ -32,6 +32,7 @@ public class ShipTests {
 		ResourceManager.addTextureAtlas("UISkin/skin.atlas");
 		ResourceManager.addTextureAtlas("Buildings.txt");
 		ResourceManager.addTextureAtlas("powerups.txt");
+		ResourceManager.addTextureAtlas("obstacles.txt");
 		ResourceManager.addTexture("menuBG.jpg");
 		ResourceManager.addTexture("Chest.png");
 		ResourceManager.loadAssets();
