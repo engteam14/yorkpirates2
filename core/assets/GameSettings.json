@@ -17,6 +17,10 @@
       "arrivalTolerance": 32.0,
       "slowRadius": 64.0
     },
+    "Weather" : {
+      "maxSpeed": 25.0,
+      "moveFreq": 7000
+    },
     "factions": [
       {
         "name": "Halifax",
