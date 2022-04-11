@@ -184,8 +184,6 @@ public final class GameManager {
                         obstacle.getInt("limit", -1)
                 ).getComponent(Transform.class).setPosition(Utilities.tilesToDistance(position));
             }
-
-            System.out.printf(String.format("%s at %s\n", obstacle.getString("name"), position));
         }
     }
 
