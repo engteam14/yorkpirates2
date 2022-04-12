@@ -6,6 +6,7 @@ import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Components.PlayerController;
 import com.mygdx.game.Faction;
 import com.mygdx.game.Managers.GameManager;
+import com.mygdx.game.UI.EndScreen;
 import com.mygdx.utils.Utilities;
 
 /**
@@ -65,25 +66,4 @@ public class Player extends Ship {
         return getComponent(Pirate.class).getFaction();
 	}
 
-    /**
-     * Added for Assessment 2
-     * Checks if the player is alive and kills it if it is dead
-     * @return the boolean containing the player's current life status
-     */
-    @Override
-    public boolean isAlive() {
-        boolean alive = (getComponent(Pirate.class).getHealth() > 0);
-        if (!alive) {
-            lose();
-        }
-        return alive;
-    }
-
-    /**
-     * Added for Assessment 2
-     * Ends the game when player has lost
-     */
-    public void lose(){
-        System.out.println("Game Over");
-    }
 }

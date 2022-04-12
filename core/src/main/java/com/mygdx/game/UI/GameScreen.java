@@ -328,6 +328,9 @@ public class GameScreen extends Page {
             questName.setText(q.getName());
             questDesc.setText(q.getDescription());
         }
+        if (!p.isAlive()) {
+            parent.setScreen(parent.end);
+        }
         /*if(!questComplete.getText().equals("")) {
             showTimer += EntityManager.getDeltaTime();
         }
