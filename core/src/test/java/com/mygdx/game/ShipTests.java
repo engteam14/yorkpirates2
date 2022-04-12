@@ -87,17 +87,19 @@ public class ShipTests {
 
 	@Test
 	public void NPCShipTargetsPlayer() {
-		Player player = new Player();
-		NPCShip ship = new NPCShip();
+		GameManager.CreatePlayer();
+		Player p = GameManager.getPlayer();
+		NPCShip ship = GameManager.CreateNPCShip(2);
+		GameManager.CreateCollege(2);
 
 		ship.setFaction(1);
-		player.setFaction(2);
+		p.setFaction(2);
 
-		Transform playerT = player.getComponent(Transform.class);
+		Transform playerT = p.getComponent(Transform.class);
 		Transform shipT = ship.getComponent(Transform.class);
 		Pirate pirate = ship.getComponent(Pirate.class);
 
-		pirate.addTarget(player);
+		pirate.addTarget(p);
 		assertTrue("ship not in attack range",pirate.canAttack());
 		ship.update();
 		assertSame("ship not in attack mode", ATTACK, ship.getCurrentState());

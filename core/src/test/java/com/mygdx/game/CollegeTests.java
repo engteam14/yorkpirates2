@@ -64,8 +64,9 @@ public class CollegeTests {
 
 	@Test
 	public void collegeIsCaptured() {
+		GameManager.CreatePlayer();
 		College college = new College(5);
-		Player player = new Player();
+		Player player = GameManager.getPlayer();
 
 		Faction factionPrior = college.getFaction();
 		college.killThisCollege(player.getFaction());

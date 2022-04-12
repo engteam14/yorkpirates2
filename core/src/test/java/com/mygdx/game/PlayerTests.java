@@ -37,7 +37,8 @@ public class PlayerTests {
 
 	@Test
 	public void playerProgressTasks() {
-		Player player = new Player();
+		GameManager.CreatePlayer();
+		Player player = GameManager.getPlayer();
 
 		Vector2 questLocA = new Vector2(100,100);
 		Vector2 questLocB = new Vector2(player.getPosition());

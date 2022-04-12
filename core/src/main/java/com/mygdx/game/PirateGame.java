@@ -33,6 +33,7 @@ public class PirateGame extends Game {
      */
     @Override
     public void create() {
+        RenderingManager.Initialize(); // added for assessment 2 due to rendering refactoring for testing
         loadResources();
         stage = new Stage(new ScreenViewport());
         createSkin();
@@ -51,7 +52,6 @@ public class PirateGame extends Game {
      * Modularized resource loading so it can be called from tests and for code clarity
      */
     public static void loadResources() {
-        RenderingManager.Initialize(); // added for assessment 2 due to rendering refactoring for testing
         ResourceManager.addTexture("ship.png");
         id_map = ResourceManager.addTileMap("Map.tmx");
 
