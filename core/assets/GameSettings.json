@@ -17,6 +17,53 @@
       "arrivalTolerance": 32.0,
       "slowRadius": 64.0
     },
+    "Weather" : {
+      "maxSpeed": 25.0,
+      "moveFreq": 7000
+    },
+    "obstacles" : {
+      "types": [
+        {
+          "name":  "storm",
+          "damage": 10.0,
+          "rate": 0.5
+        },
+        {
+          "name":  "barrel",
+          "trigger": false,
+          "damage": 10.0,
+          "limit": 1
+        },
+        {
+          "name":  "wood",
+          "trigger": false,
+          "damage": 5.0,
+          "limit": 1
+        },
+        {
+          "name":  "whirlpool",
+          "trigger": true,
+          "damage": 10.0,
+          "rate": 0.3
+        },
+        {
+          "name":  "rock",
+          "trigger": false,
+          "damage": 5.0
+        }
+      ],
+      "positions": [
+        [53, 47],
+        [41, 25],
+        [67, 35],
+        [19, 53],
+        [65, 20],
+        [57 ,7],
+        [47, 77],
+        [88, 60],
+        [60, 10]
+      ]
+    },
     "factions": [
       {
         "name": "Halifax",
