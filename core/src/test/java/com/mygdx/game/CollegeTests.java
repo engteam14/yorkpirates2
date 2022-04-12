@@ -29,18 +29,8 @@ public class CollegeTests {
 
 	@Before
 	public void init(){
-		int id_ship = ResourceManager.addTexture("ship.png");
-		int id_map = ResourceManager.addTileMap("Map.tmx");
-		int atlas_id = ResourceManager.addTextureAtlas("Boats.txt");
-		int extras_id = ResourceManager.addTextureAtlas("UISkin/skin.atlas");
-		int buildings_id = ResourceManager.addTextureAtlas("Buildings.txt");
-		int powerups_id = ResourceManager.addTextureAtlas("powerups.txt");
-		int obstacles_id = ResourceManager.addTextureAtlas("obstacles.txt");
-		ResourceManager.addTexture("menuBG.jpg");
-		ResourceManager.addTexture("Chest.png");
-		ResourceManager.loadAssets();
-
 		INIT_CONSTANTS();
+		PirateGame.loadResources();
 		PhysicsManager.Initialize(false);
 		GameManager.Initialize(GameDifficulty.Regular);
 	}

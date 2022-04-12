@@ -28,7 +28,7 @@ public class Ship extends Entity implements CollisionCallBack {
      * Creates a ship entity, containing Transform, Renderable, RigidBody, and Pirate components.
      */
     public Ship() {
-        super(4);
+        super(5);
         currentDir = new Vector2();
         setName("Ship (" + shipCount++ + ")"); // each ship has a unique name
 

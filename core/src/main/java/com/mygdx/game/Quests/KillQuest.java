@@ -34,4 +34,12 @@ public class KillQuest extends Quest {
         isCompleted = !target.isAlive();
         return isCompleted;
     }
+
+    /**
+     * Added for Assessment 2
+     * @return the target of this quest
+     */
+    public Pirate getTarget() {
+        return target;
+    }
 }
