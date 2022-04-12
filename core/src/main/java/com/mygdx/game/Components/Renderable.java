@@ -90,8 +90,7 @@ public class Renderable extends Component {
     }
 
     /**
-     * Asignes a new texture compatible with textures sourced from atlas
-     *
+     * Assigns a new texture compatible with textures sourced from atlas
      * @param s the sprite contain the texture
      */
     public void setTexture(Sprite s) {

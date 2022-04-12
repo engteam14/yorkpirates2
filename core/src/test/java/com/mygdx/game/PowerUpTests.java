@@ -24,18 +24,8 @@ public class PowerUpTests {
 
 	@Before
 	public void init(){
-		ResourceManager.addTexture("ship.png");
-		ResourceManager.addTileMap("Map.tmx");
-		ResourceManager.addTextureAtlas("Boats.txt");
-		ResourceManager.addTextureAtlas("UISkin/skin.atlas");
-		ResourceManager.addTextureAtlas("Buildings.txt");
-		ResourceManager.addTextureAtlas("powerups.txt");
-		ResourceManager.addTextureAtlas("obstacles.txt");
-		ResourceManager.addTexture("menuBG.jpg");
-		ResourceManager.addTexture("Chest.png");
-		ResourceManager.loadAssets();
-
 		INIT_CONSTANTS();
+		PirateGame.loadResources();
 		PhysicsManager.Initialize(false);
 		GameManager.Initialize(GameDifficulty.Regular);
 	}
@@ -167,11 +157,11 @@ public class PowerUpTests {
 		assertFalse(pow.CheckPowerUpDone());
 		while ((TimeUtils.timeSinceMillis(startTime) < 1000)){
 			TimeUtils.timeSinceMillis(startTime);
-			assertTrue(player.getComponent(Pirate.class).getAttackDmg() == 50.0);
+			assertEquals(50.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
 			pow.CheckPowerUpDone();
 			player.getComponent(PowerUpAssigned.class).update();}
 		assertTrue(pow.CheckPowerUpDone());
-		assertTrue(player.getComponent(Pirate.class).getAttackDmg() == 10.0);
+		assertEquals(10.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
 
 		player.getComponent(PowerUpAssigned.class).update();
 		System.out.println(player.getComponent(Pirate.class).getAttackDmg());

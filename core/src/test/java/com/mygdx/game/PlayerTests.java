@@ -24,17 +24,8 @@ public class PlayerTests {
 
 	@Before
 	public void init(){
-		ResourceManager.addTexture("ship.png");
-		ResourceManager.addTileMap("Map.tmx");
-		ResourceManager.addTextureAtlas("Boats.txt");
-		ResourceManager.addTextureAtlas("UISkin/skin.atlas");
-		ResourceManager.addTextureAtlas("Buildings.txt");
-		ResourceManager.addTextureAtlas("powerups.txt");
-		ResourceManager.addTexture("menuBG.jpg");
-		ResourceManager.addTexture("Chest.png");
-		ResourceManager.loadAssets();
-
 		INIT_CONSTANTS();
+		PirateGame.loadResources();
 		PhysicsManager.Initialize(false);
 		GameManager.Initialize(GameDifficulty.Regular);
 	}
@@ -46,7 +37,8 @@ public class PlayerTests {
 
 	@Test
 	public void playerProgressTasks() {
-		Player player = new Player();
+		GameManager.CreatePlayer();
+		Player player = GameManager.getPlayer();
 
 		Vector2 questLocA = new Vector2(100,100);
 		Vector2 questLocB = new Vector2(player.getPosition());

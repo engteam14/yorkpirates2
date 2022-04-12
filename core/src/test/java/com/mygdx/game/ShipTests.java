@@ -21,18 +21,8 @@ public class ShipTests {
 
 	@Before
 	public void init(){
-		ResourceManager.addTexture("ship.png");
-		ResourceManager.addTileMap("Map.tmx");
-		ResourceManager.addTextureAtlas("Boats.txt");
-		ResourceManager.addTextureAtlas("UISkin/skin.atlas");
-		ResourceManager.addTextureAtlas("Buildings.txt");
-		ResourceManager.addTextureAtlas("powerups.txt");
-		ResourceManager.addTextureAtlas("obstacles.txt");
-		ResourceManager.addTexture("menuBG.jpg");
-		ResourceManager.addTexture("Chest.png");
-		ResourceManager.loadAssets();
-
 		INIT_CONSTANTS();
+		PirateGame.loadResources();
 		PhysicsManager.Initialize(false);
 		GameManager.Initialize(GameDifficulty.Regular);
 	}
@@ -97,17 +87,19 @@ public class ShipTests {
 
 	@Test
 	public void NPCShipTargetsPlayer() {
-		Player player = new Player();
-		NPCShip ship = new NPCShip();
+		GameManager.CreatePlayer();
+		Player p = GameManager.getPlayer();
+		NPCShip ship = GameManager.CreateNPCShip(2);
+		GameManager.CreateCollege(2);
 
 		ship.setFaction(1);
-		player.setFaction(2);
+		p.setFaction(2);
 
-		Transform playerT = player.getComponent(Transform.class);
+		Transform playerT = p.getComponent(Transform.class);
 		Transform shipT = ship.getComponent(Transform.class);
 		Pirate pirate = ship.getComponent(Pirate.class);
 
-		pirate.addTarget(player);
+		pirate.addTarget(p);
 		assertTrue("ship not in attack range",pirate.canAttack());
 		ship.update();
 		assertSame("ship not in attack mode", ATTACK, ship.getCurrentState());

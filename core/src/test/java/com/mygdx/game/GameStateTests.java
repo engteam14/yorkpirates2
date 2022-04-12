@@ -30,18 +30,8 @@ public class GameStateTests {
 
 	@Before
 	public void init(){
-		ResourceManager.addTexture("ship.png");
-		ResourceManager.addTileMap("Map.tmx");
-		ResourceManager.addTextureAtlas("Boats.txt");
-		ResourceManager.addTextureAtlas("UISkin/skin.atlas");
-		ResourceManager.addTextureAtlas("Buildings.txt");
-		ResourceManager.addTextureAtlas("powerups.txt");
-		ResourceManager.addTextureAtlas("obstacles.txt");
-		ResourceManager.addTexture("menuBG.jpg");
-		ResourceManager.addTexture("Chest.png");
-		ResourceManager.loadAssets();
-
 		INIT_CONSTANTS();
+		PirateGame.loadResources();
 		PhysicsManager.Initialize(false);
 		GameManager.Initialize(GameDifficulty.Regular);
 

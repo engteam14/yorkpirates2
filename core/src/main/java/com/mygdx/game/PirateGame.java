@@ -13,6 +13,8 @@ import com.mygdx.game.UI.GameScreen;
 import com.mygdx.game.UI.MenuScreen;
 import com.mygdx.game.UI.PauseScreen;
 
+import java.util.Objects;
+
 /**
  * Contains class instances of game UI screens.
  */
@@ -23,7 +25,7 @@ public class PirateGame extends Game {
     public Stage stage;
     public Skin skin;
     public PauseScreen pause;
-    public int id_map;
+    public static int id_map;
     public GameDifficulty difficulty = GameDifficulty.Regular;
 
     /**
@@ -32,20 +34,7 @@ public class PirateGame extends Game {
     @Override
     public void create() {
         RenderingManager.Initialize(); // added for assessment 2 due to rendering refactoring for testing
-        // load resources
-        int id_ship = ResourceManager.addTexture("ship.png");
-        id_map = ResourceManager.addTileMap("Map.tmx");
-        int atlas_id = ResourceManager.addTextureAtlas("Boats.txt");
-        int extras_id = ResourceManager.addTextureAtlas("UISkin/skin.atlas");
-        int buildings_id = ResourceManager.addTextureAtlas("Buildings.txt");
-        int powerups_id = ResourceManager.addTextureAtlas("powerups.txt");
-        int obstacles_id = ResourceManager.addTextureAtlas("obstacles.txt");
-
-        ResourceManager.addTexture("menuBG.jpg");
-
-        ResourceManager.addTexture("Chest.png");
-        ResourceManager.loadAssets();
-        // can't load any more resources after this point (just functionally I choose not to implement)
+        loadResources();
         stage = new Stage(new ScreenViewport());
         createSkin();
 
@@ -56,6 +45,28 @@ public class PirateGame extends Game {
 
         setScreen(menu);
 
+    }
+
+    /**
+     * Added for Assessment 2
+     * Modularized resource loading so it can be called from tests and for code clarity
+     */
+    public static void loadResources() {
+        ResourceManager.addTexture("ship.png");
+        id_map = ResourceManager.addTileMap("Map.tmx");
+
+        ResourceManager.addTextureAtlas("Boats.txt");
+        ResourceManager.addTextureAtlas("UISkin/skin.atlas");
+        ResourceManager.addTextureAtlas("Buildings.txt");
+        ResourceManager.addTextureAtlas("powerups.txt");
+        ResourceManager.addTextureAtlas("obstacles.txt");
+
+
+        ResourceManager.addTexture("menuBG.jpg");
+        ResourceManager.addTexture("Chest.png");
+        ResourceManager.addTexture("questArrow.png");
+
+        ResourceManager.loadAssets();
     }
 
     /**
@@ -109,17 +120,17 @@ public class PirateGame extends Game {
     }
 
     /**
-     * New for assesment 2
-     * Changes the difficulty for the game by changing the enum and calling GameMananger.getSettings()
+     * New for assessment 2
+     * Changes the difficulty for the game by changing the enum and calling GameManager.getSettings()
      */
     public void setDifficulty(String selected){
-        if (selected == "Easy"){
+        if (Objects.equals(selected, "Easy")){
             difficulty = GameDifficulty.Easy;
         }
-        else if (selected == "Regular") {
+        else if (Objects.equals(selected, "Regular")) {
             difficulty = GameDifficulty.Regular;
         }
-        else if (selected == "Hard") {
+        else if (Objects.equals(selected, "Hard")) {
             difficulty = GameDifficulty.Hard;
         }
         else{

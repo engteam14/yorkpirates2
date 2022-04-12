@@ -98,7 +98,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
     }
 
     /**
-     * creates a new steering behaviour that will make the NPC beeline for the target doesn't factor in obstetrical
+     * creates a new steering behaviour that will make the NPC beeline for the target, doesn't factor in obstetrical
      */
     public void followTarget() {
         if (getTarget() == null) {
@@ -116,6 +116,34 @@ public class NPCShip extends Ship implements CollisionCallBack {
         nav.setBehavior(arrives);
     }
 
+    public void circleOrigin() {
+        College origin = GameManager.getCollege(getFaction().id);
+        Vector2 dirToOrigin = new Vector2( (origin.getPosition().x - getPosition().x),(origin.getPosition().y - getPosition().y) );
+        double currentAngle = Utilities.vectorToAngle(dirToOrigin);
+
+        double theta;
+        if (dirToOrigin.x > 0){
+            theta = currentAngle - (Math.PI)/12;
+        }else{
+            theta = currentAngle + (Math.PI)/12;
+        }
+
+        Transform target = new Transform();
+        float radius = Utilities.tilesToDistance(30);
+        float xPos = (float) (origin.getPosition().x + (radius * Math.cos(theta)));
+        float yPos = (float) (origin.getPosition().y + (radius * Math.sin(theta)));
+        target.setPosition(xPos,yPos);
+
+        AINavigation nav = getComponent(AINavigation.class);
+
+        Arrive<Vector2> arrives = new Arrive<>(nav,target)
+                .setTimeToTarget(AISettings.getFloat("accelerationTime"))
+                .setArrivalTolerance(AISettings.getFloat("arrivalTolerance"))
+                .setDecelerationRadius(AISettings.getFloat("slowRadius"));
+
+        nav.setBehavior(arrives);
+    }
+
     /**
      * stops all movement and sets the behaviour to null
      */
@@ -126,11 +154,10 @@ public class NPCShip extends Ship implements CollisionCallBack {
     }
 
     /**
-     * Added for Assessment 2, calculates the direction the Player is in
+     * Added for Assessment 2, calculates the direction an Enemy Ship is in
      */
-    public Vector2 directionToPlayer() {
-        Player p = GameManager.getPlayer();
-        Vector2 shipLocale = p.getPosition();
+    public Vector2 directionToShip(Ship ship) {
+        Vector2 shipLocale = ship.getPosition();
         Vector2 thisPosition = getPosition();
 
         float xDiff = shipLocale.x-thisPosition.x;
@@ -142,10 +169,10 @@ public class NPCShip extends Ship implements CollisionCallBack {
     /**
      * Added for Assessment 2, shoots a cannonball towards the player ship
      */
-    public void attackPlayer() {
+    public void attackShip(Ship ship) {
         long current = TimeUtils.millis() / 1000;
         if (current > lastShootTime) {
-            Vector2 direction = directionToPlayer();
+            Vector2 direction = directionToShip(ship);
             shoot(direction);
         }
         lastShootTime = current;
@@ -164,7 +191,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
         super.EnterTrigger(info);
         if (info.a instanceof Ship) {
             Ship other = (Ship) info.a;
-            if (Objects.equals(other.getComponent(Pirate.class).getFaction().getName(), getComponent(Pirate.class).getFaction().getName())) {
+            if (Objects.equals(other.getComponent(Pirate.class).getFaction(), getComponent(Pirate.class).getFaction())) {
                 // is the same faction
                 return;
             }
