@@ -22,6 +22,7 @@ public class College extends Entity {
     private Building flag; //Added for Assessment 2, allows flag to be referenced independently of other buildings.
     private long lastShootTime; //Added for Assessment 2, stores the time when the college last attacked
     private float buffer; //Added for Assessment 2, stores the radius of the college's area
+    private boolean alive; //Added for Assessment 2, keeps track of the college's life status
 
     /**
      * Creates a college.
@@ -56,6 +57,7 @@ public class College extends Entity {
         p.setFactionId(factionId);
         p.setInfiniteAmmo(true);
         spawn(f.getColour());
+        alive = true;
     }
 
     /**
@@ -105,6 +107,9 @@ public class College extends Entity {
      *  @return the status of this college
      */
     public boolean isAlive() {
+        if (!alive) {
+            return false;
+        }
         boolean buildingsRemain = false;
         for (int i = 0; i < buildings.size() - 1; i++) {
             Building b = buildings.get(i);
@@ -114,15 +119,17 @@ public class College extends Entity {
         }
         if (!buildingsRemain) {
             getComponent(Pirate.class).kill();
-            //Changes flag to that of conqueror upon defeat
             if(mostRecentAttacker != null){
                 final Vector2 origin = getComponent(Transform.class).getPosition();
                 flag.create(origin,mostRecentAttacker.getColour());
                 getComponent(Pirate.class).setFactionId(mostRecentAttacker.getID());
             }
-            //End of conqueror flag update changes
+            Player p = GameManager.getPlayer();
+            p.plunder(25);
         }
-        return buildingsRemain;
+
+        alive = buildingsRemain;
+        return alive;
     }
 
     /**

@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Entitys.NPCShip;
+import com.mygdx.game.Entitys.Ship;
 
 /**
  * State machine used for NPC ships' behaviour
@@ -22,6 +23,7 @@ public enum EnemyState implements State<NPCShip> {
         @Override
         public void update(NPCShip e) {
             super.update(e);
+            e.circleOrigin();
         }
     },
     /**
@@ -30,6 +32,7 @@ public enum EnemyState implements State<NPCShip> {
     PURSUE() {
         @Override
         public void enter(NPCShip e) {
+            e.stopMovement();
             e.followTarget();
         }
 
@@ -59,7 +62,8 @@ public enum EnemyState implements State<NPCShip> {
         @Override
         public void update(NPCShip e) {
             super.update(e);
-            e.attackPlayer();
+            Ship ship = e.getComponent(Pirate.class).getTarget();
+            e.attackShip(ship);
         }
     };
 

@@ -196,15 +196,18 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getPoints();
     }
 
-    public void shoot(Vector2 dir) {
-        getComponent(Pirate.class).shoot(dir);
+    /**
+     * Calls shoot method with the current direction as parameter
+     */
+    public void shoot() {
+        shoot(currentDir);
     }
 
     /**
-     * Calls shoot function of internal component
+     * Calls shoot method of internal component
      */
-    public void shoot() {
-        getComponent(Pirate.class).shoot(currentDir);
+    public void shoot(Vector2 dir) {
+        getComponent(Pirate.class).shoot(dir);
     }
 
     /**
