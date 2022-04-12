@@ -52,6 +52,7 @@ public class PirateGame extends Game {
      */
     public static void loadResources() {
         RenderingManager.Initialize(); // added for assessment 2 due to rendering refactoring for testing
+        ResourceManager.addTexture("ship.png");
         id_map = ResourceManager.addTileMap("Map.tmx");
 
         ResourceManager.addTextureAtlas("Boats.txt");
@@ -60,7 +61,7 @@ public class PirateGame extends Game {
         ResourceManager.addTextureAtlas("powerups.txt");
         ResourceManager.addTextureAtlas("obstacles.txt");
 
-        ResourceManager.addTexture("ship.png");
+
         ResourceManager.addTexture("menuBG.jpg");
         ResourceManager.addTexture("Chest.png");
         ResourceManager.addTexture("questArrow.png");
@@ -120,7 +121,7 @@ public class PirateGame extends Game {
 
     /**
      * New for assessment 2
-     * Changes the difficulty for the game by changing the enum and calling GameMananger.getSettings()
+     * Changes the difficulty for the game by changing the enum and calling GameManager.getSettings()
      */
     public void setDifficulty(String selected){
         if (Objects.equals(selected, "Easy")){

@@ -2,6 +2,7 @@ package com.mygdx.game.Quests;
 
 import com.mygdx.game.Components.Pirate;
 import com.mygdx.game.Entitys.Entity;
+import com.mygdx.game.Entitys.Indicator;
 import com.mygdx.game.Entitys.Player;
 
 /**
@@ -23,6 +24,7 @@ public class KillQuest extends Quest {
         this();
         this.target = target;
         description = target.getFaction().getName();
+        new Indicator(this);
     }
 
     public KillQuest(Entity target) {
