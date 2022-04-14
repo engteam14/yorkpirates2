@@ -93,12 +93,36 @@ public class PlayerTests {
 
 		after = player.getPlunder();
 		assertTrue("Player hasn't gained loot after picking up loot chest ", (after > initial));
-		//TODO: Check loot on enemy kill
-
 	}
 
 	@Test
 	public void playerPoints() {
+		// Generate Player
+		GameManager.CreatePlayer();
+		Player player = GameManager.getPlayer();
+		int initial = player.getPoints();
+		Vector2 playerLoc = new Vector2(player.getPosition());
 
+		// Check points earned on quests
+		QuestManager.Initialize();
+		assertEquals("Player started with more than 0 points", 0, initial);
+		College collegeToKill = new College(1);
+		KillQuest killCollege = new KillQuest(collegeToKill);
+
+		QuestManager.addQuest(killCollege);
+
+		collegeToKill.killThisCollege(null);
+		QuestManager.checkCompleted();
+
+		int after = player.getPoints();
+		assertTrue("Player hasn't gained points after completing killCollege task", (after > initial));
+
+		// Check points earned on time passing
+		initial = player.getPoints();
+		for (int i = 0; i < 100000000; i++){
+			player.update();
+		}
+		after = player.getPoints();
+		assertTrue("Player hasn't gained points after allowing time to pass", (after > initial));
 	}
 }

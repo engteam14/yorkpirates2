@@ -143,6 +143,18 @@ public class GameStateTests {
 
 	@Test
 	public void loseGame() {
+		// isAlive is used in the GameScreen to check for lose
+		GameManager.CreatePlayer();
+		Player player = GameManager.getPlayer();
+		Pirate playerPirate = player.getComponent(Pirate.class);
+		assertTrue("Player loses on game start", player.isAlive());
 
+		// Damage player with amount that will not kill
+		playerPirate.takeDamage(10);
+		assertTrue("Player loses after taking non fatal damage", player.isAlive());
+
+		// Damage player with amount that will kill
+		playerPirate.takeDamage(100000);
+		assertFalse("Player does not lose after taking fatal damage", player.isAlive());
 	}
 }
