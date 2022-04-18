@@ -261,7 +261,9 @@ public class GameScreen extends Page {
         GameManager.update();
         // show end screen if esc is pressed
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            parent.setScreen(parent.end);
+            parent.pause();
+            pixmap = Pixmap.createFromFrameBuffer(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            parent.setScreen(parent.pause);
         }
         super.render(delta);
     }
