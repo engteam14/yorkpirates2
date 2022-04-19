@@ -13,11 +13,11 @@ import com.mygdx.game.Managers.GameManager;
 public class PowerUp {
 
     private String name;
-    private int cost;
-    private String key;
-    private PowerUpOperation oper;
-    private float value;
-    private long duration;
+    private final int cost;
+    private final String key;
+    private final PowerUpOperation oper;
+    private final float value;
+    private final long duration;
     private long startTime;
     private boolean done;
 
@@ -118,16 +118,12 @@ public class PowerUp {
         done = true;
     }
 
-    public Boolean buyPowerUp(){
+    public void buyPowerUp(){
         if (GameManager.getPlayer().getPlunder() >= this.cost) {
             GameManager.getPlayer().plunder((-this.cost));
             GameManager.getPlayer().getComponent(PowerUpAssigned.class).AssignPowerUp(this);
-            return true;
-        }else {
-            return false;
-            }
+        }
       }
-
 
     public String getName() {
         return name;

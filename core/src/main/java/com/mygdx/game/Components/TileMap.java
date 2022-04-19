@@ -37,21 +37,6 @@ public class TileMap extends Component {
         TILE_SIZE = getTileDim().x;
     }
 
-    /**
-     * Gets cell at position (in world space, must be n the maps range)
-     *
-     * @param pos pos in world space
-     * @return the cell found
-     */
-    public TiledMapTileLayer.Cell getCell(Vector2 pos) {
-        Vector2 p = pos.cpy();
-        TiledMapTileLayer l = (TiledMapTileLayer) map.getLayers().get(1);
-        p.x /= l.getTileWidth();
-        p.y /= l.getTileHeight();
-
-        return l.getCell((int) p.x, (int) p.y);
-    }
-
     public Vector2 getTileDim() {
         return new Vector2(
                 ((TiledMapTileLayer) map.getLayers().get(0)).getTileWidth(),
@@ -84,4 +69,13 @@ public class TileMap extends Component {
     public void cleanUp() {
         super.cleanUp();
     }
+
+    //public TiledMapTileLayer.Cell getCell(Vector2 pos) {
+    //        Vector2 p = pos.cpy();
+    //        TiledMapTileLayer l = (TiledMapTileLayer) map.getLayers().get(1);
+    //        p.x /= l.getTileWidth();
+    //        p.y /= l.getTileHeight();
+    //
+    //        return l.getCell((int) p.x, (int) p.y);
+    //    }
 }

@@ -27,8 +27,11 @@ public class GameScreen extends Page {
     private Label ammo;
     private final Label questDesc;
     private final Label questName;
+
     public Pixmap pixmap;
-    private PauseScreen pause;
+    private float accumulator;
+
+    //private PauseScreen pause;
     /*private final Label questComplete;
     private float showTimer = 0;
     // in seconds
@@ -51,7 +54,6 @@ public class GameScreen extends Page {
         int extras_id = ResourceManager.addTextureAtlas("UISkin/skin.atlas");
         int buildings_id = ResourceManager.addTextureAtlas("Buildings.txt");
         ResourceManager.loadAssets();*/
-
 
         GameManager.SpawnGame(id_map);
         //QuestManager.addQuest(new KillQuest(c));
@@ -103,7 +105,6 @@ public class GameScreen extends Page {
         table.add(new Label("Pause", parent.skin)).left(); // changed to pause for assessment 2
         table.add(new Image(parent.skin, "key-esc"));
 
-
         HashMap<String, PowerUp> powerUps = new HashMap<>();
 
         //create power ups
@@ -113,7 +114,6 @@ public class GameScreen extends Page {
             PowerUp pow = new PowerUp(powData);
             powerUps.put(powData.getString("id"), pow);
         }
-
 
         // start of addition for assessment 2 to add a shop to the UI
         Table shop = new Table();
@@ -235,15 +235,11 @@ public class GameScreen extends Page {
         // end of addition for assessment 2
     }
 
-    private float accumulator;
-
     /**
      * Called every frame calls all other functions that need to be called every frame by rasing events and update methods
      *
      * @param delta delta time
      */
-
-
     @Override
     public void render(float delta) {
         ScreenUtils.clear(BACKGROUND_COLOUR.x, BACKGROUND_COLOUR.y, BACKGROUND_COLOUR.z, 1);
@@ -374,5 +370,4 @@ public class GameScreen extends Page {
 
         table.top().left();
     }
-
 }

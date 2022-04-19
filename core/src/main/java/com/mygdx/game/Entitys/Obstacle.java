@@ -32,28 +32,6 @@ public class Obstacle extends Entity implements CollisionCallBack {
     }
 
     /**
-     * Generate an obstacle which only triggers a hit on initial collision.
-     * @param texName       The texture to show for the obstacle.
-     * @param trigger       True if the obstacle is trigger, otherwise is contact.
-     * @param damage        The damage that the obstacle does per 'hit'
-     * @param hitLimit      The number of 'hits' required to break the obstacle
-     */
-    public Obstacle(String texName, boolean trigger, float damage, int hitLimit) {
-        this(texName, trigger, damage, -1f, hitLimit);
-    }
-
-    /**
-     * Generate an obstacle which does not break.
-     * @param texName       The texture to show for the obstacle.
-     * @param trigger       True if the obstacle is trigger, otherwise is contact.
-     * @param damage        The damage that the obstacle does per 'hit'
-     * @param hitRate       The rate at which 'hits' occur while colliding
-     */
-    public Obstacle(String texName, boolean trigger, float damage, float hitRate) {
-        this(texName, trigger, damage, hitRate, -1);
-    }
-
-    /**
      * Generate an obstacle.
      * @param texName       The texture to show for the obstacle.
      * @param trigger       True if the obstacle is trigger, otherwise is contact.
@@ -114,4 +92,12 @@ public class Obstacle extends Entity implements CollisionCallBack {
     public void ExitTrigger(CollisionInfo info) {
         colliding = false;
     }
+
+    //    public Obstacle(String texName, boolean trigger, float damage, int hitLimit) {
+    //        this(texName, trigger, damage, -1f, hitLimit);
+    //    }
+
+    //    public Obstacle(String texName, boolean trigger, float damage, float hitRate) {
+    //        this(texName, trigger, damage, hitRate, -1);
+    //    }
 }

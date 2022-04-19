@@ -14,14 +14,13 @@ import static com.mygdx.utils.Constants.*;
  * holds the primary sprite batch and rendering camera
  */
 public final class RenderingManager {
-    private static boolean initialized = false;
     private static ArrayList<Component> renderItems;
     private static ArrayList<ArrayList<Integer>> layers;
     private static OrthographicCamera camera;
     private static SpriteBatch batch;
 
     public static void Initialize() {
-        initialized = true;
+        //boolean initialized = true;
         renderItems = new ArrayList<>();
 
         batch = new SpriteBatch();
@@ -42,11 +41,6 @@ public final class RenderingManager {
         return camera;
     }
 
-
-    public static void setCamera(OrthographicCamera cam) {
-        camera = cam;
-    }
-
     /**
      * adds item to the list of renderable and adds to the correct layer
      *
@@ -54,7 +48,7 @@ public final class RenderingManager {
      * @param layer the layer that it will be rendered in
      */
     public static void addItem(Component item, RenderLayer layer) {
-        tryInit();
+        //tryInit();
 
         // start of change for assesment 2 - to initialise empty lists if initialise() hasnt already been called due to testing
         if(renderItems == null) renderItems = new ArrayList<>();
@@ -68,17 +62,11 @@ public final class RenderingManager {
         layers.get(layer.ordinal()).add(renderItems.size() - 1);
     }
 
-    private static void tryInit() {
-        if (!initialized) {
-            //Initialize(); removed for assesment 2
-        }
-    }
-
     /**
      * Renders all items in accordance with their layers on one sprite batch
      */
     public static void render() {
-        tryInit();
+        //tryInit();
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -108,4 +96,14 @@ public final class RenderingManager {
     public static SpriteBatch getBatch() {
         return batch;
     }
+
+    //public static void setCamera(OrthographicCamera cam) {
+    //        camera = cam;
+    //    }
+
+    //private static void tryInit() {
+    //        if (!initialized) {
+    //            //Initialize();
+    //        }
+    //    }
 }

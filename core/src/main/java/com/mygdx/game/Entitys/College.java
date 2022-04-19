@@ -70,7 +70,6 @@ public class College extends Entity {
         JsonValue collegeSettings = GameManager.getSettings().get("college");
         float radius = collegeSettings.getFloat("spawnRadius");
         buffer = Utilities.tilesToDistance(radius+1f) ;
-        getComponent(Pirate.class).setBuffer(buffer);
         // radius = Utilities.tilesToDistance(radius) * BUILDING_SCALE;
         final Vector2 origin = getComponent(Transform.class).getPosition();
         ArrayList<Vector2> posList = new ArrayList<>();

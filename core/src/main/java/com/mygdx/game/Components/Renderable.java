@@ -114,8 +114,7 @@ public class Renderable extends Component {
         isVisible = false;
     }
 
-    public void toggleVisibility() {
-        isVisible = !isVisible;
-    }
-
+    //public void toggleVisibility() {
+    //    isVisible = !isVisible;
+    //}
 }

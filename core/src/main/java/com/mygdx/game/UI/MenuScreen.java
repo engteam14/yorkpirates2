@@ -42,7 +42,7 @@ public class MenuScreen extends Page {
         t.add(l).top().spaceBottom(space);
         t.row();
 
-        hardness = new SelectBox<String>(parent.skin);
+        hardness = new SelectBox<>(parent.skin);
 
 
         String[] values = new String[]{"Easy", "Regular", "Hard"};
@@ -99,13 +99,10 @@ public class MenuScreen extends Page {
         actors.add(t);
     }
 
-
-
     @Override
     public void show() {
         super.show();
     }
-
 
     @Override
     public void hide() {
