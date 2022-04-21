@@ -34,6 +34,7 @@ jobs:
       - name: Deploy Test Reports to Website
         uses: peaceiris/actions-gh-pages@v3
         with:
+          enable_jekyll: true
           deploy_key: ${{ secrets.SITE_DEPLOY_KEY }}
           external_repository: engteam14/website2
           publish_branch: main
@@ -72,6 +73,7 @@ jobs:
       - name: Deploy Jar
         uses: peaceiris/actions-gh-pages@v3
         with:
+          enable_jekyll: true
           deploy_key: ${{ secrets.SITE_DEPLOY_KEY }}
           external_repository: engteam14/website2
           publish_branch: main
@@ -106,6 +108,7 @@ jobs:
       - name: Deploy Documentation to Website
         uses: peaceiris/actions-gh-pages@v3
         with:
+          enable_jekyll: true
           deploy_key: ${{ secrets.SITE_DEPLOY_KEY }}
           external_repository: engteam14/website2
           publish_branch: main
