@@ -9,10 +9,6 @@ import com.mygdx.game.Managers.RenderLayer;
  * The world map
  */
 public class WorldMap extends Entity {
-    public WorldMap() {
-        super();
-    }
-
     public WorldMap(int mapId) {
         super(1);
         setName("WorldMap");

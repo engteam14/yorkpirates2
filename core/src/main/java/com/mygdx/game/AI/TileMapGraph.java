@@ -21,7 +21,7 @@ import static com.mygdx.utils.TileMapCells.PASSABLE;
  * The Graphical representation of the tilemap with each cell being bidirectionally to the adjacent nodes.
  */
 public class TileMapGraph implements IndexedGraph<Node> {
-    private final NodeHeuristic heuristic;
+    //private final NodeHeuristic heuristic;
     private final Array<Node> nodes;
     private final Array<Path> paths;
     private final Vector2 mapDim;
@@ -30,7 +30,7 @@ public class TileMapGraph implements IndexedGraph<Node> {
 
     private TileMapGraph() {
 
-        heuristic = new NodeHeuristic();
+        //heuristic = new NodeHeuristic();
         nodes = new Array<>();
         paths = new Array<>();
         nodePaths = new ObjectMap<>();
@@ -183,88 +183,6 @@ public class TileMapGraph implements IndexedGraph<Node> {
         addPath(a, b);
     }
 
-    /**
-     * Finds the path
-     *
-     * @param start the starting node
-     * @param goal  the ending node
-     * @return a queue of the nodes to visit null if no path id found
-     */
-    public GraphPath<Node> findPath(Node start, Node goal) {
-        if (start == null || goal == null) {
-            return null;
-        }
-        GraphPath<Node> path = new DefaultGraphPath<>();
-        new IndexedAStarPathFinder<>(this).searchNodePath(start, goal, heuristic, path);
-        return path;
-    }
-
-    /**
-     * Finds a sequence of locations which can be travelled to without collision
-     *
-     * @param a starting node
-     * @param b destination node
-     * @return queue of location to travel to in order
-     */
-    public QueueFIFO<Vector2> findOptimisedPath(Node a, Node b) {
-        GraphPath<Node> path = findPath(a, b);
-        QueueFIFO<Vector2> res = new QueueFIFO<>();
-        Vector2 delta = new Vector2();
-        float sequenceLength = 0; // the amount of times a
-        Vector2 cur = new Vector2();
-
-        Vector2 prev = path.get(0).getPosition();
-        for (int i = 1; i < path.getCount(); i++) {
-            Node n = path.get(i);
-            cur.set(n.getPosition());
-            // d contains the current vector between the current pos an prev
-            Vector2 d = cur.cpy();
-            d.sub(prev);
-
-
-            if (delta.x == d.x && delta.y == d.y) {
-                sequenceLength++;
-            } else {
-                res.add(delta.scl(sequenceLength));
-                delta = d;
-                sequenceLength = 1;
-            }
-            prev.set(cur);
-        }
-        res.remove(0);
-        res.add(delta.scl(sequenceLength));
-        return res;
-    }
-
-    /**
-     * Finds a sequence on locations which can be travelled to without collision
-     *
-     * @param a starting node location
-     * @param b destination node location
-     * @return queue of location to travel to in order
-     */
-    public QueueFIFO<Vector2> findOptimisedPath(Vector2 a, Vector2 b) {
-        Node n1 = getNode(a.x, a.y);
-        Node n2 = getNode(b.x, b.y);
-        return findOptimisedPath(n1, n2);
-    }
-
-    /**
-     * Finds a sequence on locations which can be travelled to without collision
-     *
-     * @param x1 starting node x co-ords tile space
-     * @param y1 starting node y co-ords tile space
-     * @param x2 destination node x co-ords tile space
-     * @param y2 destination node y co-ords tile space
-     * @return queue of location to travel to in order
-     */
-    public QueueFIFO<Vector2> findOptimisedPath(float x1, float y1, float x2, float y2) {
-        Node a = getNode(x1, y1);
-        Node b = getNode(x2, y2);
-        return findOptimisedPath(a, b);
-    }
-
-
     // The Interface
     @Override
     public int getIndex(Node node) {
@@ -284,4 +202,55 @@ public class TileMapGraph implements IndexedGraph<Node> {
 
         return new Array<>();
     }
+
+    //public GraphPath<Node> findPath(Node start, Node goal) {
+    //        if (start == null || goal == null) {
+    //            return null;
+    //        }
+    //        GraphPath<Node> path = new DefaultGraphPath<>();
+    //        new IndexedAStarPathFinder<>(this).searchNodePath(start, goal, heuristic, path);
+    //        return path;
+    //    }
+
+    //public QueueFIFO<Vector2> findOptimisedPath(Node a, Node b) {
+    //        GraphPath<Node> path = findPath(a, b);
+    //        QueueFIFO<Vector2> res = new QueueFIFO<>();
+    //        Vector2 delta = new Vector2();
+    //        float sequenceLength = 0; // the amount of times a
+    //        Vector2 cur = new Vector2();
+    //
+    //        Vector2 prev = path.get(0).getPosition();
+    //        for (int i = 1; i < path.getCount(); i++) {
+    //            Node n = path.get(i);
+    //            cur.set(n.getPosition());
+    //            // d contains the current vector between the current pos an prev
+    //            Vector2 d = cur.cpy();
+    //            d.sub(prev);
+    //
+    //
+    //            if (delta.x == d.x && delta.y == d.y) {
+    //                sequenceLength++;
+    //            } else {
+    //                res.add(delta.scl(sequenceLength));
+    //                delta = d;
+    //                sequenceLength = 1;
+    //            }
+    //            prev.set(cur);
+    //        }
+    //        res.remove(0);
+    //        res.add(delta.scl(sequenceLength));
+    //        return res;
+    //    }
+
+    //public QueueFIFO<Vector2> findOptimisedPath(Vector2 a, Vector2 b) {
+    //      Node n1 = getNode(a.x, a.y);
+    //      Node n2 = getNode(b.x, b.y);
+    //      return findOptimisedPath(n1, n2);
+    //    }
+
+    //public QueueFIFO<Vector2> findOptimisedPath(float x1, float y1, float x2, float y2) {
+    //    Node a = getNode(x1, y1);
+    //    Node b = getNode(x2, y2);
+    //    return findOptimisedPath(a, b);
+    //    }
 }

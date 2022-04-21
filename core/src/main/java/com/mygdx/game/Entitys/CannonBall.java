@@ -99,10 +99,6 @@ public class CannonBall extends Entity implements CollisionCallBack {
         toggleLife = true;
     }
 
-    public Entity getShooter() { // Changed for Assessment 2, type switched from Ship to Entity
-        return shooter;
-    }
-
     /**
      * Added for Assessment 2
      * @return The Faction of the Pirate Component attached to this entity
@@ -138,4 +134,8 @@ public class CannonBall extends Entity implements CollisionCallBack {
     public void ExitTrigger(CollisionInfo info) {
 
     }
+
+    //    public Entity getShooter() {
+    //        return shooter;
+    //    }
 }

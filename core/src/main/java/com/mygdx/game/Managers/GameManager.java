@@ -20,7 +20,6 @@ import java.util.Random;
  * Responsible for creating most entity's associated with the game. Also the cached chest and cannonballs
  */
 public final class GameManager {
-    private static boolean initialized = false;
     private static ArrayList<Faction> factions;
     private static ArrayList<Ship> ships;
     private static ArrayList<College> colleges;
@@ -31,16 +30,11 @@ public final class GameManager {
 
     private static JsonValue settings;
 
-    private static TileMapGraph mapGraph;
-    private static JsonValue settingsAll;
-
-
     /**
      * facilitates creation of the game
      * @param difficulty contains the ENUM for the difficulty that has been selected
      */
     public static void Initialize(GameDifficulty difficulty) {
-        initialized = true;
         currentElement = 0;
         // start of change for assessment 2, adds functionality for changing difficulty
 
@@ -80,12 +74,8 @@ public final class GameManager {
 
         if (!Objects.equals(difficulty, "Regular")) {
             JsonValue editSet = settingsAll.get(difficulty);
-            JsonValue.JsonIterator it = editSet.iterator();
-            while (it.hasNext()) {
-                JsonValue x = it.next();
-                JsonValue.JsonIterator it2 = x.iterator();
-                while (it2.hasNext()) {
-                    JsonValue value = it2.next();
+            for (JsonValue x : editSet) {
+                for (JsonValue value : x) {
                     System.out.println(value);
                     settings.get(x.name).get(value.name).set(value.asDouble(), null);
                 }
@@ -210,7 +200,7 @@ public final class GameManager {
      */
     public static void CreateWorldMap(int mapId) {
         WorldMap map = new WorldMap(mapId);
-        mapGraph = new TileMapGraph(map.getTileMap());
+        TileMapGraph mapGraph = new TileMapGraph(map.getTileMap());
     }
 
     /**
@@ -230,7 +220,6 @@ public final class GameManager {
 
     /**
      * Gets the setting object from the GameSetting.json
-     *
      * @return the JSON representation fo settings
      */
     public static JsonValue getSettings() {
@@ -262,17 +251,6 @@ public final class GameManager {
         currentElement %= cacheSize;
     }
 
-    /**
-     * uses a* not sure if it works but i think it does
-     *
-     * @param loc src
-     * @param dst dst
-     * @return queue of delta positions
-     */
-    public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
-        return mapGraph.findOptimisedPath(loc, dst);
-    }
-
     public static ArrayList<Ship> getShips(){
         return ships;
     }
@@ -280,10 +258,7 @@ public final class GameManager {
         return colleges;
     }
 
-
-
     public static void dispose(){
-        initialized = true;
         currentElement = 0;
 
         factions = new ArrayList<>();
@@ -292,4 +267,8 @@ public final class GameManager {
         colleges = new ArrayList<>();
 
     }
+
+    //public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {
+    //    return mapGraph.findOptimisedPath(loc, dst);
+    //}
 }

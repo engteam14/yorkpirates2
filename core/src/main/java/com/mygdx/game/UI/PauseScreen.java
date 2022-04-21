@@ -23,10 +23,8 @@ import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
  */
 public class PauseScreen extends Page{
 
-
     public PauseScreen(PirateGame game) {
         super(game);
-
     }
 
     @Override
@@ -59,8 +57,6 @@ public class PauseScreen extends Page{
             public void changed(ChangeEvent event, Actor actor) {
                 parent.game.hide();
                 parent.restartGame();
-
-
             }
         });
         t.add(restart).fill().spaceBottom(space);
@@ -90,7 +86,6 @@ public class PauseScreen extends Page{
             }
         });
         t.add(exit).fill().spaceBottom(space);
-
     }
 
     @Override

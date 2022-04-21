@@ -21,8 +21,8 @@ public class PowerUpPickup extends Entity implements CollisionCallBack {
     private final PowerUp powerUp;
     private boolean hideToggle;
     private boolean showToggle;
-    private Vector2 position;
-    private long cooldown;
+    private final Vector2 position;
+    private final long cooldown;
     private long lastHit;
 
     public PowerUpPickup(PowerUp powerUp, String texName, Vector2 pos, int cooldown) {
@@ -43,7 +43,7 @@ public class PowerUpPickup extends Entity implements CollisionCallBack {
         position = pos;
         setPosition(pos);
 
-        this.cooldown = 1000 * cooldown;
+        this.cooldown = 1000L * cooldown;
         lastHit = 0;
     }
 

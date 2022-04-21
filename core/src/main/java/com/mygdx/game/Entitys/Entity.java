@@ -86,24 +86,6 @@ public class Entity {
     }
 
     /**
-     * Gets the list of components that is of the same type as T
-     *
-     * @param type [T].class
-     * @param <T>  the type of the desired component
-     * @return the components cast to the appropriate type
-     */
-    @SuppressWarnings("unchecked")
-    public <T> ArrayList<T> getComponents(Class<T> type) {
-        ArrayList<T> res = new ArrayList<>();
-        for (Component c : components) {
-            if (type.isInstance(c)) {
-                res.add((T) c);
-            }
-        }
-        return res;
-    }
-
-    /**
      * Raises the appropriate events on each component with exception to rendering
      */
     public final void raiseEvents(ComponentEvent... events) {
@@ -143,4 +125,14 @@ public class Entity {
             component = null;
         }
     }
+
+    //    public <T> ArrayList<T> getComponents(Class<T> type) {
+    //        ArrayList<T> res = new ArrayList<>();
+    //        for (Component c : components) {
+    //            if (type.isInstance(c)) {
+    //                res.add((T) c);
+    //            }
+    //        }
+    //        return res;
+    //    }
 }

@@ -19,12 +19,11 @@ import static com.mygdx.utils.Constants.TILE_SIZE;
  * Creates the quests and manages their completion and order
  */
 public class QuestManager {
-    private static boolean initialized = false;
     private static ArrayList<Quest> allQuests;
     private static Chest chest;
 
     public static void Initialize() {
-        initialized = true;
+        //boolean initialized = true;
         allQuests = new ArrayList<>();
         chest = new Chest();
 
@@ -137,12 +136,6 @@ public class QuestManager {
         }
     }
 
-    private static void tryInit() {
-        if (!initialized) {
-            Initialize();
-        }
-    }
-
     /**
      * Returns the next un-completed quest
      *
@@ -182,4 +175,10 @@ public class QuestManager {
       //  tryInit(); removed for assesment 2
         return currentQuest() != null;
     }
+
+    //    private static void tryInit() {
+    //        if (!initialized) {
+    //            Initialize();
+    //        }
+    //    }
 }

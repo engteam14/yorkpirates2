@@ -116,26 +116,6 @@ public final class Utilities {
     }
 
     /**
-     * helper for System.out.print
-     *
-     * @param v   string
-     * @param eol eol msg
-     */
-    public static void print(String v, String eol) {
-        System.out.print(v + eol);
-    }
-
-
-    /**
-     * helper for System.out.println
-     *
-     * @param v string
-     */
-    public static void print(String v) {
-        System.out.println(v);
-    }
-
-    /**
      * does array contain a
      *
      * @param array source
@@ -151,4 +131,12 @@ public final class Utilities {
         }
         return false;
     }
+
+    //public static void print(String v, String eol) {
+    //        System.out.print(v + eol);
+    //    }
+
+    //public static void print(String v) {
+    //        System.out.println(v);
+    //    }
 }

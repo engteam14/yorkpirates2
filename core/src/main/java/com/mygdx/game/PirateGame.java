@@ -44,7 +44,6 @@ public class PirateGame extends Game {
         pause = new PauseScreen(this);
 
         setScreen(menu);
-
     }
 
     /**
@@ -113,10 +112,7 @@ public class PirateGame extends Game {
         GameManager.Initialize(difficulty);
 
         game = new GameScreen(this, id_map);
-
         setScreen(menu);
-
-
     }
 
     /**

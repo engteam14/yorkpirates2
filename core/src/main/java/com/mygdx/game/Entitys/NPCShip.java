@@ -31,7 +31,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     public NPCShip() {
         super();
-        QueueFIFO<Vector2> path = new QueueFIFO<>();
+        //QueueFIFO<Vector2> path = new QueueFIFO<>();
 
         if (AISettings == null) {
             AISettings = GameManager.getSettings().get("AI");

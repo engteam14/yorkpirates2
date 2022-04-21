@@ -48,16 +48,6 @@ public final class EntityManager {
     }
 
     /**
-     * gets the first entity found with the given name
-     *
-     * @param name name of the entity
-     * @return the found entity
-     */
-    public static Entity getEntity(String name) {
-        return entities.get(entityNames.indexOf(name));
-    }
-
-    /**
      * changes the entity's name
      *
      * @param prev old name
@@ -120,7 +110,11 @@ public final class EntityManager {
         return Gdx.graphics.getDeltaTime();
     }
 
-    public static int getFPS() {
-        return Gdx.graphics.getFramesPerSecond();
-    }
+    //    public static Entity getEntity(String name) {
+    //        return entities.get(entityNames.indexOf(name));
+    //    }
+
+    //public static int getFPS() {
+    //        return Gdx.graphics.getFramesPerSecond();
+    //    }
 }

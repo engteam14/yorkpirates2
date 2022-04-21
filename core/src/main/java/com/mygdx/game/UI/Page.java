@@ -16,7 +16,6 @@ import static com.mygdx.utils.Constants.UPDATE_VIEWPORT;
 public abstract class Page extends ScreenAdapter {
     PirateGame parent;
 
-
     protected ArrayList<Actor> actors;
 
     public Page(PirateGame parent) {

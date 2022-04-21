@@ -86,8 +86,6 @@ public final class SaveManager {
             }
         }
         QuestManager.setCurrentQuest(prefs.getString("currentQuest"));
-
-
     }
 }
 

@@ -20,12 +20,11 @@ public class Pirate extends Component {
     private int factionId;
     private final HashMap<String,Float> defaults;
     private final HashMap<String,Float> values;
-    private int plunder;
+    //private int plunder;
     private int points;
     protected boolean isAlive;
 
     private boolean infiniteAmmo; // Added for Assessment 2 for power-ups and colleges
-    private float buffer; // Added for Assessment 2 to shift projectile spawn area
 
     private final QueueFIFO<Ship> targets;
 
@@ -124,14 +123,6 @@ public class Pirate extends Component {
         return GameManager.getFaction(factionId);
     }
 
-    /**
-     * Added for Assessment 2
-     * @return the faction ID of this component
-     */
-    public int getFactionId() {
-        return factionId;
-    }
-
     public void setFactionId(int factionId) {
         this.factionId = factionId;
     }
@@ -142,14 +133,6 @@ public class Pirate extends Component {
      */
     public void setInfiniteAmmo(boolean status) {
         infiniteAmmo = status;
-    }
-
-    /**
-     * Added for Assessment 2, sets the buffer radius of this pirate
-     * @param radius float value to set the buffer to
-     */
-    public void setBuffer(float radius) {
-        buffer = radius;
     }
 
     /**
@@ -192,15 +175,6 @@ public class Pirate extends Component {
         GameManager.shoot(parent, startPos, direction);
     }
 
-    /**
-     * Adds ammo
-     * @param ammo amount to add
-     */
-    public void reload(int ammo) {
-        // Assessment 2 change: Refactored to use key for ammo instead of variable
-        values.replace("ammo", (float) getAmmo()+ammo);
-    }
-
     public int getHealth() {
         // Assessment 2 change: Refactored to use key for health instead of variable
         return Math.round(values.get("health"));
@@ -240,10 +214,6 @@ public class Pirate extends Component {
         return targets.peek();
     }
 
-    public void removeTarget() {
-        targets.pop();
-    }
-
     public boolean isAlive() {
         return isAlive;
     }
@@ -267,11 +237,20 @@ public class Pirate extends Component {
         return Math.round(values.get("ammo"));
     }
 
-    public int targetCount() {
-        return targets.size();
-    }
-
     public QueueFIFO<Ship> getTargets() {
         return targets;
     }
+
+    //public int targetCount() {
+    //        return targets.size();
+    //    }
+
+    //public void removeTarget() {
+    //        targets.pop();
+    //    }
+
+    //public void reload(int ammo) {
+    //        // Assessment 2 change: Refactored to use key for ammo instead of variable
+    //        values.replace("ammo", (float) getAmmo()+ammo);
+    //    }
 }
