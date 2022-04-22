@@ -27,7 +27,7 @@ import static com.mygdx.utils.Constants.INIT_CONSTANTS;
 import static org.junit.Assert.*;
 
 @RunWith(GdxTestRunner.class)
-public class OtherEntityTests {
+public class ProjectileTests {
 
 	@Before
 	public void init(){
