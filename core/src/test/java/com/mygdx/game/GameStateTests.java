@@ -43,6 +43,10 @@ public class GameStateTests {
 		GameManager.dispose();
 	}
 
+	/**
+	 * Test Identifier: 2.0
+	 * Requirements Tested: UR_GAME_INIT
+	 */
 	@Test
 	public void gameStart() {
 		GameManager.changeDifficulty("Regular");
@@ -121,6 +125,10 @@ public class GameStateTests {
 		}
 	}
 
+	/**
+	 * Test Identifier: 2.1
+	 * Requirements Tested: UR_GAME_WIN
+	 */
 	@Test
 	public void winGame() {
 		// anyQuests is used in the GameScreen to check for win
