@@ -12,6 +12,9 @@ public class LocateQuest extends Quest {
     private final Vector2 loc;
     private float radius;
 
+    /**
+     * Creates a Location Quest, with all the base attributes filled in with templates
+     */
     public LocateQuest() {
         super();
         name = "Find a chest";
@@ -23,8 +26,7 @@ public class LocateQuest extends Quest {
     }
 
     /**
-     * The loc to go to and radius that the play has to be in to completed it
-     *
+     * The loc to go to and radius that the play has to be in to complete it
      * @param pos location to find
      * @param r   leeway in completion
      */
@@ -47,6 +49,9 @@ public class LocateQuest extends Quest {
 
     }
 
+    /**
+     * @return The completion status of the quest
+     */
     @Override
     public boolean checkCompleted(Player p) {
         if (radius == -1) {
@@ -59,6 +64,9 @@ public class LocateQuest extends Quest {
         return isCompleted;
     }
 
+    /**
+     * @return The end location of the quest
+     */
     public Vector2 getLocation() {
         return loc;
     }

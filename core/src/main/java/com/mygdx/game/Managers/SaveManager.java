@@ -18,7 +18,7 @@ public final class SaveManager {
 
     /**
      * Added for assessment 2
-     * Saves the state of the game. Added for assesment 2
+     * Saves the state of the game. Added for assessment 2
      */
     public static void SaveGame(){
         prefs = Gdx.app.getPreferences("pirate/GameSave_game_1");
@@ -35,7 +35,7 @@ public final class SaveManager {
             prefs.putInteger("ship" + "F", ship.getComponent(Pirate.class).getFaction().id);
         }
         ArrayList<College> colleges = GameManager.getColleges();
-        //saves wether each college is alive of not
+        //saves whether each college is alive or not
         for (College college : colleges) {
             prefs.putBoolean(college.f.id + "Alive", college.isAlive());
         }

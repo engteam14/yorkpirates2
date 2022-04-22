@@ -72,11 +72,16 @@ public class Transform extends Component implements Location<Vector2> {
         if (parent != null) {
             RigidBody rb = parent.getComponent(RigidBody.class);
             if (rb != null) {
-                rb.setPosition(position, true);
+                rb.setPosition(position);
             }
         }
     }
 
+    /**
+     * Sets the scale of the component
+     * @param x    the x dimension
+     * @param y    the y dimension
+     */
     public void setScale(float x, float y) {
         scale.set(x, y);
     }
@@ -88,20 +93,32 @@ public class Transform extends Component implements Location<Vector2> {
         rotation = rot;
     }
 
+    /**
+     * @return the position of the component on the grid
+     */
     public Vector2 getPosition() {
         return position;
     }
 
+    /**
+     * @return the orientation of the component `unused`
+     */
     @Override
     public float getOrientation() {
         return 0;
     }
 
+    /**
+     * @param orientation the float value to set the orientation of the component to `unused`
+     */
     @Override
-    public void setOrientation(float orientation) {
+    public void setOrientation(float orientation) {}
 
-    }
-
+    /**
+     * Return new angle in radians from input vector.
+     * @param vector 2D vector
+     * @return the vector as an angle
+     */
     @Override
     public float vectorToAngle(Vector2 vector) {
         return Utilities.vectorToAngle(vector);
@@ -109,7 +126,6 @@ public class Transform extends Component implements Location<Vector2> {
 
     /**
      * Return new vector combining input vector with input angle in radians.
-     *
      * @param outVector 2D vector
      * @param angle     in radians
      * @return the angle as a vector
@@ -119,17 +135,23 @@ public class Transform extends Component implements Location<Vector2> {
         return Utilities.angleToVector(outVector, angle);
     }
 
+    /**
+     * @return a Transform object at a new location
+     */
     @Override
     public Location<Vector2> newLocation() {
         return new Transform();
     }
 
+    /**
+     * @return the scale of this object
+     */
     public Vector2 getScale() {
         return scale;
     }
 
     /**
-     * @return radians
+     * @return the angle of this object in radians
      */
     public float getRotation() {
         return rotation;

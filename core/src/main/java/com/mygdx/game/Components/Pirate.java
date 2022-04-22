@@ -14,20 +14,22 @@ import java.util.HashMap;
  */
 public class Pirate extends Component {
     /**
-     * // Assessment 2 Change: Refactored to use map for storing values which will be modified by powerups.
+     * // Assessment 2 Change: Refactored to use map for storing values which will be modified by power-ups.
      * The enemy that is being targeted by the AI.
      */
     private int factionId;
     private final HashMap<String,Float> defaults;
     private final HashMap<String,Float> values;
-    //private int plunder;
     private int points;
     protected boolean isAlive;
 
     private boolean infiniteAmmo; // Added for Assessment 2 for power-ups and colleges
-
     private final QueueFIFO<Ship> targets;
+    //private int plunder;
 
+    /**
+     * Creates the base Pirate Component, setting up its initial values
+     */
     public Pirate() {
         super();
         targets = new QueueFIFO<>();
@@ -60,17 +62,6 @@ public class Pirate extends Component {
 
     /**
      * // New for assessment 2 //
-     * Set the default for a Pirate value.
-     * @param key       The value to set to
-     * @param value     The default to apply
-     */
-    public void setDefault(String key, float value) {
-        values.replace(key, value);
-        defaults.replace(key, value);
-    }
-
-    /**
-     * // New for assessment 2 //
      * Set a new value for Pirate while holding reference to what it was originally.
      * @param key       The value to set to
      * @param value     The float to apply
@@ -98,31 +89,52 @@ public class Pirate extends Component {
         values.replace(key, defaults.get(key));
     }
 
+    /**
+     * @param target The Ship to be added to the list of potential targets
+     */
     public void addTarget(Ship target) {
         targets.add(target);
     }
 
+    /**
+     * @return the plunder value attached to this pirate
+     */
     public int getPlunder() {
         return values.get("plunder").intValue();
     }
 
+    /**
+     * @return the points value attached to this pirate
+     */
     public int getPoints() {
         return points;
     }
 
+    /**
+     * @param money The integer value to be added to the pirate's stored plunder amount
+     */
     public void addPlunder(int money) {
         // Assessment 2 change: Plunder additions are now multiplied by plunderRate value
-        values.replace("plunder" , values.get("plunder")+ Math.round(money * values.get("plunderRate")));
+        values.replace("plunder", values.get("plunder")+ Math.round(money * values.get("plunderRate")));
     }
 
+    /**
+     * @param increment The integer value to be added to the pirate's stored point amount
+     */
     public void addPoints(int increment) {
         points += increment;
     }
 
+    /**
+     * @return the Faction value attached to this pirate
+     */
     public Faction getFaction() {
         return GameManager.getFaction(factionId);
     }
 
+    /**
+     * @param factionId The ID of the faction to set this pirate to
+     */
     public void setFactionId(int factionId) {
         this.factionId = factionId;
     }
@@ -143,6 +155,10 @@ public class Pirate extends Component {
         return values.get("damage");
     }
 
+    /**
+     * Deducts damage taken from Pirate's health and kills the pirate if that reduces health to less than or equal to 0
+     * @param dmg The float value to be removed from this pirate's health total
+     */
     public void takeDamage(float dmg) {
         // Assessment 2 change: Refactored to include key for health instead of variable, as well as factor in new defense value
         dmg *= (1f/values.get("defense"));
@@ -162,7 +178,7 @@ public class Pirate extends Component {
 
     /**
      * Added for Assessment 2
-     * Will shoot a cannonball from the startPos in the direction, assigning this.parent as the cannonball's parent
+     * Will shoot a cannonball from the startPos in the direction, assigning this.Parent as the cannonball's parent
      * @param direction the direction to shoot in
      */
     public void shoot(Vector2 startPos, Vector2 direction){
@@ -175,6 +191,9 @@ public class Pirate extends Component {
         GameManager.shoot(parent, startPos, direction);
     }
 
+    /**
+     * @return the health value attached to this pirate
+     */
     public int getHealth() {
         // Assessment 2 change: Refactored to use key for health instead of variable
         return Math.round(values.get("health"));
@@ -185,35 +204,43 @@ public class Pirate extends Component {
      * target will be null if not in agro range
      */
     public boolean canAttack() {
+        final Ship p = (Ship) parent;
+        final Vector2 pos = p.getPosition();
+        final float dst = pos.dst(targets.peek() != null ? targets.peek().getPosition() : null);
+        // within attack range
         if (targets.peek() != null) {
-            final Ship p = (Ship) parent;
-            final Vector2 pos = p.getPosition();
-            final float dst = pos.dst(targets.peek().getPosition());
-            // withing attack range
             return dst < Ship.getAttackRange();
+        }else{
+            return false;
         }
-        return false;
     }
 
     /**
      * if dst to target is >= attack range
      * target will be null if not in agro range
      */
-    public boolean isAgro() {
+    public boolean isAggro() {
+        final Ship p = (Ship) parent;
+        final Vector2 pos = p.getPosition();
+        final float dst = pos.dst(targets.peek() != null ? targets.peek().getPosition() : null);
+        // out of attack range but in aggro range
         if (targets.peek() != null) {
-            final Ship p = (Ship) parent;
-            final Vector2 pos = p.getPosition();
-            final float dst = pos.dst(targets.peek().getPosition());
-            // out of attack range but in agro range
             return dst >= Ship.getAttackRange();
+        }else{
+            return false;
         }
-        return false;
     }
 
+    /**
+     * @return the current target value attached to this pirate
+     */
     public Ship getTarget() {
         return targets.peek();
     }
 
+    /**
+     * @return the boolean alive value attached to this pirate
+     */
     public boolean isAlive() {
         return isAlive;
     }
@@ -227,11 +254,17 @@ public class Pirate extends Component {
         isAlive = false;
     }
 
+    /**
+     * @param ammo The integer to be added to the amount of ammo this pirate has access to
+     */
     public void setAmmo(int ammo) {
         // Assessment 2 change: Refactored to use key for ammo instead of variable
         values.replace("ammo", (float) ammo);
     }
 
+    /**
+     * @return the ammo value attached to this pirate
+     */
     public int getAmmo() {
         // Assessment 2 change: Refactored to use key for ammo instead of variable
         return Math.round(values.get("ammo"));

@@ -77,25 +77,36 @@ public class Ship extends Entity implements CollisionCallBack {
         getComponent(Pirate.class).resetToDefault(key);
     }
 
+    /**
+     * @return the boolean value of life attached to the Pirate Component
+     */
     public boolean isAlive() {
         return getComponent(Pirate.class).getHealth() > 0;
     }
 
+    /**
+     * @return the range at which this ship can attack
+     */
     public static float getAttackRange() {
         return Utilities.tilesToDistance(GameManager.getSettings().get("starting").getFloat("attackRange_tiles"));
     }
 
+    /**
+     * @param money the integer to be added to the money value attached to the Pirate Component
+     */
     public void plunder(int money) {
         getComponent(Pirate.class).addPlunder(money);
     }
 
+    /**
+     * @param increment the integer to be added to the points value attached to the Pirate Component
+     */
     public void points(int increment) {
         getComponent(Pirate.class).addPoints(increment);
     }
 
     /**
      * Associates ship with faction and orients it to the default northern direction.
-     *
      * @param factionId the desired faction id
      */
     public void setFaction(int factionId) {
@@ -105,7 +116,6 @@ public class Ship extends Entity implements CollisionCallBack {
 
     /**
      * gets the string representation of the direction the ship is facing
-     *
      * @param dir the vector dir the ship is facing
      * @return the string representation of the direction
      */
@@ -119,7 +129,6 @@ public class Ship extends Entity implements CollisionCallBack {
 
     /**
      * gets the faction colour
-     *
      * @return the faction colour
      */
     private String getColour() {
@@ -128,7 +137,6 @@ public class Ship extends Entity implements CollisionCallBack {
 
     /**
      * will rotate the ship to face the direction (just changes the sprite doesn't actually rotate)
-     *
      * @param dir the dir to face (used to get the correct sprite from the texture atlas
      */
     public void setShipDirection(Vector2 dir) {
@@ -137,7 +145,6 @@ public class Ship extends Entity implements CollisionCallBack {
 
     /**
      * will rotate the ship to face the direction (just changes the sprite doesn't actually rotate)
-     *
      * @param direction the dir to face (used to get the correct sprite from the texture atlas
      */
     public void setShipDirection(String direction) {
@@ -154,14 +161,23 @@ public class Ship extends Entity implements CollisionCallBack {
         }
     }
 
+    /**
+     * @return the health attached to the Pirate Component
+     */
     public int getHealth() {
         return getComponent(Pirate.class).getHealth();
     }
 
+    /**
+     * @return the plunder attached to the Pirate Component
+     */
     public int getPlunder() {
         return getComponent(Pirate.class).getPlunder();
     }
 
+    /**
+     * @return the points attached to the Pirate Component
+     */
     public int getPoints() {
         return getComponent(Pirate.class).getPoints();
     }
@@ -195,16 +211,6 @@ public class Ship extends Entity implements CollisionCallBack {
         return getComponent(Pirate.class).getFaction();
     }
 
-    @Override
-    public void BeginContact(CollisionInfo info) {
-
-    }
-
-    @Override
-    public void EndContact(CollisionInfo info) {
-
-    }
-
     /**
      * Amended for Assessment 2 (added functionality for when attacked by cannonball)
      * if called on a Player against anything else call it on the other thing
@@ -230,5 +236,21 @@ public class Ship extends Entity implements CollisionCallBack {
         if (this instanceof Player && !(info.b instanceof Player)) {
             ((CollisionCallBack) info.b).ExitTrigger(info);
         }
+    }
+
+    /**
+     * `unused`
+     */
+    @Override
+    public void BeginContact(CollisionInfo info) {
+
+    }
+
+    /**
+     * `unused`
+     */
+    @Override
+    public void EndContact(CollisionInfo info) {
+
     }
 }

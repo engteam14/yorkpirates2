@@ -54,10 +54,16 @@ public class Obstacle extends Entity implements CollisionCallBack {
         colliding = false;
     }
 
+    /**
+     * Sets the obstacle to be removed on next update
+     */
     public void kill() {
         doKill = true;
     }
 
+    /**
+     * Runs once per frame
+     */
     @Override
     public void update() {
         super.update();
@@ -69,6 +75,10 @@ public class Obstacle extends Entity implements CollisionCallBack {
         if (colliding) getComponent(ObstacleControl.class).TryHit(info, false);
     }
 
+    /**
+     * Takes the collision info and verifies the results of the collision
+     * @param info the info linked to the collision
+     */
     @Override
     public void BeginContact(CollisionInfo info) {
         colliding = true;
@@ -76,11 +86,18 @@ public class Obstacle extends Entity implements CollisionCallBack {
         getComponent(ObstacleControl.class).TryHit(info, true);
     }
 
+    /**
+     * Sets the obstacle's status as not colliding
+     */
     @Override
     public void EndContact(CollisionInfo info) {
         colliding = false;
     }
 
+    /**
+     * Takes the collision info and verifies the results of the collision
+     * @param info the info linked to the collision
+     */
     @Override
     public void EnterTrigger(CollisionInfo info) {
         colliding = true;
@@ -88,6 +105,9 @@ public class Obstacle extends Entity implements CollisionCallBack {
         getComponent(ObstacleControl.class).TryHit(info, true);
     }
 
+    /**
+     * Sets the obstacle's status as not colliding
+     */
     @Override
     public void ExitTrigger(CollisionInfo info) {
         colliding = false;

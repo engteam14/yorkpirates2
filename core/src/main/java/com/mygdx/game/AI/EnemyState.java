@@ -23,7 +23,7 @@ public enum EnemyState implements State<NPCShip> {
         @Override
         public void update(NPCShip e) {
             super.update(e);
-            e.circleOrigin();
+            e.circleOrigin(); //Added in Assessment 2 so idle ships would patrol around colleges
         }
     },
     /**
@@ -36,15 +36,6 @@ public enum EnemyState implements State<NPCShip> {
             e.followTarget();
         }
 
-        @Override
-        public void update(NPCShip e) {
-            super.update(e);
-        }
-    },
-    /**
-     * Actively looks for other enemies
-     */
-    HUNT() {
         @Override
         public void update(NPCShip e) {
             super.update(e);
@@ -77,7 +68,7 @@ public enum EnemyState implements State<NPCShip> {
         Pirate p = e.getComponent(Pirate.class);
         switch (m.getCurrentState()) {
             case WANDER:
-                if (p.isAgro()) {
+                if (p.isAggro()) {
                     m.changeState(PURSUE);
                 } else if (p.canAttack()) {
                     m.changeState(ATTACK);
@@ -89,19 +80,13 @@ public enum EnemyState implements State<NPCShip> {
                     m.changeState(ATTACK);
                 }
                 // if leave detection range wander
-                if (!p.canAttack() && !p.isAgro()) {
+                if (!p.canAttack() && !p.isAggro()) {
                     m.changeState(WANDER);
-                }
-                break;
-            case HUNT:
-                // if enter detection range pursue
-                if (p.isAgro()) {
-                    m.changeState(PURSUE);
                 }
                 break;
             case ATTACK:
                 // if leave attack range pursue
-                if (p.isAgro() && !p.canAttack()) {
+                if (p.isAggro() && !p.canAttack()) {
                     m.changeState(PURSUE);
                 }
                 // if target dead

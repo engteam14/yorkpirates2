@@ -14,6 +14,7 @@ import com.mygdx.game.Physics.PhysicsBodyType;
 import com.mygdx.game.PowerUps.PowerUp;
 
 /**
+ * Added for Assessment 2
  * Simple entity shown on locate quests origin
  */
 public class PowerUpPickup extends Entity implements CollisionCallBack {
@@ -25,6 +26,13 @@ public class PowerUpPickup extends Entity implements CollisionCallBack {
     private final long cooldown;
     private long lastHit;
 
+    /**
+     * Generate an obstacle.
+     * @param powerUp       The Power Up being picked up
+     * @param texName       The texture to show for the obstacle.
+     * @param pos           The position of the power up
+     * @param cooldown      The cooldown before the power up can be used again
+     */
     public PowerUpPickup(PowerUp powerUp, String texName, Vector2 pos, int cooldown) {
         super(3);
 
@@ -47,10 +55,16 @@ public class PowerUpPickup extends Entity implements CollisionCallBack {
         lastHit = 0;
     }
 
+    /**
+     * @param pos   The position of the power up to be set
+     */
     private void setPosition(Vector2 pos) {
         getComponent(RigidBody.class).setPosition(pos);
     }
 
+    /**
+     * Reveals the power-up if its cooldown has expired
+     */
     private void tryShow() {
         if (TimeUtils.timeSinceMillis(lastHit) > cooldown) {
             setPosition(position);
@@ -58,6 +72,9 @@ public class PowerUpPickup extends Entity implements CollisionCallBack {
         }
     }
 
+    /**
+     * Hides the power-up
+     */
     private void tryHide() {
         setPosition(new Vector2(1000, -1000));
         hideToggle = false;
@@ -65,6 +82,9 @@ public class PowerUpPickup extends Entity implements CollisionCallBack {
         lastHit = TimeUtils.millis();
     }
 
+    /**
+     * Called once per frame
+     */
     @Override
     public void update() {
         super.update();
@@ -72,14 +92,10 @@ public class PowerUpPickup extends Entity implements CollisionCallBack {
         else if (showToggle)    tryShow();
     }
 
-    @Override
-    public void BeginContact(CollisionInfo info) {
-    }
-
-    @Override
-    public void EndContact(CollisionInfo info) {
-    }
-
+    /**
+     * applies the attached power up to the colliding entity then sets the power up to be hidden next update
+     * @param info the collision info used in the conjunction
+     */
     @Override
     public void EnterTrigger(CollisionInfo info) {
         PowerUpAssigned playerPow = info.a.getComponent(PowerUpAssigned.class);
@@ -87,6 +103,23 @@ public class PowerUpPickup extends Entity implements CollisionCallBack {
         hideToggle = true;
     }
 
+    /**
+     * `unused`
+     */
+    @Override
+    public void BeginContact(CollisionInfo info) {
+    }
+
+    /**
+     * `unused`
+     */
+    @Override
+    public void EndContact(CollisionInfo info) {
+    }
+
+    /**
+     * `unused`
+     */
     @Override
     public void ExitTrigger(CollisionInfo info) {
     }
