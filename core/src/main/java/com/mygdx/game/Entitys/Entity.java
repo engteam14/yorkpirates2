@@ -97,6 +97,24 @@ public class Entity {
         }
         return null;
     }
+/*
+    *//**
+     * Gets the list of components that is of the same type as T
+     * Removed for Assesment 2 as never used
+     * @param type [T].class
+     * @param <T>  the type of the desired component
+     * @return the components cast to the appropriate type
+     *//*
+    public <T> ArrayList<T> getComponents(Class<T> type) {
+        ArrayList<T> res = new ArrayList<>();
+        for (Component c : components) {
+            if (type.isInstance(c)) {
+                res.add((T) c);
+            }
+        }
+        return res;
+    }*/
+
 
     /**
      * Raises the appropriate events on each component with exception to rendering

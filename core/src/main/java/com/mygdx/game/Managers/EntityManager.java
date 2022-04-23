@@ -45,6 +45,7 @@ public final class EntityManager {
         entityNames.add(e.getName());
     }
 
+
     /**
      * changes the entity's name
      * @param prev old name
@@ -105,6 +106,7 @@ public final class EntityManager {
         return Gdx.graphics.getDeltaTime();
     }
 
+
     //    public static Entity getEntity(String name) {
     //        return entities.get(entityNames.indexOf(name));
     //    }
@@ -112,4 +114,5 @@ public final class EntityManager {
     //public static int getFPS() {
     //        return Gdx.graphics.getFramesPerSecond();
     //    }
+
 }

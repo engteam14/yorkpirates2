@@ -2,14 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
-import com.mygdx.game.Components.ComponentType;
-import com.mygdx.game.Components.Renderable;
-import com.mygdx.game.Components.RigidBody;
-import com.mygdx.game.Components.Transform;
-import com.mygdx.game.Entitys.Building;
-import com.mygdx.game.Entitys.CannonBall;
-import com.mygdx.game.Entitys.College;
-import com.mygdx.game.Entitys.Ship;
+import com.mygdx.game.Components.*;
+import com.mygdx.game.Entitys.*;
 import com.mygdx.game.Managers.GameDifficulty;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.game.Managers.PhysicsManager;
@@ -40,6 +34,13 @@ public class OtherEntityTests {
 	@After
 	public void dispose(){
 		ResourceManager.dispose();
+	}
+
+	@Test
+	public void getComponent() {
+		Player player = new Player();
+		assertNull(player.getComponent(AINavigation.class));
+
 	}
 
 	@Test
@@ -132,5 +133,24 @@ public class OtherEntityTests {
 		int healthPostPost = allyShipTwo.getHealth();
 
 		assertNotSame("Enemy ship fails to damage enemies",healthPost,healthPostPost);
+	}
+
+	@Test
+	public void removeOnCollision(){
+		Ship ship = new Ship();
+
+		CannonBall cannon = GameManager.getCurrentCannon();
+		Vector2 homePosition = cannon.getComponent(Transform.class).getPosition().cpy();
+		ship.shoot(new Vector2(1, 1));
+		Vector2 shotPosition = cannon.getComponent(Transform.class).getPosition().cpy();
+		cannon.kill();
+		cannon.update();
+		Vector2 deadPosition = cannon.getComponent(Transform.class).getPosition().cpy();
+		assertNotEquals(homePosition, shotPosition);
+		assertEquals("hasnt gone off screen", new Vector2(10000, 10000), deadPosition);
+		System.out.println(homePosition);
+		System.out.println(shotPosition);
+		System.out.println(deadPosition);
+
 	}
 }

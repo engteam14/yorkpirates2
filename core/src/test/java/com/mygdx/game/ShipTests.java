@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Components.*;
 import com.mygdx.game.Entitys.*;
 import com.mygdx.game.Managers.*;
@@ -29,7 +30,10 @@ public class ShipTests {
 
 	@After
 	public void dispose(){
+		EntityManager.cleanUp();
 		ResourceManager.dispose();
+		GameManager.dispose();
+
 	}
 
 	@Test
@@ -103,5 +107,44 @@ public class ShipTests {
 		assertTrue("ship not in attack range",pirate.canAttack());
 		ship.update();
 		assertSame("ship not in attack mode", ATTACK, ship.getCurrentState());
+	}
+
+	@Test
+	public void killShip(){
+		NPCShip ship = new NPCShip();
+		Pirate p = ship.getComponent(Pirate.class);
+		assertTrue(ship.isAlive());
+		p.kill();
+		ship.update();
+		assertFalse(ship.isAlive());
+
+	}
+
+	@Test
+	public void NPCshipShoot(){
+		NPCShip ship = new NPCShip();
+		GameManager.CreatePlayer();
+		Player player = GameManager.getPlayer();
+		long initialise = TimeUtils.millis();
+		ship.getComponent(Transform.class).setPosition(0,0);
+		player.getComponent(Transform.class).setPosition(1,1);
+
+		CannonBall cannonBall = GameManager.getCurrentCannon();
+
+		System.out.println(player.getHealth());
+
+		Transform cannonT = (Transform) cannonBall.getComponent(ComponentType.Transform);
+		Vector2 cannonStartPos = cannonT.getPosition().cpy();
+		System.out.println(cannonStartPos);
+		while (TimeUtils.timeSinceMillis(initialise)<1010){}
+		ship.attackShip(player);
+		cannonBall.update();
+		assertEquals("wrong ship shooting", cannonBall.getShooter(), cannonBall.getShooter() );
+
+		Vector2 cannonNewPos = cannonT.getPosition().cpy();
+		System.out.println(cannonNewPos);
+		assertNotEquals("cannonball hasnt moved", cannonNewPos, cannonStartPos);
+
+
 	}
 }

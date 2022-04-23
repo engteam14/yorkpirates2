@@ -155,9 +155,9 @@ public class PowerUpTests {
 		int health2 = player.getHealth();
 		player.getComponent(PowerUpAssigned.class).update();
 		assertFalse(pow.CheckPowerUpDone());
+		assertEquals(50.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
 		while ((TimeUtils.timeSinceMillis(startTime) < 1000)){
 			TimeUtils.timeSinceMillis(startTime);
-			assertEquals(50.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
 			pow.CheckPowerUpDone();
 			player.getComponent(PowerUpAssigned.class).update();}
 		assertTrue(pow.CheckPowerUpDone());
