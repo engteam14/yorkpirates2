@@ -1,7 +1,6 @@
 package com.mygdx.game.Components;
 
 import com.badlogic.gdx.math.Vector2;
-//import com.badlogic.gdx.physics.box2d;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Physics.CollisionCallBack;
@@ -14,6 +13,9 @@ public class RigidBody extends Component {
     int bodyId;
     private final Vector2 halfDim;
 
+    /**
+     * Sets up the base values of the RigidBody component
+     */
     public RigidBody() {
         super();
         type = ComponentType.RigidBody;
@@ -102,7 +104,6 @@ public class RigidBody extends Component {
 
     /**
      * Is used during collision phase to add more functionality
-     *
      * @param data class that inherits from CollisionCallBack
      */
     public void setCallback(CollisionCallBack data) {
@@ -122,15 +123,6 @@ public class RigidBody extends Component {
      * Sets the center pos of the object
      */
     public void setPosition(Vector2 position) {
-        setPosition(position, false);
-    }
-
-    /**
-     * Sets the bottom left position of the object
-     *
-     * @param offset should plly offset
-     */
-    public void setPosition(Vector2 position, boolean offset) {
         Body b = PhysicsManager.getBody(bodyId);
         /* Removed in Assessment 2
         if (offset) {
@@ -150,6 +142,9 @@ public class RigidBody extends Component {
         return b.getTransform().getPosition();
     }
 
+    /**
+     * @return the Body of this object
+     */
     public Body getBody() {
         return PhysicsManager.getBody(bodyId);
     }
@@ -168,14 +163,23 @@ public class RigidBody extends Component {
         t.setPosition(p, false);
     }
 
+    /**
+     * @return the Linear Velocity of this object
+     */
     public Vector2 getVelocity() {
         return getBody().getLinearVelocity();
     }
 
+    /**
+     * @return the Angular Velocity of this object
+     */
     public float getAngularVelocity() {
         return getBody().getAngularVelocity();
     }
 
+    /**
+     * @param force the force to apply to the center of the object
+     */
     public void applyForce(Vector2 force) {
         getBody().applyForceToCenter(force, true);
     }

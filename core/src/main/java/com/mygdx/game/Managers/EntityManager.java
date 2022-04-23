@@ -27,8 +27,7 @@ public final class EntityManager {
     }
 
     /**
-     * Dont call manually
-     *
+     * Don't call manually
      * @param c the comp to add
      */
     public static void addComponent(Component c) {
@@ -37,8 +36,7 @@ public final class EntityManager {
     }
 
     /**
-     * Dont call manually
-     *
+     * Don't call manually
      * @param e the entity to add
      */
     public static void addEntity(Entity e) {
@@ -49,7 +47,6 @@ public final class EntityManager {
 
     /**
      * changes the entity's name
-     *
      * @param prev old name
      * @param new_ new name
      */
@@ -59,7 +56,6 @@ public final class EntityManager {
 
     /**
      * raises the appropriate events for each entity's component. then renders after all entities have being processed if render is requested
-     *
      * @param comps calls the events left to right
      */
     public static void raiseEvents(ComponentEvent... comps) {
@@ -103,7 +99,6 @@ public final class EntityManager {
 
     /**
      * gets the time between the last from and the current
-     *
      * @return 1/FPS
      */
     public static float getDeltaTime() {

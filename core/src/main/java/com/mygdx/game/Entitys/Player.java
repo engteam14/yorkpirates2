@@ -13,7 +13,6 @@ import com.mygdx.utils.Utilities;
  * Player's ship entity.
  */
 public class Player extends Ship {
-
     private long lastPointTime;
 
     /**
@@ -38,6 +37,9 @@ public class Player extends Ship {
         this(GameManager.getSettings().get("starting").getFloat("playerSpeed"));
     }
 
+    /**
+     * Is run once per frame
+     */
     @Override
     public void update(){
         super.update();
@@ -49,11 +51,17 @@ public class Player extends Ship {
         lastPointTime = current;
     }
 
+    /**
+     * Cleans up hanging data parts
+     */
     @Override
     public void cleanUp() {
         super.cleanUp();
     }
 
+    /**
+     * @return the amount of ammo available to the player
+     */
     public int getAmmo() {
         return getComponent(Pirate.class).getAmmo();
     }

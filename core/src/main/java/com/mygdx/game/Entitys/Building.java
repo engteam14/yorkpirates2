@@ -87,18 +87,11 @@ public class Building extends Entity implements CollisionCallBack {
         college.setMostRecentAttacker(conqueror);
     }
 
+    /**
+     * @return the boolean value of the alive status of the Pirate Component
+     */
     public boolean isAlive() {
         return getComponent(Pirate.class).isAlive();
-    }
-
-    @Override
-    public void BeginContact(CollisionInfo info) {
-
-    }
-
-    @Override
-    public void EndContact(CollisionInfo info) {
-
     }
 
     /**
@@ -117,6 +110,21 @@ public class Building extends Entity implements CollisionCallBack {
         }
     }
 
+    /**
+     * Unused
+     */
+    @Override
+    public void BeginContact(CollisionInfo info) {}
+
+    /**
+     * Unused
+     */
+    @Override
+    public void EndContact(CollisionInfo info) {}
+
+    /**
+     * Unused
+     */
     @Override
     public void ExitTrigger(CollisionInfo info) {
 

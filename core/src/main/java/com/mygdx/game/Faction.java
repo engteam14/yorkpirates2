@@ -18,7 +18,6 @@ public class Faction {
 
     /**
      * Creates a faction with the specified name, colour, and in-game location.
-     *
      * @param name   name of faction
      * @param colour colour name (used as prefix to retrieve ship sprites)
      * @param pos    2D vector location
@@ -32,6 +31,9 @@ public class Faction {
         this.id = id;
     }
 
+    /**
+     * @return The name of this Faction
+     */
     public String getName() {
         return name;
     }
@@ -44,14 +46,23 @@ public class Faction {
         return id;
     }
 
+    /**
+     * @return The colour of this Faction
+     */
     public String getColour() {
         return shipColour;
     }
 
+    /**
+     * @return The position of this Faction
+     */
     public Vector2 getPosition() {
         return position;
     }
 
+    /**
+     * @return The spawn position of this Faction
+     */
     public Vector2 getSpawnPos() {
         return spawnPos;
     }

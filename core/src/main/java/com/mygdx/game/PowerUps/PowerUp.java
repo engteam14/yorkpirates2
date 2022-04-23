@@ -118,6 +118,9 @@ public class PowerUp {
         done = true;
     }
 
+    /**
+     * Removes plunder from the player in order to apply the power-up to themselves
+     */
     public void buyPowerUp(){
         if (GameManager.getPlayer().getPlunder() >= this.cost) {
             GameManager.getPlayer().plunder((-this.cost));
@@ -125,6 +128,9 @@ public class PowerUp {
         }
       }
 
+    /**
+     * @return the name of the power-up
+     */
     public String getName() {
         return name;
     }

@@ -53,14 +53,14 @@ public class QuestManager {
     }
 
     /**
-     * Creates a locate quest for a random position sourced from game settings
+     * Creates locate quest for a random position sourced from game settings
      */
     private static void rndLocateQuest() {
         final ArrayList<Float> locations = new ArrayList<>();
         for (float f : GameManager.getSettings().get("quests").get("locations").asFloatArray()) {
             locations.add(f);
         }
-        // in game settings the positions are stored as ints with y following x it doesnt wrap
+        // in game settings the positions are stored as ints with y following x it doesn't wrap
         // eg. a, b, c, d
         // v1: (a, b) v2: (c, d)
         int choice = -1;
@@ -79,7 +79,6 @@ public class QuestManager {
 
     /**
      * 50/50 chance of kill quest or locate quest
-     *
      * @param exclude list of factions to exclude from killing
      */
     private static void rndQuest(ArrayList<Integer> exclude) {
@@ -92,9 +91,9 @@ public class QuestManager {
 
     /**
      * Creates the quest line with the final quest being to kill a college
-     * changed from private to public in assesment 2 to allow the seperation between initialize and creating quests for testing.
+     * Changed from private to public in assessment 2 to allow the separation between initialize and creating quests for testing.
      */
-    public static void createRandomQuests() { //Assesment 2 change, see javastring
+    public static void createRandomQuests() { //Assessment 2 change, see javadoc
         // the last quest added is the final quest
         int primaryEnemyId = new Random().nextInt(4) + 2;
         ArrayList<Integer> exclude = new ArrayList<>();
@@ -112,11 +111,11 @@ public class QuestManager {
     }
 
     /**
-     * checks quests for completion and gives rewards, teleports the chest when appropriate.
+     * Checks quests for completion and gives rewards, teleports the chest when appropriate.
      * Stops checking the quest after the first no completed quest (prevents quests being completed in any order)
      */
     public static void checkCompleted() {
-     //   tryInit(); removed for assesment 2
+        //  tryInit(); removed for assessment 2
         Player p = GameManager.getPlayer();
         for (Quest q : allQuests) {
             if (q.isCompleted()) {
@@ -138,11 +137,10 @@ public class QuestManager {
 
     /**
      * Returns the next un-completed quest
-     *
      * @return the quest null if no un-completed quests found
      */
     public static Quest currentQuest() {
-      //  tryInit();
+        //  tryInit();
         for (Quest q : allQuests) {
             if (!q.isCompleted()) {
                 return q;
@@ -152,7 +150,7 @@ public class QuestManager {
     }
 
     /**
-     * added for assesment 2
+     * added for assessment 2
      * sets the current quest to the one that corresponds to a given name.
      * @param current string containing the name of the quest to be set as current
      */
@@ -168,11 +166,10 @@ public class QuestManager {
 
     /**
      * Are there any quests
-     *
-     * @return true if any non completed quest exirs
+     * @return true if any non completed quest exits
      */
     public static boolean anyQuests() {
-      //  tryInit(); removed for assesment 2
+        //  tryInit(); removed for assessment 2
         return currentQuest() != null;
     }
 
