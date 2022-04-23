@@ -24,6 +24,9 @@ public class CannonBall extends Entity implements CollisionCallBack {
     private static final int MAX_AGE = 5;
     private Entity shooter; // Changed for Assessment 2, type switched from Ship to Entity
 
+    /**
+     * Constructs the cannonball object by generating components
+     */
     public CannonBall() {
         super(3);
         setName("ball");
@@ -41,6 +44,9 @@ public class CannonBall extends Entity implements CollisionCallBack {
         r.hide();
     }
 
+    /**
+     * Called once per frame
+     */
     @Override
     public void update() {
         super.update();
@@ -99,10 +105,6 @@ public class CannonBall extends Entity implements CollisionCallBack {
         toggleLife = true;
     }
 
-    public Entity getShooter() { // Changed for Assessment 2, type switched from Ship to Entity
-        return shooter;
-    }
-
     /**
      * Added for Assessment 2
      * @return The Faction of the Pirate Component attached to this entity
@@ -119,23 +121,39 @@ public class CannonBall extends Entity implements CollisionCallBack {
         return shooter.getComponent(Pirate.class).getAttackDmg();
     }
 
+    /**
+     * `unused`
+     */
     @Override
     public void BeginContact(CollisionInfo info) {
 
     }
 
+    /**
+     * `unused`
+     */
     @Override
     public void EndContact(CollisionInfo info) {
 
     }
 
+    /**
+     * `unused`
+     */
     @Override
     public void EnterTrigger(CollisionInfo info) {
 
     }
 
+    /**
+     * `unused`
+     */
     @Override
     public void ExitTrigger(CollisionInfo info) {
 
     }
+
+    //    public Entity getShooter() {
+    //        return shooter;
+    //    }
 }

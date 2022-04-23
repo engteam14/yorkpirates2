@@ -14,7 +14,7 @@ import com.mygdx.utils.Utilities;
  */
 public class AINavigation extends Component implements Steerable<Vector2> {
     /**
-     * NPC settings for steerable
+     * NPC settings class to be used for steerable units
      */
     private static class Attributes {
         public float boundingRadius = 128;
@@ -31,6 +31,9 @@ public class AINavigation extends Component implements Steerable<Vector2> {
     SteeringBehavior<Vector2> behavior;
     SteeringAcceleration<Vector2> steeringOutput;
 
+    /**
+     * Creates a simple navigation component
+     */
     public AINavigation() {
         super();
         attributes = new Attributes();
@@ -39,6 +42,9 @@ public class AINavigation extends Component implements Steerable<Vector2> {
         steeringOutput = new SteeringAcceleration<>(new Vector2());
     }
 
+    /**
+     * @param behavior the behavior the AI will be set to
+     */
     public void setBehavior(SteeringBehavior<Vector2> behavior) {
         this.behavior = behavior;
     }
@@ -108,112 +114,171 @@ public class AINavigation extends Component implements Steerable<Vector2> {
         rb.setVelocity(new Vector2(0, 0));
     }
 
-    // Overrides for steerable
-
+    /**
+     * @return the linear velocity of the rigid body this AI is attached to
+     */
     @Override
     public Vector2 getLinearVelocity() {
         getComps();
         return rb.getVelocity();
     }
 
+    /**
+     * @return the angular velocity of the rigid body this AI is attached to
+     */
     @Override
     public float getAngularVelocity() {
         getComps();
         return rb.getAngularVelocity();
     }
 
+    /**
+     * @return the bounding radius of the AI's area
+     */
     @Override
     public float getBoundingRadius() {
         return attributes.boundingRadius;
     }
 
+    /**
+     * @return whether the AI has been tagged
+     */
     @Override
     public boolean isTagged() {
         return attributes.isTagged;
     }
 
+    /**
+     * @param tagged the boolean to set the tagged status to
+     */
     @Override
     public void setTagged(boolean tagged) {
         attributes.isTagged = tagged;
     }
 
+    /**
+     * @return the Zero Linear Speed Threshold `unused`
+     */
     @Override
     public float getZeroLinearSpeedThreshold() {
         return 0.01f;
     }
 
+    /**
+     * @param value the float to set the Zero Linear Speed Threshold to `unused`
+     */
     @Override
-    public void setZeroLinearSpeedThreshold(float value) {
+    public void setZeroLinearSpeedThreshold(float value) {}
 
-    }
-
+    /**
+     * @return the maximum Linear Speed
+     */
     @Override
     public float getMaxLinearSpeed() {
         return attributes.maxSpd;
     }
 
+    /**
+     * @param maxLinearSpeed the float to set the maximum Linear Speed to
+     */
     @Override
     public void setMaxLinearSpeed(float maxLinearSpeed) {
         attributes.maxSpd = maxLinearSpeed;
     }
 
+    /**
+     * @return the maximum Linear Acceleration
+     */
     @Override
     public float getMaxLinearAcceleration() {
         return attributes.maxAcc;
     }
 
+    /**
+     * @param maxLinearAcceleration the float to set the maximum Linear Acceleration to
+     */
     @Override
     public void setMaxLinearAcceleration(float maxLinearAcceleration) {
         attributes.maxAcc = maxLinearAcceleration;
     }
 
+    /**
+     * @return the maximum Angular Speed
+     */
     @Override
     public float getMaxAngularSpeed() {
         return attributes.maxAngSpd;
     }
 
+    /**
+     * @param maxAngularSpeed the float to set the maximum Angular Speed to
+     */
     @Override
     public void setMaxAngularSpeed(float maxAngularSpeed) {
         attributes.maxAngSpd = maxAngularSpeed;
     }
 
+    /**
+     * @return the maximum Angular Acceleration
+     */
     @Override
     public float getMaxAngularAcceleration() {
         return attributes.maxAngAcc;
     }
 
+    /**
+     * @param maxAngularAcceleration the float to set the maximum Angular Acceleration to
+     */
     @Override
     public void setMaxAngularAcceleration(float maxAngularAcceleration) {
         attributes.maxAngAcc = maxAngularAcceleration;
     }
 
+    /**
+     * @return the position of the AI
+     */
     @Override
     public Vector2 getPosition() {
         getComps();
         return t.getPosition();
     }
 
+    /**
+     * @return the orientation of the AI
+     */
     @Override
     public float getOrientation() {
         getComps();
         return t.getRotation();
     }
 
+    /**
+     * @param orientation the float to set the orientation to `unused`
+     */
     @Override
-    public void setOrientation(float orientation) {
+    public void setOrientation(float orientation) {}
 
-    }
-
+    /**
+     * @param vector the vector to be converted
+     * @return the parsed vector as an angle
+     */
     @Override
     public float vectorToAngle(Vector2 vector) {
         return Utilities.vectorToAngle(vector);
     }
 
+    /**
+     * @param angle the angle to be converted
+     * @return the parsed angle as a vector
+     */
     @Override
     public Vector2 angleToVector(Vector2 outVector, float angle) {
         return Utilities.angleToVector(outVector, angle);
     }
 
+    /**
+     * @return an empty location
+     */
     @Override
     public Location<Vector2> newLocation() {
         getComps();

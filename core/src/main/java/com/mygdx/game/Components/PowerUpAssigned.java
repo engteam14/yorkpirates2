@@ -17,7 +17,9 @@ public class PowerUpAssigned extends Component {
      * @param powerUp   The PowerUp to be assigned
      */
     public void AssignPowerUp(PowerUp powerUp) {
-        tryInit();
+        if (pirate == null){
+            pirate = parent.getComponent(Pirate.class);
+        }
         if (!powerUp.CheckPermanent()) {
             if (powerUpAssigned != null) {
                 powerUpAssigned.DisablePowerUp(pirate);
@@ -35,16 +37,11 @@ public class PowerUpAssigned extends Component {
     @Override
     public void update() {
         super.update();
-        tryInit();
+        if (pirate == null){
+            pirate = parent.getComponent(Pirate.class);
+        }
         if (powerUpAssigned != null) {
             powerUpAssigned.CheckPowerUpDone(pirate);
         }
     }
-
-    private void tryInit(){
-        if (pirate == null){
-            pirate = parent.getComponent(Pirate.class);
-        }
-    }
-
 }

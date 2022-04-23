@@ -27,7 +27,6 @@ public class Renderable extends Component {
 
     /**
      * Associates Renderable with the given texture sprite and layer.
-     *
      * @param texId the id of the texture the sprite will take on
      * @param layer the rendering layer
      */
@@ -39,7 +38,6 @@ public class Renderable extends Component {
 
     /**
      * Associates Renderable with the given sprite from a texture atlas and a layer.
-     *
      * @param atlasId the id of the texture atlas containing the sprite
      * @param texName the name of the texture the sprite will take on
      * @param layer   the rendering layer
@@ -71,6 +69,9 @@ public class Renderable extends Component {
         sprite.setScale(s.x, s.y);
     }
 
+    /**
+     * Checks if the sprite exists and should be visible, then renders it
+     */
     @Override
     public void render() {
         super.render();
@@ -80,11 +81,17 @@ public class Renderable extends Component {
         sprite.draw(RenderingManager.getBatch());
     }
 
+    /**
+     * Called once after the update loop has finished.
+     */
     @Override
     public void cleanUp() {
         super.cleanUp();
     }
 
+    /**
+     * @return the Sprite for this object
+     */
     public Sprite getSprite() {
         return sprite;
     }
@@ -102,20 +109,28 @@ public class Renderable extends Component {
         a.setV2(s.getV2());
     }
 
+    /**
+     * @return whether the object should currently be visible
+     */
     public boolean isVisible() {
         return isVisible;
     }
 
+    /**
+     * Changes the visibility to active
+     */
     public void show() {
         isVisible = true;
     }
 
+    /**
+     * Changes the visibility to inactive
+     */
     public void hide() {
         isVisible = false;
     }
 
-    public void toggleVisibility() {
-        isVisible = !isVisible;
-    }
-
+    //public void toggleVisibility() {
+    //    isVisible = !isVisible;
+    //}
 }

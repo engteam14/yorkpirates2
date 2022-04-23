@@ -31,7 +31,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
      */
     public NPCShip() {
         super();
-        QueueFIFO<Vector2> path = new QueueFIFO<>();
+        //QueueFIFO<Vector2> path = new QueueFIFO<>();
 
         if (AISettings == null) {
             AISettings = GameManager.getSettings().get("AI");
@@ -98,7 +98,7 @@ public class NPCShip extends Ship implements CollisionCallBack {
     }
 
     /**
-     * creates a new steering behaviour that will make the NPC beeline for the target, doesn't factor in obstetrical
+     * creates a new steering behaviour that will make the NPC beeline for the target (doesn't factor in obstacles)
      */
     public void followTarget() {
         if (getTarget() == null) {
@@ -116,6 +116,10 @@ public class NPCShip extends Ship implements CollisionCallBack {
         nav.setBehavior(arrives);
     }
 
+    /**
+     * Added for Assessment 2
+     * Creates a new steering behaviour that will make the NPC circle the college it is attached to (doesn't factor in obstacles)
+     */
     public void circleOrigin() {
         College origin = GameManager.getCollege(getFaction().id);
         Vector2 dirToOrigin = new Vector2( (origin.getPosition().x - getPosition().x),(origin.getPosition().y - getPosition().y) );
@@ -178,6 +182,9 @@ public class NPCShip extends Ship implements CollisionCallBack {
         lastShootTime = current;
     }
 
+    /**
+     * @return the current state the NPCShip is in
+     */
     public EnemyState getCurrentState() {
         return stateMachine.getCurrentState();
     }

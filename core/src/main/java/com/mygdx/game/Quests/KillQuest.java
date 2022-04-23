@@ -11,6 +11,9 @@ import com.mygdx.game.Entitys.Player;
 public class KillQuest extends Quest {
     private Pirate target;
 
+    /**
+     * Creates a Kill Quest, with all the base attributes filled in with templates
+     */
     public KillQuest() {
         super();
         name = "Kill the college";
@@ -20,6 +23,10 @@ public class KillQuest extends Quest {
         target = null;
     }
 
+    /**
+     * Creates a Kill Quest
+     * @param target The Pirate which needs to be defeated for the quest
+     */
     public KillQuest(Pirate target) {
         this();
         this.target = target;
@@ -27,10 +34,17 @@ public class KillQuest extends Quest {
         new Indicator(this);
     }
 
+    /**
+     * Creates a Kill Quest
+     * @param target The Entity which needs to be defeated for the quest
+     */
     public KillQuest(Entity target) {
         this(target.getComponent(Pirate.class));
     }
 
+    /**
+     * @return The completion status of the quest
+     */
     @Override
     public boolean checkCompleted(Player p) {
         isCompleted = !target.isAlive();

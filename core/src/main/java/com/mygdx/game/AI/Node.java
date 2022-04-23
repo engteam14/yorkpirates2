@@ -11,7 +11,6 @@ public class Node {
 
     /**
      * Position the node exists at
-     *
      * @param x co-ord
      * @param y co-ord
      */
@@ -20,13 +19,16 @@ public class Node {
         cost = -1;
     }
 
+    /**
+     * Position the node exists at
+     * @return the position of the node
+     */
     public Vector2 getPosition() {
         return position;
     }
 
     /**
      * Sets position
-     *
      * @param x co-ord
      * @param y co-ord
      */

@@ -6,6 +6,9 @@ import com.mygdx.game.Components.RigidBody;
 import com.mygdx.game.Managers.GameManager;
 import com.mygdx.utils.Utilities;
 
+/**
+ * Added for Assessment 2 in order to meet weather condition requirements
+ */
 public class Weather extends Obstacle {
 
     private final float speed;
@@ -14,6 +17,11 @@ public class Weather extends Obstacle {
     private long lastDir;
     private Vector2 dir;
 
+    /**
+     * Creates a Weather Object
+     * @param damage The damage dealt to an object which collides with this weather effect
+     * @param hitRate The rate at which damage is dealt
+     */
     public Weather(float damage, float hitRate) {
         super("storm", true, damage, hitRate, -1);
 
@@ -24,6 +32,9 @@ public class Weather extends Obstacle {
         newDir();
     }
 
+    /**
+     * Called once every frame
+     */
     @Override
     public void update() {
         super.update();
@@ -32,6 +43,9 @@ public class Weather extends Obstacle {
         getComponent(RigidBody.class).setVelocity(dir);
     }
 
+    /**
+     * Determines a new direction for the weather effect to move in
+     */
     private void newDir() {
         dir = Utilities.randomPos(-1, 1);
         dir = new Vector2(dir.x * speed, dir.y * speed);

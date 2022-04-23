@@ -32,28 +32,6 @@ public class Obstacle extends Entity implements CollisionCallBack {
     }
 
     /**
-     * Generate an obstacle which only triggers a hit on initial collision.
-     * @param texName       The texture to show for the obstacle.
-     * @param trigger       True if the obstacle is trigger, otherwise is contact.
-     * @param damage        The damage that the obstacle does per 'hit'
-     * @param hitLimit      The number of 'hits' required to break the obstacle
-     */
-    public Obstacle(String texName, boolean trigger, float damage, int hitLimit) {
-        this(texName, trigger, damage, -1f, hitLimit);
-    }
-
-    /**
-     * Generate an obstacle which does not break.
-     * @param texName       The texture to show for the obstacle.
-     * @param trigger       True if the obstacle is trigger, otherwise is contact.
-     * @param damage        The damage that the obstacle does per 'hit'
-     * @param hitRate       The rate at which 'hits' occur while colliding
-     */
-    public Obstacle(String texName, boolean trigger, float damage, float hitRate) {
-        this(texName, trigger, damage, hitRate, -1);
-    }
-
-    /**
      * Generate an obstacle.
      * @param texName       The texture to show for the obstacle.
      * @param trigger       True if the obstacle is trigger, otherwise is contact.
@@ -76,10 +54,16 @@ public class Obstacle extends Entity implements CollisionCallBack {
         colliding = false;
     }
 
+    /**
+     * Sets the obstacle to be removed on next update
+     */
     public void kill() {
         doKill = true;
     }
 
+    /**
+     * Runs once per frame
+     */
     @Override
     public void update() {
         super.update();
@@ -91,6 +75,10 @@ public class Obstacle extends Entity implements CollisionCallBack {
         if (colliding) getComponent(ObstacleControl.class).TryHit(info, false);
     }
 
+    /**
+     * Takes the collision info and verifies the results of the collision
+     * @param info the info linked to the collision
+     */
     @Override
     public void BeginContact(CollisionInfo info) {
         colliding = true;
@@ -98,11 +86,18 @@ public class Obstacle extends Entity implements CollisionCallBack {
         getComponent(ObstacleControl.class).TryHit(info, true);
     }
 
+    /**
+     * Sets the obstacle's status as not colliding
+     */
     @Override
     public void EndContact(CollisionInfo info) {
         colliding = false;
     }
 
+    /**
+     * Takes the collision info and verifies the results of the collision
+     * @param info the info linked to the collision
+     */
     @Override
     public void EnterTrigger(CollisionInfo info) {
         colliding = true;
@@ -110,8 +105,19 @@ public class Obstacle extends Entity implements CollisionCallBack {
         getComponent(ObstacleControl.class).TryHit(info, true);
     }
 
+    /**
+     * Sets the obstacle's status as not colliding
+     */
     @Override
     public void ExitTrigger(CollisionInfo info) {
         colliding = false;
     }
+
+    //    public Obstacle(String texName, boolean trigger, float damage, int hitLimit) {
+    //        this(texName, trigger, damage, -1f, hitLimit);
+    //    }
+
+    //    public Obstacle(String texName, boolean trigger, float damage, float hitRate) {
+    //        this(texName, trigger, damage, hitRate, -1);
+    //    }
 }

@@ -22,6 +22,10 @@ public class  EndScreen extends Page {
     Label wonText;
     Label playerStats;
 
+    /**
+     * Creates an End Screen
+     * @param game The game object this screen is viewing
+     */
     public EndScreen(PirateGame game) {
         super(game);
     }
@@ -63,6 +67,9 @@ public class  EndScreen extends Page {
         t.add(b);
     }
 
+    /**
+     * Called Once per Frame
+     */
     @Override
     protected void update() {
         super.update();
@@ -84,6 +91,11 @@ public class  EndScreen extends Page {
         playerStats.setText(stats);
     }
 
+    /**
+     * Resizes the viewport
+     * @param width The horizontal dimension of the viewport
+     * @param height The vertical dimension of the viewport
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

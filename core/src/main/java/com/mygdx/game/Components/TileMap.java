@@ -12,12 +12,15 @@ import com.mygdx.game.Managers.ResourceManager;
 import static com.mygdx.utils.Constants.TILE_SIZE;
 
 /**
- * Component that allows the rendering of tilemaps (has its own sprite batch)
+ * Component that allows the rendering of tile-maps (has its own sprite batch)
  */
 public class TileMap extends Component {
     TiledMap map;
     TiledMapRenderer renderer;
 
+    /**
+     * Sets up the base values of the TileMap component
+     */
     private TileMap() {
         super();
         type = ComponentType.TileMap;
@@ -38,26 +41,17 @@ public class TileMap extends Component {
     }
 
     /**
-     * Gets cell at position (in world space, must be n the maps range)
-     *
-     * @param pos pos in world space
-     * @return the cell found
+     * @return the dimensions of the tilemap
      */
-    public TiledMapTileLayer.Cell getCell(Vector2 pos) {
-        Vector2 p = pos.cpy();
-        TiledMapTileLayer l = (TiledMapTileLayer) map.getLayers().get(1);
-        p.x /= l.getTileWidth();
-        p.y /= l.getTileHeight();
-
-        return l.getCell((int) p.x, (int) p.y);
-    }
-
     public Vector2 getTileDim() {
         return new Vector2(
                 ((TiledMapTileLayer) map.getLayers().get(0)).getTileWidth(),
                 ((TiledMapTileLayer) map.getLayers().get(0)).getTileHeight());
     }
 
+    /**
+     * @return the map attached to this object
+     */
     public TiledMap getTileMap() {
         return map;
     }
@@ -80,8 +74,20 @@ public class TileMap extends Component {
         renderer.render(new int[]{0, 1});
     }
 
+    /**
+     * Calls the Clean-Up function of the Component class
+     */
     @Override
     public void cleanUp() {
         super.cleanUp();
     }
+
+    //public TiledMapTileLayer.Cell getCell(Vector2 pos) {
+    //        Vector2 p = pos.cpy();
+    //        TiledMapTileLayer l = (TiledMapTileLayer) map.getLayers().get(1);
+    //        p.x /= l.getTileWidth();
+    //        p.y /= l.getTileHeight();
+    //
+    //        return l.getCell((int) p.x, (int) p.y);
+    //    }
 }

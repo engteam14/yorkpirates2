@@ -22,6 +22,10 @@ import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
 public class MenuScreen extends Page {
     private SelectBox<String> hardness;
 
+    /**
+     * Creates a Menu Screen
+     * @param parent The game object this screen is viewing
+     */
     public MenuScreen(PirateGame parent) {
         super(parent);
     }
@@ -42,7 +46,7 @@ public class MenuScreen extends Page {
         t.add(l).top().spaceBottom(space);
         t.row();
 
-        hardness = new SelectBox<String>(parent.skin);
+        hardness = new SelectBox<>(parent.skin);
 
 
         String[] values = new String[]{"Easy", "Regular", "Hard"};
@@ -99,19 +103,27 @@ public class MenuScreen extends Page {
         actors.add(t);
     }
 
-
-
+    /**
+     * Shows the Menu Screen
+     */
     @Override
     public void show() {
         super.show();
     }
 
-
+    /**
+     * Hides the Menu Screen
+     */
     @Override
     public void hide() {
         super.hide();
     }
 
+    /**
+     * Resizes the viewport
+     * @param width The horizontal dimension of the viewport
+     * @param height The vertical dimension of the viewport
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

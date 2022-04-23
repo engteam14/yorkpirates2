@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Managers.*;
 import com.mygdx.game.UI.EndScreen;
 import com.mygdx.game.UI.GameScreen;
@@ -44,12 +43,11 @@ public class PirateGame extends Game {
         pause = new PauseScreen(this);
 
         setScreen(menu);
-
     }
 
     /**
      * Added for Assessment 2
-     * Modularized resource loading so it can be called from tests and for code clarity
+     * Modularized resource loading, so it can be called from tests and for code clarity
      */
     public static void loadResources() {
         ResourceManager.addTexture("ship.png");
@@ -113,10 +111,7 @@ public class PirateGame extends Game {
         GameManager.Initialize(difficulty);
 
         game = new GameScreen(this, id_map);
-
         setScreen(menu);
-
-
     }
 
     /**
@@ -149,7 +144,7 @@ public class PirateGame extends Game {
     }
 
     /**
-     * New for assesment 2
+     * New for assessment 2
      * Loads the game from the saved data
      */
     public void LoadGame(){

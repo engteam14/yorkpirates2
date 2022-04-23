@@ -23,10 +23,12 @@ import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
  */
 public class PauseScreen extends Page{
 
-
+    /**
+     * Creates a Pause Screen
+     * @param game The game object this screen is viewing
+     */
     public PauseScreen(PirateGame game) {
         super(game);
-
     }
 
     @Override
@@ -59,8 +61,6 @@ public class PauseScreen extends Page{
             public void changed(ChangeEvent event, Actor actor) {
                 parent.game.hide();
                 parent.restartGame();
-
-
             }
         });
         t.add(restart).fill().spaceBottom(space);
@@ -90,9 +90,11 @@ public class PauseScreen extends Page{
             }
         });
         t.add(exit).fill().spaceBottom(space);
-
     }
 
+    /**
+     * Called Once per frame
+     */
     @Override
     protected void update() {
         super.update();
@@ -103,6 +105,11 @@ public class PauseScreen extends Page{
         }
     }
 
+    /**
+     * Resizes the viewport
+     * @param width The horizontal dimension of the viewport
+     * @param height The vertical dimension of the viewport
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

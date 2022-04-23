@@ -18,7 +18,7 @@ public final class SaveManager {
 
     /**
      * Added for assessment 2
-     * Saves the state of the game. Added for assesment 2
+     * Saves the state of the game. Added for assessment 2
      */
     public static void SaveGame(){
         prefs = Gdx.app.getPreferences("pirate/GameSave_game_1");
@@ -35,7 +35,7 @@ public final class SaveManager {
             prefs.putInteger("ship" + "F", ship.getComponent(Pirate.class).getFaction().id);
         }
         ArrayList<College> colleges = GameManager.getColleges();
-        //saves wether each college is alive of not
+        //saves whether each college is alive or not
         for (College college : colleges) {
             prefs.putBoolean(college.f.id + "Alive", college.isAlive());
         }
@@ -64,15 +64,18 @@ public final class SaveManager {
             float shipX = prefs.getFloat("ship" + i + "X", ship.getPosition().x);
             float shipY = prefs.getFloat("ship" + i + "Y", ship.getPosition().y);
             float shipH = prefs.getFloat("ship" + i + "H", ship.getHealth());
-            int shipP = (int) prefs.getFloat("ship" + i + "P", ship.getPlunder());
+            int shipP = prefs.getInteger("ship" + i + "Pl", ship.getPlunder());
+            int shipPo = prefs.getInteger("ship" + i + "Po", ship.getPlunder());
             int shipA = prefs.getInteger("ship" + i + "A", ship.getComponent(Pirate.class).getAmmo());
             int shipF = prefs.getInteger("ship" + i + "F", ship.getComponent(Pirate.class).getFaction().id);
 
-            ship.getComponent(Pirate.class).addPlunder(ship.getPlunder() - shipP);
+
+            ship.getComponent(Pirate.class).addPlunder(shipP- ship.getPlunder() );
             ship.getComponent(Pirate.class).setAmmo(shipA);
             ship.getComponent(Transform.class).setPosition(shipX, shipY);
             ship.getComponent(Pirate.class).takeDamage(ship.getHealth() - shipH);
             ship.getComponent(Pirate.class).setFactionId(shipF);
+            ship.getComponent(Pirate.class).addPoints(shipPo - ship.getPoints());
 
         }
         ArrayList<College> Colleges = GameManager.getColleges();
@@ -83,8 +86,6 @@ public final class SaveManager {
             }
         }
         QuestManager.setCurrentQuest(prefs.getString("currentQuest"));
-
-
     }
 }
 

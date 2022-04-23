@@ -10,13 +10,18 @@ import com.mygdx.game.Quests.KillQuest;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 
+/**
+ * Added for Assessment 2 in order to increase visual clarity on Kill Quests
+ */
 public class Indicator extends Entity {
 	private final Entity target;
 	private final KillQuest quest;
-
 	private Vector2 gradient;
-	private boolean visible;
 
+	/**
+	 * Creates an indicator attached to a kill quest and targeting a college
+	 * @param kq the Kill Quest this indicator is attached to
+	 */
 	public Indicator(KillQuest kq) {
 		super(2);
 		quest = kq;
@@ -31,6 +36,9 @@ public class Indicator extends Entity {
 		gradient = updateGradient();
 	}
 
+	/**
+	 * Called once per frame
+	 */
 	@Override
 	public void update(){
 		if(QuestManager.currentQuest() == quest){
@@ -70,6 +78,9 @@ public class Indicator extends Entity {
 		getComponent(Transform.class).setPosition(position);
 	}
 
+	/**
+	 * Called when rotating the sprite of the Indicator.
+	 */
 	public void rotateSprite() {
 		getComponent(Transform.class).setRotation((float) Math.atan2(gradient.y,gradient.x));
 	}
