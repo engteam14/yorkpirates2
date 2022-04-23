@@ -139,7 +139,6 @@ public class ShipTests {
 		while (TimeUtils.timeSinceMillis(initialise)<1010){}
 		ship.attackShip(player);
 		cannonBall.update();
-		assertEquals("wrong ship shooting", cannonBall.getShooter(), cannonBall.getShooter() );
 
 		Vector2 cannonNewPos = cannonT.getPosition().cpy();
 		System.out.println(cannonNewPos);
