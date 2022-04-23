@@ -18,7 +18,7 @@ import static com.mygdx.utils.Constants.VIEWPORT_HEIGHT;
 /**
  * Contains widgets defining the game end screen.
  */
-public class EndScreen extends Page {
+public class  EndScreen extends Page {
     Label wonText;
     Label playerStats;
 
