@@ -165,4 +165,26 @@ public class GameStateTests {
 		playerPirate.takeDamage(100000);
 		assertFalse("Player does not lose after taking fatal damage", player.isAlive());
 	}
+
+	@Test
+	public void gameDifficulty() {
+		// Initialise game
+		PirateGame game = new PirateGame();
+
+		// Test default value
+		assertEquals("Game difficulty was not expeccted default value", GameDifficulty.Regular, game.difficulty);
+
+		// Test all valid inputs
+		GameDifficulty prevDifficulty = GameDifficulty.Regular;
+		for(GameDifficulty difficulty: GameDifficulty.values()){
+			game.setDifficulty(difficulty.toString());
+			assertNotEquals("Game difficulty was not set", prevDifficulty, game.difficulty);
+			assertEquals("Game difficulty was not expected value", difficulty, game.difficulty);
+			prevDifficulty = difficulty;
+		}
+
+		// Test invalid inputs
+		game.setDifficulty("abc");
+		assertEquals("Game difficulty was not set to Regular when incorrect difficulty passed", GameDifficulty.Regular, game.difficulty);
+	}
 }

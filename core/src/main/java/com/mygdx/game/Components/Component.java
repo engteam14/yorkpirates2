@@ -15,6 +15,9 @@ public abstract class Component {
     protected ArrayList<ComponentType> requirements;
     protected boolean reqsMet;
 
+    /**
+     * sets up the Component
+     */
     protected Component() {
         reqsMet = false;
         type = ComponentType.Unknown;
@@ -23,17 +26,22 @@ public abstract class Component {
         EntityManager.addComponent(this);
     }
 
+    /**
+     * @param e the Entity to set the parent of this component to
+     */
     public void setParent(Entity e) {
         parent = e;
     }
 
+    /**
+     * @return the parent of this component
+     */
     public Entity getParent() {
         return parent;
     }
 
     /**
      * Sets the required components
-     *
      * @param reqs take a guess
      */
     public final void setRequirements(ComponentType... reqs) {
@@ -56,6 +64,9 @@ public abstract class Component {
         reqsMet = true;
     }
 
+    /**
+     * @return the type of the component
+     */
     public final ComponentType getType() {
         return type;
     }

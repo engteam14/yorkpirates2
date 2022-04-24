@@ -3,7 +3,6 @@ package com.mygdx.game.Managers;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Components.Component;
-import com.mygdx.game.Entitys.Building;
 
 import java.util.ArrayList;
 
@@ -43,14 +42,13 @@ public final class RenderingManager {
 
     /**
      * adds item to the list of renderable and adds to the correct layer
-     *
      * @param item  component that utilises render
      * @param layer the layer that it will be rendered in
      */
     public static void addItem(Component item, RenderLayer layer) {
         //tryInit();
 
-        // start of change for assesment 2 - to initialise empty lists if initialise() hasnt already been called due to testing
+        // start of change for assessment 2 - to initialise empty lists if initialise() hasn't already been called due to testing
         if(renderItems == null) renderItems = new ArrayList<>();
         if(layers == null) {
             layers = new ArrayList<>(RenderLayer.values().length);
@@ -74,9 +72,6 @@ public final class RenderingManager {
         for (ArrayList<Integer> layer : layers) {
             for (Integer itemIndex : layer) {
                 Component item = renderItems.get(itemIndex);
-                if (item.getParent() instanceof Building) {
-                    int i = 0;
-                }
                 item.render();
             }
         }

@@ -74,7 +74,6 @@ public final class PhysicsManager {
 
     /**
      * Populates the map with box2D bodies necessary for collisions to happen.
-     *
      * @param map tilemap we are operating on
      */
     public static void createMapCollision(TileMap map) {

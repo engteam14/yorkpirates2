@@ -6,7 +6,7 @@ import com.mygdx.game.Physics.CollisionCallBack;
 import com.mygdx.game.Physics.CollisionInfo;
 
 /**
- * Handels collision callbacks for box2d
+ * Handles collision callbacks for box2d
  */
 public class CollisionManager implements ContactListener {
     private static boolean initialized = false;

@@ -17,6 +17,9 @@ public class PlayerController extends Component {
     private Player player;
     private float speed;
 
+    /**
+     * Creates the base PlayerController Component, setting up its initial values
+     */
     public PlayerController() {
         super();
         type = ComponentType.PlayerController;
@@ -72,7 +75,6 @@ public class PlayerController extends Component {
 
     /**
      * Converts WASD or arrows to direction of travel
-     *
      * @return -1 <= (x, y) <= 1
      */
     private Vector2 getDirFromWASDInput() {

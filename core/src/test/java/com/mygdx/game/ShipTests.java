@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Components.*;
 import com.mygdx.game.Entitys.*;
 import com.mygdx.game.Managers.*;
@@ -29,7 +30,10 @@ public class ShipTests {
 
 	@After
 	public void dispose(){
+		EntityManager.cleanUp();
 		ResourceManager.dispose();
+		GameManager.dispose();
+
 	}
 
 	@Test
@@ -55,7 +59,7 @@ public class ShipTests {
 		Vector2 startPos = rb.getPosition().cpy();
 
 		// Move in desired direction
-		for (int i = 0; i < 500; i++) {
+		for (int i = 0; i < 10; i++) {
 			rb.setVelocity(velocity);
 			PhysicsManager.update();
 		}
@@ -89,19 +93,51 @@ public class ShipTests {
 	public void NPCShipTargetsPlayer() {
 		GameManager.CreatePlayer();
 		Player p = GameManager.getPlayer();
-		NPCShip ship = GameManager.CreateNPCShip(2);
-		GameManager.CreateCollege(2);
+		NPCShip ship = GameManager.CreateNPCShip(1);
+		GameManager.CreateCollege(1);
 
-		ship.setFaction(1);
 		p.setFaction(2);
-
-		Transform playerT = p.getComponent(Transform.class);
-		Transform shipT = ship.getComponent(Transform.class);
 		Pirate pirate = ship.getComponent(Pirate.class);
 
+		assertFalse("Pirate can attack despite no target", pirate.canAttack());
 		pirate.addTarget(p);
-		assertTrue("ship not in attack range",pirate.canAttack());
+		assertTrue("Ship not in attack range",pirate.canAttack());
 		ship.update();
-		assertSame("ship not in attack mode", ATTACK, ship.getCurrentState());
+		assertSame("Ship not in attack mode", ATTACK, ship.getCurrentState());
+	}
+
+	@Test
+	public void killShip(){
+		NPCShip ship = new NPCShip();
+		Pirate p = ship.getComponent(Pirate.class);
+		assertTrue("Ship has been spawned dead",ship.isAlive());
+
+		p.kill();
+		ship.update();
+		assertFalse("Ship has not been correctly killed",ship.isAlive());
+	}
+
+	@Test
+	public void NPCShipShoots(){
+		GameManager.CreatePlayer();
+		Player player = GameManager.getPlayer();
+		NPCShip ship = new NPCShip();
+
+		ship.getComponent(Transform.class).setPosition(0,0);
+		player.getComponent(Transform.class).setPosition(1,1);
+
+		CannonBall cannonBall = GameManager.getCurrentCannon();
+		Transform cannonT = (Transform) cannonBall.getComponent(ComponentType.Transform);
+		Vector2 cannonStartPos = cannonT.getPosition().cpy();
+
+		long initialise = TimeUtils.millis();
+		while (TimeUtils.timeSinceMillis(initialise)<1010){
+			//Do nothing
+		}
+		ship.attackShip(player);
+
+		cannonBall.update();
+		Vector2 cannonNewPos = cannonT.getPosition().cpy();
+		assertNotEquals("Cannonball hasn't moved", cannonNewPos, cannonStartPos);
 	}
 }

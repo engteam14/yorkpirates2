@@ -9,7 +9,6 @@ import com.mygdx.game.Components.Transform;
 import com.mygdx.game.Entitys.*;
 import com.mygdx.game.Faction;
 import com.mygdx.game.PowerUps.PowerUp;
-import com.mygdx.utils.QueueFIFO;
 import com.mygdx.utils.Utilities;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * Responsible for creating most entity's associated with the game. Also the cached chest and cannonballs
+ * Responsible for creating most entity's associated with the game. Also, the cached chest and cannonballs
  */
 public final class GameManager {
     private static ArrayList<Faction> factions;
@@ -62,11 +61,10 @@ public final class GameManager {
     }
 
     /**
-     * added for assessment 2
+     * Added for assessment 2
      * loads the part of the json file for the chosen difficulty and overwrites the settings values with these values
      * @param difficulty the chosen difficulty as a string
      */
-
     public static void changeDifficulty(String difficulty){
         JsonValue settingsAll = new JsonReader(). //change for assessment 2 for multiple difficulties
                 parse(Gdx.files.internal("GameSettings.json"));
@@ -82,8 +80,9 @@ public final class GameManager {
             }
         }
     }
+
     /**
-     * called every fram checks id the quests are completed
+     * called every frame checks id the quests are completed
      */
     public static void update() {
         QuestManager.checkCompleted();
@@ -200,7 +199,7 @@ public final class GameManager {
      */
     public static void CreateWorldMap(int mapId) {
         WorldMap map = new WorldMap(mapId);
-        TileMapGraph mapGraph = new TileMapGraph(map.getTileMap());
+        new TileMapGraph(map.getTileMap());
     }
 
     /**
@@ -265,7 +264,6 @@ public final class GameManager {
         ships = new ArrayList<>();
         ballCache = new ArrayList<>(cacheSize);
         colleges = new ArrayList<>();
-
     }
 
     //public static QueueFIFO<Vector2> getPath(Vector2 loc, Vector2 dst) {

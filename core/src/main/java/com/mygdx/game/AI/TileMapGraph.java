@@ -1,9 +1,6 @@
 package com.mygdx.game.AI;
 
 import com.badlogic.gdx.ai.pfa.Connection;
-import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
-import com.badlogic.gdx.ai.pfa.GraphPath;
-import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
@@ -12,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.mygdx.utils.QueueFIFO;
 
 import static com.mygdx.utils.TileMapCells.OBSTACLE;
 import static com.mygdx.utils.TileMapCells.PASSABLE;
@@ -21,7 +17,7 @@ import static com.mygdx.utils.TileMapCells.PASSABLE;
  * The Graphical representation of the tilemap with each cell being bidirectionally to the adjacent nodes.
  */
 public class TileMapGraph implements IndexedGraph<Node> {
-    //private final NodeHeuristic heuristic;
+    //private final NodeHeuristic heuristic; - commented out for Assessment 2 because heuristic functionality was removed due to redundancy
     private final Array<Node> nodes;
     private final Array<Path> paths;
     private final Vector2 mapDim;
@@ -29,8 +25,7 @@ public class TileMapGraph implements IndexedGraph<Node> {
     private final ObjectMap<Node, Array<Connection<Node>>> nodePaths;
 
     private TileMapGraph() {
-
-        //heuristic = new NodeHeuristic();
+        //heuristic = new NodeHeuristic(); - commented out for Assessment 2 because heuristic functionality was removed due to redundancy
         nodes = new Array<>();
         paths = new Array<>();
         nodePaths = new ObjectMap<>();
@@ -39,7 +34,6 @@ public class TileMapGraph implements IndexedGraph<Node> {
 
     /**
      * Creates a Graph from the given tilemap
-     *
      * @param map the source tilemap
      */
     public TileMapGraph(TiledMap map) {
@@ -109,7 +103,6 @@ public class TileMapGraph implements IndexedGraph<Node> {
 
     /**
      * Node a position (x, y)
-     *
      * @param x co-ord
      * @param y co-ord
      * @return Node at (x, y) or null
@@ -122,6 +115,12 @@ public class TileMapGraph implements IndexedGraph<Node> {
         return n;
     }
 
+    /**
+     * Find index of a position (x, y)
+     * @param x co-ord
+     * @param y co-ord
+     * @return the index of the parsed co-ordinate
+     */
     private int getIndex(float x, float y) {
         return (int) (mapDim.x * y + x);
     }
@@ -133,13 +132,18 @@ public class TileMapGraph implements IndexedGraph<Node> {
         return c.getTile().getId();
     }
 
+    /**
+     * Find index of a position (x, y)
+     * @param x co-ord
+     * @param y co-ord
+     * @return the index of the parsed co-ordinate
+     */
     private int getIndex(int x, int y) {
         return (int) mapDim.x * y + x;
     }
 
     /**
-     * doesn't add if already there
-     *
+     * adds Node unless node is already present
      * @param x x pos
      * @param y y pos
      */
@@ -153,8 +157,7 @@ public class TileMapGraph implements IndexedGraph<Node> {
     }
 
     /**
-     * Adds path to map doesn't check for duplicates
-     *
+     * Adds path to map (doesn't check for duplicates)
      * @param a src
      * @param b dst
      */
@@ -169,8 +172,7 @@ public class TileMapGraph implements IndexedGraph<Node> {
     }
 
     /**
-     * Adds path to map doesn't check for duplicates
-     *
+     * Adds path to map (doesn't check for duplicates)
      * @param x1 src.x
      * @param y1 src.y
      * @param x2 dst.x
@@ -183,17 +185,27 @@ public class TileMapGraph implements IndexedGraph<Node> {
         addPath(a, b);
     }
 
-    // The Interface
+    /**
+     * @param node the node being queried
+     * @return the index of the parsed node
+     */
     @Override
     public int getIndex(Node node) {
         return getIndex(node.getPosition().x, node.getPosition().y);
     }
 
+    /**
+     * @return the amount of nodes present in the map
+     */
     @Override
     public int getNodeCount() {
         return (int) (mapDim.x * mapDim.y);
     }
 
+    /**
+     * @param fromNode the node being queried
+     * @return the list of connections present starting from the parsed node
+     */
     @Override
     public Array<Connection<Node>> getConnections(Node fromNode) {
         if (nodePaths.containsKey(fromNode)) {
@@ -223,7 +235,7 @@ public class TileMapGraph implements IndexedGraph<Node> {
     //        for (int i = 1; i < path.getCount(); i++) {
     //            Node n = path.get(i);
     //            cur.set(n.getPosition());
-    //            // d contains the current vector between the current pos an prev
+    //            // d contains the current vector between the current pos and prev
     //            Vector2 d = cur.cpy();
     //            d.sub(prev);
     //

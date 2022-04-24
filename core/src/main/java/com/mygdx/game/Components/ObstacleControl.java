@@ -10,8 +10,6 @@ import com.mygdx.game.Physics.CollisionInfo;
  * Makes an Entity act as an Obstacle to the Player, causing damage upon collision in a variety of differing ways.
  */
 public class ObstacleControl extends Component {
-
-
     private final float hitDamage;
     private final float hitRate;
     private final int hitLimit;
@@ -34,6 +32,11 @@ public class ObstacleControl extends Component {
         hitCount = 0;
     }
 
+    /**
+     * Attempts to perform a collision action
+     * @param collision the collision info to be attempted
+     * @param enter boolean that determines whether the collision is allowed
+     */
     public void TryHit(CollisionInfo collision, boolean enter) {
         boolean doHit = (enter || (TimeUtils.timeSinceMillis(lastHit) >= hitRate && hitRate > 0));
         if (collision.a instanceof Player && doHit) {
@@ -46,5 +49,4 @@ public class ObstacleControl extends Component {
             }
         }
     }
-
 }

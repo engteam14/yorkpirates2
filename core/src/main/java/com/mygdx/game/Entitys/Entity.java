@@ -17,6 +17,9 @@ public class Entity {
     private String entityName;
     private final ArrayList<Component> components;
 
+    /**
+     * Constructs the base elements of the object
+     */
     public Entity() {
         components = new ArrayList<>();
         entityName = "Entity (" + ++entityCount + ")"; // makes ure by default every entity has a unique name (although it's not automatically important if they don't)
@@ -25,7 +28,6 @@ public class Entity {
 
     /**
      * Allocates the correct amount of memory for components
-     *
      * @param numComponents number of components to allocate memory for
      */
     public Entity(int numComponents) {
@@ -33,20 +35,33 @@ public class Entity {
         components.ensureCapacity(numComponents);
     }
 
+    /**
+     * Sets the name of the entity
+     * @param name string to set the name to
+     */
     public final void setName(String name) {
         EntityManager.changeName(entityName, name);
         entityName = name;
     }
 
+    /**
+     * @return the name of the Entity
+     */
     public final String getName() {
         return entityName;
     }
 
+    /**
+     * @param component the component to be added
+     */
     public void addComponent(Component component) {
         components.add(component);
         component.setParent(this);
     }
 
+    /**
+     * @param components the components to be added
+     */
     public void addComponents(Component... components) {
         for (Component c : components) {
             addComponent(c);
@@ -55,7 +70,6 @@ public class Entity {
 
     /**
      * gets component of type
-     *
      * @param type the type of the desired component
      * @return the component not cast
      */
@@ -70,7 +84,6 @@ public class Entity {
 
     /**
      * Gets the first component that is of the same type as T
-     *
      * @param type [T].class
      * @param <T>  the type of the desired component
      * @return the component cast to the appropriate type
@@ -84,6 +97,24 @@ public class Entity {
         }
         return null;
     }
+/*
+    *//**
+     * Gets the list of components that is of the same type as T
+     * Removed for Assesment 2 as never used
+     * @param type [T].class
+     * @param <T>  the type of the desired component
+     * @return the components cast to the appropriate type
+     *//*
+    public <T> ArrayList<T> getComponents(Class<T> type) {
+        ArrayList<T> res = new ArrayList<>();
+        for (Component c : components) {
+            if (type.isInstance(c)) {
+                res.add((T) c);
+            }
+        }
+        return res;
+    }*/
+
 
     /**
      * Raises the appropriate events on each component with exception to rendering
@@ -120,6 +151,9 @@ public class Entity {
 
     }
 
+    /**
+     * disposes of any components attached to this object
+     */
     public void dispose() {
         for (Component component : components) {
             component = null;
