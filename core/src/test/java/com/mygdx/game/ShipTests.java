@@ -106,6 +106,7 @@ public class ShipTests {
 		pirate.addTarget(p);
 		assertTrue("ship not in attack range",pirate.canAttack());
 		ship.update();
+		ship.update(); // has to update twice to reach attack loop
 		assertSame("ship not in attack mode", ATTACK, ship.getCurrentState());
 	}
 
