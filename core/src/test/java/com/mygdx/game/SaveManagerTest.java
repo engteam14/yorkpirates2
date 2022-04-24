@@ -23,15 +23,18 @@ public class SaveManagerTest {
         PirateGame.loadResources();
         PhysicsManager.Initialize(false);
         prefs = Gdx.app.getPreferences("pirate/GameSave_game_1");
-
     }
+
     @After
     public void dispose(){
         ResourceManager.dispose();
         GameManager.dispose();
     }
 
-
+    /**
+     * Test Identifier: 7.0
+     * Requirements Tested: UR_GAME_SAVE
+     */
     @Test
     public void saveGame() {
         GameManager.Initialize(GameDifficulty.Regular);
@@ -42,6 +45,10 @@ public class SaveManagerTest {
         assertFalse(prefs.get().isEmpty());
     }
 
+    /**
+     * Test Identifier: 7.1
+     * Requirements Tested: UR_GAME_SAVE
+     */
     @Test
     public void loadGame() {
         GameManager.Initialize(GameDifficulty.Hard);
@@ -67,12 +74,8 @@ public class SaveManagerTest {
         assertFalse(GameManager.getCollege(1).isAlive());
         int playerHealth4 = GameManager.getPlayer().getHealth();
 
-
         assertEquals(playerHealth1, playerHealth3);
         assertEquals(playerHealth2, playerHealth4);
-
-
-
     }
 
     @Test

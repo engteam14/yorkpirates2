@@ -15,7 +15,6 @@ import com.mygdx.game.Managers.PhysicsManager;
 import com.mygdx.game.Managers.QuestManager;
 import com.mygdx.game.Managers.ResourceManager;
 import com.mygdx.game.Quests.LocateQuest;
-import com.mygdx.game.Quests.Quest;
 import com.mygdx.utils.Utilities;
 import org.junit.After;
 import org.junit.Before;
@@ -45,7 +44,7 @@ public class GameStateTests {
 
 	/**
 	 * Test Identifier: 2.0
-	 * Requirements Tested: UR_GAME_INIT
+	 * Requirements Tested: UR_GAME_INIT, FR_PLUNDER_TRACKING, FR_XP_TRACKING, FR_PLAYER_AMMO
 	 */
 	@Test
 	public void gameStart() {
@@ -61,8 +60,8 @@ public class GameStateTests {
 		assertEquals(String.format("Player starts with %s health instead of 100", player.getHealth()), player.getHealth(), 100);
 		assertEquals(String.format("Player starts with %s ammo instead of 50", player.getAmmo()), player.getAmmo(), 50);
 		assertEquals(String.format("Player starts with %s plunder instead of 0", player.getPlunder()), player.getPlunder(), 0);
+		assertEquals(String.format("Player starts with %s points instead of 0", player.getPoints()), player.getPoints(), 0);
 		assertTrue("Player is not alive on start", player.isAlive());
-		// TODO: Check player points when they are added
 
 		// Get expected pirate values
 		JsonValue starting = GameManager.getSettings().get("starting");
@@ -127,7 +126,7 @@ public class GameStateTests {
 
 	/**
 	 * Test Identifier: 2.1
-	 * Requirements Tested: UR_GAME_WIN
+	 * Requirements Tested: UR_GAME_WIN, UR_QUEST_PROGRESS
 	 */
 	@Test
 	public void winGame() {
@@ -149,6 +148,10 @@ public class GameStateTests {
 		assertFalse("Player does not win despite all quests completed", QuestManager.anyQuests());
 	}
 
+	/**
+	 * Test Identifier: 2.2
+	 * Requirements Tested: UR_GAME_LOSE
+	 */
 	@Test
 	public void loseGame() {
 		// isAlive is used in the GameScreen to check for lose
@@ -166,13 +169,17 @@ public class GameStateTests {
 		assertFalse("Player does not lose after taking fatal damage", player.isAlive());
 	}
 
+	/**
+	 * Test Identifier: 2.3
+	 * Requirements Tested: UR_DFCLTY_LVL
+	 */
 	@Test
 	public void gameDifficulty() {
 		// Initialise game
 		PirateGame game = new PirateGame();
 
 		// Test default value
-		assertEquals("Game difficulty was not expeccted default value", GameDifficulty.Regular, game.difficulty);
+		assertEquals("Game difficulty was not expected default value", GameDifficulty.Regular, game.difficulty);
 
 		// Test all valid inputs
 		GameDifficulty prevDifficulty = GameDifficulty.Regular;

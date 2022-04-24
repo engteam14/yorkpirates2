@@ -35,6 +35,10 @@ public class PlayerTests {
 		ResourceManager.dispose();
 	}
 
+	/**
+	 * Test Identifier: 4.0
+	 * Requirements Tested: UR_QUEST_PROGRESS, FR_QUEST_OBJECTIVE, FR_QUEST_TRACKING
+	 */
 	@Test
 	public void playerProgressTasks() {
 		GameManager.CreatePlayer();
@@ -63,8 +67,12 @@ public class PlayerTests {
 		assertTrue("Kill Quest shown as incomplete when isn't",questStatusD);
 	}
 
+	/**
+	 * Test Identifier: 4.1
+	 * Requirements Tested: FR_PLUNDER_TRACKING, FR_PLUNDER_UPDATE, UR_EARN_PLUNDER
+	 */
 	@Test
-	public void playerMoney() {
+	public void playerPlunder() {
 		// player
 		GameManager.CreatePlayer();
 		Player player = GameManager.getPlayer();
@@ -95,6 +103,10 @@ public class PlayerTests {
 		assertTrue("Player hasn't gained loot after picking up loot chest ", (after > initial));
 	}
 
+	/**
+	 * Test Identifier: 4.2
+	 * Requirements Tested: FR_XP_TRACKING, FR_XP_UPDATE, FR_XP_UPDATE, UR_EARN_XP
+	 */
 	@Test
 	public void playerPoints() {
 		// Generate Player

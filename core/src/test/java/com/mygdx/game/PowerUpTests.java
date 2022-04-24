@@ -36,6 +36,10 @@ public class PowerUpTests {
 		GameManager.dispose();
 	}
 
+	/**
+	 * Test Identifier: 5.0
+	 * Requirements Tested: UR_POWER_UP
+	 */
 	@Test
 	public void powerUpApply() {
 		Player player = new Player();
@@ -86,7 +90,7 @@ public class PowerUpTests {
 		}
 		PowerUp pow = new PowerUp(key, oper, value, 0,-1);
 
-		// Test applying powerups
+		// Test applying power-ups
 		playerPow.AssignPowerUp(pow);
 		switch(oper){
 			case replace:
@@ -109,11 +113,15 @@ public class PowerUpTests {
 				break;
 		}
 
-		// Test removing powerup
+		// Test removing power-up
 		player.resetToDefault(key);
 		assertEquals("PowerUp does not reset to correct value", player.getValue(key), starter, 0f);
 	}
 
+	/**
+	 * Test Identifier: 5.1
+	 * Requirements Tested: UR_POWER_UP
+	 */
 	@Test
 	public void powerUpPickup() {
 		// Init the player
@@ -121,7 +129,7 @@ public class PowerUpTests {
 		RigidBody playerRb = player.getComponent(RigidBody.class);
 		float startHealth = player.getValue("health");
 
-		// Init the powerup pickup
+		// Init the power-up pickup
 		PowerUp pow = new PowerUp("health", PowerUpOperation.increment, 10f, 0, -1);
 		PowerUpPickup powPickup = new PowerUpPickup(pow, "health-up", new Vector2(100,100).add(player.getPosition()), 1000);
 
@@ -133,29 +141,40 @@ public class PowerUpTests {
 		PhysicsManager.update();
 		assertNotEquals("PowerUp did not apply on collision", player.getValue("health"), startHealth);
 	}
+
+	/**
+	 * Test Identifier: 5.2
+	 * Requirements Tested: UR_POWER_UP, UR_SPEND_PLUNDER
+	 */
 	@Test
 	public void buyPowerUp(){
 		GameManager.CreatePlayer();
 		Player player = GameManager.getPlayer();
 		int health1 = player.getHealth();
 		PowerUp pow = new PowerUp("health", PowerUpOperation.increment, 10f, 0,-1);
+
 		pow.buyPowerUp();
 		int health2 = player.getHealth();
-		assertTrue((health1<health2));
+		assertTrue("Power up was not applied",(health1<health2));
 	}
 
+	/**
+	 * Test Identifier: 5.2
+	 * Requirements Tested: UR_POWER_UP
+	 */
 	@Test
 	public void powerUpDuration(){
 		GameManager.CreatePlayer();
 		Player player = GameManager.getPlayer();
-		int health1 = player.getHealth();
+
 		PowerUp pow = new PowerUp("damage", PowerUpOperation.replace, 50f, 0,1);
 		player.getComponent(PowerUpAssigned.class).AssignPowerUp(pow);
-		long startTime = TimeUtils.millis();
-		int health2 = player.getHealth();
+
 		player.getComponent(PowerUpAssigned.class).update();
 		assertFalse("PowerUp is done too early", pow.CheckPowerUpDone());
 		assertEquals("PowerUp did not apply", 50.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
+
+		long startTime = TimeUtils.millis();
 		while ((TimeUtils.timeSinceMillis(startTime) < 1100)){
 			TimeUtils.timeSinceMillis(startTime);
 			pow.CheckPowerUpDone();
@@ -164,6 +183,5 @@ public class PowerUpTests {
 		assertEquals("PowerUp did not undo effects", 10.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
 
 		player.getComponent(PowerUpAssigned.class).update();
-		System.out.println(player.getComponent(Pirate.class).getAttackDmg());
 	}
 }

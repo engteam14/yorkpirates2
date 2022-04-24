@@ -36,6 +36,10 @@ public class ShipTests {
 
 	}
 
+	/**
+	 * Test Identifier: 8.0
+	 * Requirements Tested: UR_SHIP_CONTROL,
+	 */
 	@Test
 	public void shipMove() {
 		Ship ship = new Ship();
@@ -75,6 +79,10 @@ public class ShipTests {
 		assertTrue(String.format("Ship moved from %s to %s when velocity of %s applied.", startPos, rb.getPosition(), velocity), correctMovement);
 	}
 
+	/**
+	 * Test Identifier: 8.1
+	 * Requirements Tested: UR_FIRE_WEAPONS, FR_PLAYER_FIRE
+	 */
 	@Test
 	public void shipFires() {
 		Ship ship = new Ship();
@@ -89,6 +97,10 @@ public class ShipTests {
 		assertNotEquals("Cannonball has not been fired", cannonStartPos, cannonNewPos);
 	}
 
+	/**
+	 * Test Identifier: 8.2
+	 * Requirements Tested: UR_HOSTILE_SHIP_ENCOUNTER
+	 */
 	@Test
 	public void NPCShipTargetsPlayer() {
 		GameManager.CreatePlayer();
@@ -106,6 +118,10 @@ public class ShipTests {
 		assertSame("Ship not in attack mode", ATTACK, ship.getCurrentState());
 	}
 
+	/**
+	 * Test Identifier: 8.3
+	 * Requirements Tested: UR_HOSTILE_SHIP_ENCOUNTER
+	 */
 	@Test
 	public void killShip(){
 		NPCShip ship = new NPCShip();
@@ -117,6 +133,10 @@ public class ShipTests {
 		assertFalse("Ship has not been correctly killed",ship.isAlive());
 	}
 
+	/**
+	 * Test Identifier: 8.4
+	 * Requirements Tested: UR_HOSTILE_SHIP_ENCOUNTER
+	 */
 	@Test
 	public void NPCShipShoots(){
 		GameManager.CreatePlayer();

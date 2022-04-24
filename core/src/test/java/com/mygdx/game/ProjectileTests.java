@@ -40,9 +40,12 @@ public class ProjectileTests {
 	public void getComponent() {
 		Player player = new Player();
 		assertNull(player.getComponent(AINavigation.class));
-
 	}
 
+	/**
+	 * Test Identifier: 6.0
+	 * Requirements Tested: FR_PLAYER_AMMO
+	 */
 	@Test
 	public void projectileAmmoExists() {
 		JsonValue starting = GameManager.getSettings().get("starting");
@@ -50,6 +53,10 @@ public class ProjectileTests {
 		assertTrue("No ammunition present",ammo>0);
 	}
 
+	/**
+	 * Test Identifier: 6.1
+	 * Requirements Tested: FR_PLAYER_FIRE, UR_FIRE_WEAPONS, UR_BULLET_TRAVEL
+	 */
 	@Test
 	public void projectileFires() {
 		Ship ship = new Ship();
@@ -74,6 +81,10 @@ public class ProjectileTests {
 		assertTrue("Cannonball remains invisible",cannonR.isVisible());
 	}
 
+	/**
+	 * Test Identifier: 6.2
+	 * Requirements Tested: UR_HOSTILE_BUILDING_COMBAT
+	 */
 	@Test
 	public void projectileHitsBuildings() {
 		College allyCollegeOne = new College(1);
@@ -105,6 +116,10 @@ public class ProjectileTests {
 		assertFalse("Enemy college fails to damage enemies",building.isAlive());
 	}
 
+	/**
+	 * Test Identifier: 6.3
+	 * Requirements Tested: UR_HOSTILE_SHIP_ENCOUNTER, UR_SHIP_COMBAT
+	 */
 	@Test
 	public void projectileHitsShips() {
 		Ship allyShipOne = new Ship();
@@ -135,22 +150,24 @@ public class ProjectileTests {
 		assertNotSame("Enemy ship fails to damage enemies",healthPost,healthPostPost);
 	}
 
+	/**
+	 * Test Identifier: 6.4
+	 * Requirements Tested: FR_BULLET_TRAVEL
+	 */
 	@Test
-	public void removeOnCollision(){
+	public void projectileRemovedOnCollision(){
 		Ship ship = new Ship();
-
 		CannonBall cannon = GameManager.getCurrentCannon();
-		Vector2 homePosition = cannon.getComponent(Transform.class).getPosition().cpy();
+
+		Vector2 startPosition = cannon.getComponent(Transform.class).getPosition().cpy();
 		ship.shoot(new Vector2(1, 1));
 		Vector2 shotPosition = cannon.getComponent(Transform.class).getPosition().cpy();
+
 		cannon.kill();
 		cannon.update();
 		Vector2 deadPosition = cannon.getComponent(Transform.class).getPosition().cpy();
-		assertNotEquals(homePosition, shotPosition);
-		assertEquals("hasnt gone off screen", new Vector2(10000, 10000), deadPosition);
-		System.out.println(homePosition);
-		System.out.println(shotPosition);
-		System.out.println(deadPosition);
 
+		assertNotEquals("Cannon hasn't moved after being shot",startPosition, shotPosition);
+		assertEquals("Hasn't gone off screen after being kill", new Vector2(10000, 10000), deadPosition);
 	}
 }
