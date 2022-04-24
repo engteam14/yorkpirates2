@@ -59,7 +59,7 @@ public class ShipTests {
 		Vector2 startPos = rb.getPosition().cpy();
 
 		// Move in desired direction
-		for (int i = 0; i < 500; i++) {
+		for (int i = 0; i < 10; i++) {
 			rb.setVelocity(velocity);
 			PhysicsManager.update();
 		}
