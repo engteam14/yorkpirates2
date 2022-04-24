@@ -206,9 +206,9 @@ public class Pirate extends Component {
     public boolean canAttack() {
         final Ship p = (Ship) parent;
         final Vector2 pos = p.getPosition();
-        final float dst = pos.dst(targets.peek() != null ? targets.peek().getPosition() : null);
         // within attack range
         if (targets.peek() != null) {
+            final float dst = pos.dst(targets.peek() != null ? targets.peek().getPosition() : null); // Assessment 2 change: Fixed to not error on null
             return dst < Ship.getAttackRange();
         }else{
             return false;

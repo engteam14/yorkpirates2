@@ -103,6 +103,7 @@ public class ShipTests {
 		Transform shipT = ship.getComponent(Transform.class);
 		Pirate pirate = ship.getComponent(Pirate.class);
 
+		assertFalse("pirate can attack despite no target", pirate.canAttack());
 		pirate.addTarget(p);
 		assertTrue("ship not in attack range",pirate.canAttack());
 		ship.update();
