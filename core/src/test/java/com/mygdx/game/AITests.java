@@ -38,6 +38,10 @@ public class AITests {
 		ResourceManager.dispose();
 	}
 
+	/**
+	 * Test Identifier: 9.0
+	 * Requirements Tested: FR_FRIENDLY_AI, FR_HOSTILE_AI
+	 */
 	@Test
 	public void nodePosition() {
 		// Test initialising a Node
@@ -52,6 +56,10 @@ public class AITests {
 		assertEquals("Node position was set but incorrectly", newPos, testNode.getPosition());
 	}
 
+	/**
+	 * Test Identifier: 9.1
+	 * Requirements Tested: FR_FRIENDLY_AI, FR_HOSTILE_AI
+	 */
 	@Test
 	public void pathNodes() {
 		// Initialize path
@@ -64,6 +72,10 @@ public class AITests {
 		assertEquals("to Node is different than value initialised with", to, testPath.getToNode());
 	}
 
+	/**
+	 * Test Identifier: 9.2
+	 * Requirements Tested: FR_FRIENDLY_AI, FR_HOSTILE_AI
+	 */
 	@Test
 	public void pathCost() {
 		// Initialize path

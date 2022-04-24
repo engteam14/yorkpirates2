@@ -99,7 +99,7 @@ public class ShipTests {
 
 	/**
 	 * Test Identifier: 8.2
-	 * Requirements Tested: UR_HOSTILE_SHIP_ENCOUNTER
+	 * Requirements Tested: UR_HOSTILE_SHIP_ENCOUNTER, FR_HOSTILE_AI
 	 */
 	@Test
 	public void NPCShipTargetsPlayer() {
