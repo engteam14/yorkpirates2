@@ -103,9 +103,11 @@ public class ShipTests {
 		Transform shipT = ship.getComponent(Transform.class);
 		Pirate pirate = ship.getComponent(Pirate.class);
 
+		assertFalse("pirate can attack despite no target", pirate.canAttack());
 		pirate.addTarget(p);
 		assertTrue("ship not in attack range",pirate.canAttack());
 		ship.update();
+		ship.update(); // has to update twice to reach attack loop
 		assertSame("ship not in attack mode", ATTACK, ship.getCurrentState());
 	}
 
@@ -139,7 +141,6 @@ public class ShipTests {
 		while (TimeUtils.timeSinceMillis(initialise)<1010){}
 		ship.attackShip(player);
 		cannonBall.update();
-		assertEquals("wrong ship shooting", cannonBall.getShooter(), cannonBall.getShooter() );
 
 		Vector2 cannonNewPos = cannonT.getPosition().cpy();
 		System.out.println(cannonNewPos);

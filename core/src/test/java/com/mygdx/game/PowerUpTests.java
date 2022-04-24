@@ -154,18 +154,16 @@ public class PowerUpTests {
 		long startTime = TimeUtils.millis();
 		int health2 = player.getHealth();
 		player.getComponent(PowerUpAssigned.class).update();
-		assertFalse(pow.CheckPowerUpDone());
-		assertEquals(50.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
-		while ((TimeUtils.timeSinceMillis(startTime) < 1000)){
+		assertFalse("PowerUp is done too early", pow.CheckPowerUpDone());
+		assertEquals("PowerUp did not apply", 50.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
+		while ((TimeUtils.timeSinceMillis(startTime) < 1100)){
 			TimeUtils.timeSinceMillis(startTime);
 			pow.CheckPowerUpDone();
 			player.getComponent(PowerUpAssigned.class).update();}
-		assertTrue(pow.CheckPowerUpDone());
-		assertEquals(10.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
+		assertTrue("PowerUp is not done", pow.CheckPowerUpDone());
+		assertEquals("PowerUp did not undo effects", 10.0, player.getComponent(Pirate.class).getAttackDmg(), 0.0);
 
 		player.getComponent(PowerUpAssigned.class).update();
 		System.out.println(player.getComponent(Pirate.class).getAttackDmg());
-
-
 	}
 }
