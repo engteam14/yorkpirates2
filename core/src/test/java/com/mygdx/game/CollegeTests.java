@@ -41,12 +41,23 @@ public class CollegeTests {
 		GameManager.dispose();
 	}
 
+	/**
+	 * Test Identifier: 1.0
+	 * Requirements Tested: UR_COMPETING_COLLEGES
+	 */
 	@Test
 	public void collegeExists() {
 		College college = new College(1);
+		GameManager.SpawnGame(-1);
+
 		assertTrue("College is spawned dead",college.isAlive());
+		assertTrue("Less than 3 colleges are spawned",GameManager.getColleges().size() > 2);
 	}
 
+	/**
+	 * Test Identifier: 1.1
+	 * Requirements Tested: UR_HOSTILE_BUILDING_COMBAT
+	 */
 	@Test
 	public void collegeFires() {
 		College college = new College();
@@ -59,9 +70,14 @@ public class CollegeTests {
 
 		college.shoot(collegeT.getPosition(),shootDirection);
 		Vector2 cannonNewPos = cannonT.getPosition().cpy();
+
 		assertNotEquals("Cannonball position has not been fired", cannonStartPos, cannonNewPos);
 	}
 
+	/**
+	 * Test Identifier: 1.1
+	 * Requirements Tested: UR_HOSTILE_COLLEGE_CAPTURE
+	 */
 	@Test
 	public void collegeIsCaptured() {
 		GameManager.CreatePlayer();

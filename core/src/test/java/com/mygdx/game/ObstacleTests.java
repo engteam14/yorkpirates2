@@ -41,6 +41,10 @@ public class ObstacleTests {
 		GameManager.dispose();
 	}
 
+	/**
+	 * Test Identifier: 3.0
+	 * Requirements Tested: UR_OBSTACLE_ENCOUNTER
+	 */
 	@Test
 	public void obstacleDamage() {
 		// Get the player
@@ -76,6 +80,10 @@ public class ObstacleTests {
 		playerRb.setPosition(new Vector2(0,0));
 	}
 
+	/**
+	 * Test Identifier: 3.0
+	 * Requirements Tested: UR_WEATHER_ENCOUNTER
+	 */
 	@Test
 	public void weatherDamage() {
 		// Get the player
