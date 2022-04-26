@@ -222,9 +222,9 @@ public class Pirate extends Component {
     public boolean isAggro() {
         final Ship p = (Ship) parent;
         final Vector2 pos = p.getPosition();
-        final float dst = pos.dst(targets.peek() != null ? targets.peek().getPosition() : null);
         // out of attack range but in aggro range
         if (targets.peek() != null) {
+            final float dst = pos.dst(targets.peek() != null ? targets.peek().getPosition() : null);
             return dst >= Ship.getAttackRange();
         }else{
             return false;
