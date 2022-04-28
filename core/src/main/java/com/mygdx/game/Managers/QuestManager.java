@@ -74,7 +74,7 @@ public class QuestManager {
         }
         x *= TILE_SIZE;
         y *= TILE_SIZE;
-        addQuest(new LocateQuest(new Vector2(x, y), 5 * TILE_SIZE));
+        addQuest(new LocateQuest(new Vector2(x, y), 1 * TILE_SIZE));
     }
 
     /**
