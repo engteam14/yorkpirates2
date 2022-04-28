@@ -256,26 +256,26 @@
   "Easy": {
     "starting": {
       "health": 500,
-      "damage": 10.0,
+      "damage": 20.0,
       "cannonSpeed": 10000.0,
       "attackRange_tiles": 4.0,
-      "ammo": 50
+      "ammo": 60
     },
     "AI": {
-      "maxSpeed": 500.0
+      "maxSpeed": 300.0
     }
   },
 
   "Hard": {
     "starting": {
       "health": 50,
-      "damage": 10.0,
+      "damage": 5.0,
       "cannonSpeed": 10000.0,
       "attackRange_tiles": 4.0,
-      "ammo": 50
+      "ammo": 40
     },
     "AI": {
-      "maxSpeed": 500.0
+      "maxSpeed": 600.0
     }
   }
 }
