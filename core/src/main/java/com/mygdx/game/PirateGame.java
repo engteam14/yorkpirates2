@@ -109,8 +109,6 @@ public class PirateGame extends Game {
         RenderingManager.Initialize();
         EntityManager.Initialize();
         GameManager.Initialize(difficulty);
-
-        game = new GameScreen(this, id_map);
         setScreen(menu);
     }
 
