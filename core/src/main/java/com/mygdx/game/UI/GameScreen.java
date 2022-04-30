@@ -16,6 +16,7 @@ import com.mygdx.game.PirateGame;
 import com.mygdx.game.PowerUps.PowerUp;
 import com.mygdx.game.Quests.Quest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.mygdx.utils.Constants.*;
@@ -28,6 +29,7 @@ public class GameScreen extends Page {
     private final Label questDesc;
     private final Label questName;
 
+    public ArrayList<TextButton> powerUpButtons; // Added for Assessment 2, keep track of Shop Buttons
     public Pixmap pixmap;
     private float accumulator;
 
@@ -48,6 +50,7 @@ public class GameScreen extends Page {
         super(parent);
         INIT_CONSTANTS();
         PhysicsManager.Initialize(false);
+
         /*int id_ship = ResourceManager.addTexture("ship.png");
         int id_map = ResourceManager.addTileMap("Map.tmx");
         int atlas_id = ResourceManager.addTextureAtlas("Boats.txt");
@@ -125,111 +128,91 @@ public class GameScreen extends Page {
         shop.add(shopWin);
         shopWin.add(shopTable);
         shopTable.pad(10);
+
+        powerUpButtons = new ArrayList<>();
+
         //power up 1
         PowerUp pow1 = powerUps.get("1");
         TextButton powerUp1 = new TextButton(pow1.getName(), parent.skin);
-        shopTable.add(powerUp1).pad(10);
         powerUp1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 pow1.buyPowerUp();
             }
         });
-        TextTooltip powerUp1TT = new TextTooltip(pow1.getName(), parent.skin);
-        powerUp1TT.setInstant(true);
-        powerUp1.addListener(powerUp1TT);
-        shopTable.row();
+        powerUpButtons.add(powerUp1);
+
         //power up 2
         PowerUp pow2 = powerUps.get("2");
-
         TextButton powerUp2 = new TextButton(pow2.getName(), parent.skin);
-        shopTable.add(powerUp2).pad(10);
         powerUp2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 pow2.buyPowerUp();
             }
         });
-        TextTooltip powerUp2TT = new TextTooltip(pow2.getName(), parent.skin);
-        powerUp2TT.setInstant(true);
-        powerUp2.addListener(powerUp2TT);
-        shopTable.row();
+        powerUpButtons.add(powerUp2);
 
         //power up 3
         PowerUp pow3 = powerUps.get("3");
         TextButton powerUp3 = new TextButton(pow3.getName(), parent.skin);
-        shopTable.add(powerUp3).pad(10);
         powerUp3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 pow3.buyPowerUp();
             }
         });
-        TextTooltip powerUp3TT = new TextTooltip(pow3.getName(), parent.skin);
-        powerUp3TT.setInstant(true);
-        powerUp3.addListener(powerUp3TT);
-        shopTable.row();
+        powerUpButtons.add(powerUp3);
 
         //power up 4
         PowerUp pow4 = powerUps.get("4");
         TextButton powerUp4 = new TextButton(pow4.getName(), parent.skin);
-        shopTable.add(powerUp4).pad(10);
         powerUp4.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 pow4.buyPowerUp();
             }
         });
-        TextTooltip powerUp4TT = new TextTooltip(pow4.getName(), parent.skin);
-        powerUp4TT.setInstant(true);
-        powerUp4.addListener(powerUp4TT);
-        shopTable.row();
+        powerUpButtons.add(powerUp4);
 
         //power up 5
         PowerUp pow5 = powerUps.get("5");
         TextButton powerUp5 = new TextButton(pow5.getName(), parent.skin);
-        shopTable.add(powerUp5).pad(10);
         powerUp5.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 pow5.buyPowerUp();
             }
         });
-        TextTooltip powerUp5TT = new TextTooltip(pow5.getName(), parent.skin);
-        powerUp4TT.setInstant(true);
-        powerUp4.addListener(powerUp5TT);
-        shopTable.row();
+        powerUpButtons.add(powerUp5);
 
         //power up 6
         PowerUp pow6 = powerUps.get("6");
         TextButton powerUp6 = new TextButton(pow6.getName(), parent.skin);
-        shopTable.add(powerUp6).pad(10);
         powerUp6.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 pow6.buyPowerUp();
             }
         });
-        TextTooltip powerUp6TT = new TextTooltip(pow6.getName(), parent.skin);
-        powerUp4TT.setInstant(true);
-        powerUp4.addListener(powerUp6TT);
-        shopTable.row();
-
+        powerUpButtons.add(powerUp6);
 
         //power up 7
         PowerUp pow7 = powerUps.get("7");
         TextButton powerUp7 = new TextButton(pow7.getName(), parent.skin);
-        shopTable.add(powerUp7).pad(10);
         powerUp7.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 pow7.buyPowerUp();
             }
         });
-        TextTooltip powerUp7TT = new TextTooltip(pow7.getName(), parent.skin);
-        powerUp4TT.setInstant(true);
-        powerUp4.addListener(powerUp7TT);
-        //shopTable.debug();
+        powerUpButtons.add(powerUp7);
+
+        //add power ups to shop table
+        for(TextButton button : powerUpButtons) {
+            shopTable.add(button).pad(10);
+            shopTable.row();
+        }
 
         actors.add(shop);
         // end of addition for assessment 2
@@ -243,7 +226,6 @@ public class GameScreen extends Page {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(BACKGROUND_COLOUR.x, BACKGROUND_COLOUR.y, BACKGROUND_COLOUR.z, 1);
-
         EntityManager.raiseEvents(ComponentEvent.Update, ComponentEvent.Render);
 
         accumulator += EntityManager.getDeltaTime();
