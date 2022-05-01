@@ -274,12 +274,12 @@ public class Pirate extends Component {
         return targets;
     }
 
+    public void removeTarget() {
+            targets.pop();
+        }
+
     //public int targetCount() {
     //        return targets.size();
-    //    }
-
-    //public void removeTarget() {
-    //        targets.pop();
     //    }
 
     //public void reload(int ammo) {
