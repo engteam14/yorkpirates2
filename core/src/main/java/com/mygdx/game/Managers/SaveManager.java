@@ -23,7 +23,6 @@ public final class SaveManager {
     public static void SaveGame(){
         prefs = Gdx.app.getPreferences("pirate/GameSave_game_1");
         prefs.putString("Difficulty", GameManager.getSettings().name);
-
         ArrayList<Ship> ships = GameManager.getShips();
         // save the stats of each ship where the first one is the player
         for (int i = 0; i < ships.size(); i++) {
@@ -31,6 +30,8 @@ public final class SaveManager {
             prefs.putFloat("ship"+i+"X", ship.getPosition().x);
             prefs.putFloat("ship"+i+"Y", ship.getPosition().y);
             prefs.putFloat("ship" + i + "H", ship.getHealth());
+            prefs.putInteger("ship" + i + "Pl", ship.getPlunder());
+            prefs.putInteger("ship" + i + "Po", ship.getPoints());
             prefs.putInteger("ship" + i + "A", ship.getComponent(Pirate.class).getAmmo());
             prefs.putInteger("ship" + "F", ship.getComponent(Pirate.class).getFaction().id);
         }
@@ -65,7 +66,7 @@ public final class SaveManager {
             float shipY = prefs.getFloat("ship" + i + "Y", ship.getPosition().y);
             float shipH = prefs.getFloat("ship" + i + "H", ship.getHealth());
             int shipP = prefs.getInteger("ship" + i + "Pl", ship.getPlunder());
-            int shipPo = prefs.getInteger("ship" + i + "Po", ship.getPlunder());
+            int shipPo = prefs.getInteger("ship" + i + "Po", ship.getPoints());
             int shipA = prefs.getInteger("ship" + i + "A", ship.getComponent(Pirate.class).getAmmo());
             int shipF = prefs.getInteger("ship" + i + "F", ship.getComponent(Pirate.class).getFaction().id);
 
@@ -85,7 +86,6 @@ public final class SaveManager {
                 college.killThisCollege(null);
             }
         }
-        QuestManager.setCurrentQuest(prefs.getString("currentQuest"));
     }
 }
 

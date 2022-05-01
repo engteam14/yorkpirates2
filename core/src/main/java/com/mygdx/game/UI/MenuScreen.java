@@ -52,9 +52,11 @@ public class MenuScreen extends Page {
         String[] values = new String[]{"Easy", "Regular", "Hard"};
         hardness.setItems(values);
         hardness.setSelected(values[1]);
+        t.add(new Label("Difficulty:", parent.skin));
+        t.row();
         t.add(hardness);
         t.row();
-        t.add().pad(20);
+        t.add().pad(30);
         t.row();
         TextButton play = new TextButton("Play", parent.skin);
         play.addListener(new ChangeListener() {

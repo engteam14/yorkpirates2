@@ -6,7 +6,7 @@ filter: Linear, Linear
 repeat: none
 ball
   rotate: false
-  xy: 135, 144
+  xy: 67, 144
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -186,58 +186,65 @@ default-window
   index: -1
 gold
   rotate: false
-  xy: 67, 144
+  xy: 101, 144
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heart
   rotate: false
-  xy: 1, 12
+  xy: 1, 46
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 key-a
   rotate: false
-  xy: 203, 144
+  xy: 135, 144
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 key-d
   rotate: false
-  xy: 169, 144
+  xy: 1, 12
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 key-esc
   rotate: false
-  xy: 35, 80
+  xy: 169, 144
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 key-s
   rotate: false
-  xy: 101, 144
+  xy: 203, 144
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 key-w
   rotate: false
-  xy: 1, 46
+  xy: 35, 80
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 mouse
   rotate: false
-  xy: 1, 114
+  xy: 1, 148
   size: 64, 28
   orig: 64, 28
+  offset: 0, 0
+  index: -1
+point
+  rotate: false
+  xy: 35, 48
+  size: 30, 30
+  orig: 30, 30
   offset: 0, 0
   index: -1
 selection
@@ -249,7 +256,7 @@ selection
   index: -1
 space
   rotate: false
-  xy: 1, 144
+  xy: 1, 114
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
@@ -273,12 +280,5 @@ white
   xy: 186, 139
   size: 3, 3
   orig: 3, 3
-  offset: 0, 0
-  index: -1
-point
-  rotate: false
-  xy: 35, 48
-  size: 30, 30
-  orig: 30, 30
   offset: 0, 0
   index: -1
