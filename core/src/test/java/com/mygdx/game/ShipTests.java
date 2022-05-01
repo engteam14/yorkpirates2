@@ -44,6 +44,7 @@ public class ShipTests {
 	public void shipMove() {
 		Ship ship = new Ship();
 		RigidBody shipRb = (RigidBody) ship.getComponent(ComponentType.RigidBody);
+		shipRb.update();
 
 		moveTest(shipRb, new Vector2(0,0));
 
