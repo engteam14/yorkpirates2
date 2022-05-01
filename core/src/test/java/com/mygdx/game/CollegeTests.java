@@ -21,6 +21,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+
 import static com.mygdx.utils.Constants.INIT_CONSTANTS;
 import static org.junit.Assert.*;
 
@@ -90,5 +92,35 @@ public class CollegeTests {
 
 		assertNotEquals("College has not changed factions", factionPrior, factionPost);
 		assertEquals("College faction not changed to match conqueror", factionPost, player.getFaction());
+	}
+
+	/**
+	 * Test Identifier: 1.2
+	 * Requirements Tested:
+	 */
+	@Test
+	public void displacementFromShip() {
+		GameManager.CreatePlayer();
+		College college = new College(5);
+		Player player = GameManager.getPlayer();
+
+		college.getComponent(Transform.class).setPosition(0,0);
+		player.getComponent(Transform.class).setPosition(0,0);
+
+		Vector2 zeroVector = new Vector2(0,0);
+		ArrayList<Vector2> zeroDisplacement = new ArrayList<>();
+		zeroDisplacement.add(zeroVector);
+		zeroDisplacement.add(zeroVector);
+
+		assertEquals("College faction not changed to match conqueror", zeroDisplacement, college.displacementFromShip(player));
+
+		player.getComponent(Transform.class).setPosition(10,10);
+
+		Vector2 tenVector = new Vector2(10,10);
+		ArrayList<Vector2> tenDisplacement = new ArrayList<>();
+		tenDisplacement.add(tenVector);
+		tenDisplacement.add(tenVector);
+
+		assertEquals("College faction not changed to match conqueror", tenDisplacement, college.displacementFromShip(player));
 	}
 }
