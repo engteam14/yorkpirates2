@@ -225,4 +225,66 @@ class QueueFIFOTest {
                 , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2,3)),queue3.get(),"Queue modified when shouldn't be")
                 , () -> assertEquals(2, queue3.getI(),"Top Index modified when shouldn't be"));
     }
+
+    @Test
+    void toObjectArray() {
+        QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
+        QueueFIFO<Object> queue3 = new QueueFIFO<>() ;
+        queue3.set(new ArrayList<>(Arrays.asList(1, 2, 3)));
+
+        Object[] arrayQueue3 = new Object[3];
+        for(int i = 0; i < arrayQueue3.length; i++) {
+            arrayQueue3[i] = i + 1;
+        }
+
+        assertAll(() -> assertArrayEquals(new Object[0],queue0.toArray(), "Empty Queue converted incorrectly")
+                , () -> assertArrayEquals(arrayQueue3,queue3.toArray(), "Queue converted incorrectly")
+                , () -> assertEquals(new ArrayList<>(Arrays.asList(1,2,3)),queue3.get(),"Queue modified when shouldn't be"));
+    }
+
+    @Test
+    void toT1Array() {
+        QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
+        QueueFIFO<Object> queue3 = new QueueFIFO<>() ;
+        queue3.set(new ArrayList<>(Arrays.asList(0, 1, 2)));
+
+        //Arrays to append
+        Object[] emptyPrepend = new Object[0];
+        Object[] mirrorPrepend = new Object[3];
+        for(int i = 0; i < mirrorPrepend.length; i++) {
+            mirrorPrepend[i] = 3 - i;
+        }
+
+        //Resultant Arrays to test
+        Object[] mirrorTest = new Object[6];
+        for(int i = 0; i < mirrorTest.length; i++) {
+            mirrorTest[i] = Math.abs(3-i);
+        }
+
+        Object[] arrayQueue3 = new Object[3];
+        for(int i = 0; i < arrayQueue3.length; i++) {
+            arrayQueue3[i] = i;
+        }
+
+        assertAll(() -> assertArrayEquals(new Object[0],queue0.toArray(emptyPrepend), "Both empty fails")
+                , () -> assertArrayEquals(arrayQueue3,queue3.toArray(emptyPrepend), "Prepend empty fails")
+                , () -> assertArrayEquals(mirrorPrepend,queue0.toArray(mirrorPrepend), "Queue empty fails")
+                , () -> assertArrayEquals(mirrorTest,queue3.toArray(mirrorPrepend), "Neither empty fails")
+                , () -> assertEquals(new ArrayList<>(Arrays.asList(0,1,2)),queue3.get(),"Queue modified when shouldn't be"));
+    }
+
+    @Test
+    void containsAll() {
+        QueueFIFO<Object> queue0 = new QueueFIFO<>() ;
+        QueueFIFO<Object> queue3 = new QueueFIFO<>() ;
+        queue3.set(new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6)));
+
+        ArrayList<Integer> testCollection = new ArrayList<>(Arrays.asList(0,2,4,6));
+        ArrayList<Integer> testFailCollection = new ArrayList<>(Arrays.asList(0,2,4,6,8));
+
+        assertAll(() -> assertFalse(queue0.containsAll(testCollection))
+                , () -> assertTrue(queue3.containsAll(testCollection))
+                , () -> assertFalse(queue3.containsAll(testFailCollection))
+        );
+    }
 }
