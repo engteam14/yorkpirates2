@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Components.ComponentEvent;
+import com.mygdx.game.Components.PlayerController;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Managers.*;
 import com.mygdx.game.PirateGame;
@@ -32,12 +33,6 @@ public class GameScreen extends Page {
     public ArrayList<TextButton> powerUpButtons; // Added for Assessment 2, keep track of Shop Buttons
     public Pixmap pixmap;
     private float accumulator;
-
-    //private PauseScreen pause;
-    /*private final Label questComplete;
-    private float showTimer = 0;
-    // in seconds
-    private static final float showDuration = 1;*/
 
     /**
      * Boots up the actual game: starts PhysicsManager, GameManager, EntityManager,
@@ -75,8 +70,6 @@ public class GameScreen extends Page {
             questName.setText(q.getName());
             questDesc.setText(q.getDescription());
         }
-        /*questComplete = new Label("", parent.skin);
-        actors.add(questComplete);*/
 
         t.add(questDesc).left();
         questWindow.add(t);
@@ -112,8 +105,6 @@ public class GameScreen extends Page {
 
         //create power ups
         for (JsonValue powData : GameManager.getSettings().get("powerups")) {
-            //String texName = powData.getString("sprite");
-            int cooldown = powData.getInt("spawnCooldown");
             PowerUp pow = new PowerUp(powData);
             powerUps.put(powData.getString("id"), pow);
         }
@@ -214,12 +205,14 @@ public class GameScreen extends Page {
             shopTable.row();
         }
 
+        Player player = GameManager.getPlayer();
+        player.getComponent(PlayerController.class).setButtons(powerUpButtons);
         actors.add(shop);
         // end of addition for assessment 2
     }
 
     /**
-     * Called every frame calls all other functions that need to be called every frame by rasing events and update methods
+     * Called every frame calls all other functions that need to be called every frame by raising events and update methods
      *
      * @param delta delta time
      */
