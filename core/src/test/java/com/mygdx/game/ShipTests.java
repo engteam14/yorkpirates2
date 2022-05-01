@@ -110,11 +110,13 @@ public class ShipTests {
 		GameManager.CreateCollege(1);
 
 		Pirate pirate = ship.getComponent(Pirate.class);
+		AINavigation nav = ship.getComponent(AINavigation.class);
 
 		assertFalse("Pirate can attack despite no target", pirate.canAttack());
 		pirate.addTarget(p);
 		assertTrue("Ship not in attack range",pirate.canAttack());
 		ship.update();
+		nav.update();
 		assertSame("Ship not in attack mode", ATTACK, ship.getCurrentState());
 
 		p.getComponent(Pirate.class).kill();
