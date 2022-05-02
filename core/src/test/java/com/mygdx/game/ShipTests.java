@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.mygdx.game.AI.EnemyState.ATTACK;
+import static com.mygdx.game.AI.EnemyState.*;
 import static com.mygdx.utils.Constants.INIT_CONSTANTS;
 import static org.junit.Assert.*;
 
@@ -44,6 +44,7 @@ public class ShipTests {
 	public void shipMove() {
 		Ship ship = new Ship();
 		RigidBody shipRb = (RigidBody) ship.getComponent(ComponentType.RigidBody);
+		shipRb.update();
 
 		moveTest(shipRb, new Vector2(0,0));
 
@@ -102,20 +103,45 @@ public class ShipTests {
 	 * Requirements Tested: UR_HOSTILE_SHIP_ENCOUNTER, FR_HOSTILE_AI
 	 */
 	@Test
-	public void NPCShipTargetsPlayer() {
+	public void NPCShipsChangeStates() {
 		GameManager.CreatePlayer();
 		Player p = GameManager.getPlayer();
 		NPCShip ship = GameManager.CreateNPCShip(1);
 		GameManager.CreateCollege(1);
 
-		p.setFaction(2);
 		Pirate pirate = ship.getComponent(Pirate.class);
+		AINavigation nav = ship.getComponent(AINavigation.class);
 
 		assertFalse("Pirate can attack despite no target", pirate.canAttack());
 		pirate.addTarget(p);
 		assertTrue("Ship not in attack range",pirate.canAttack());
 		ship.update();
+		nav.update();
 		assertSame("Ship not in attack mode", ATTACK, ship.getCurrentState());
+
+		p.getComponent(Pirate.class).kill();
+		ship.update();
+		assertSame("Ship not in wander mode after target is killed", WANDER, ship.getCurrentState());
+
+		GameManager.CreatePlayer();
+		p = GameManager.getPlayer();
+		Vector2 outOfRange = new Vector2(p.getPosition().x + Ship.getAttackRange()+1,p.getPosition().y + Ship.getAttackRange()+1);
+		p.getComponent(Transform.class).setPosition(outOfRange);
+		ship.update();
+		assertSame("Ship not in pursue mode after gaining aggro", PURSUE, ship.getCurrentState());
+
+		ship.getComponent(Transform.class).setPosition(outOfRange);
+		ship.update();
+		assertSame("Ship not in attack mode after entering range", ATTACK, ship.getCurrentState());
+
+		Vector2 outOfRangeAgain = new Vector2(p.getPosition().x + Ship.getAttackRange()+1,p.getPosition().y + Ship.getAttackRange()+1);
+		p.getComponent(Transform.class).setPosition(outOfRangeAgain);
+		ship.update();
+		assertSame("Ship not in pursue mode after target leaves range", PURSUE, ship.getCurrentState());
+
+		ship.getComponent(Pirate.class).removeTarget();
+		ship.update();
+		assertSame("Ship not in wander mode after losing aggro", WANDER, ship.getCurrentState());
 	}
 
 	/**

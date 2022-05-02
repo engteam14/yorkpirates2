@@ -33,7 +33,7 @@ public class SaveManagerTest {
 
     /**
      * Test Identifier: 7.0
-     * Requirements Tested: UR_GAME_SAVE
+     * Requirements Tested: UR_GAME_SAVE, FR_SAVE_GAME_STATE
      */
     @Test
     public void saveGame() {
@@ -47,7 +47,7 @@ public class SaveManagerTest {
 
     /**
      * Test Identifier: 7.1
-     * Requirements Tested: UR_GAME_SAVE
+     * Requirements Tested: UR_GAME_SAVE, FR_LOAD_GAME
      */
     @Test
     public void loadGame() {

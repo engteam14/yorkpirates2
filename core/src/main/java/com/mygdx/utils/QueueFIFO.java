@@ -62,7 +62,19 @@ public class QueueFIFO<T> implements Queue<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        Object[] queue = toArray();
+        int newLength = a.length + queue.length;
+
+        T1[] arrNew = (T1[]) new Object[newLength];
+        for(int i = 0; i < a.length; i++) {
+            arrNew[i] = a[i];
+        }
+
+        for(int i = a.length; i < arrNew.length; i++) {
+            arrNew[i] = (T1) queue[i-a.length];
+        }
+
+        return arrNew;
     }
 
     @Override

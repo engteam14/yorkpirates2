@@ -44,7 +44,7 @@ public class GameStateTests {
 
 	/**
 	 * Test Identifier: 2.0
-	 * Requirements Tested: UR_GAME_INIT, FR_PLUNDER_TRACKING, FR_XP_TRACKING, FR_PLAYER_AMMO
+	 * Requirements Tested: UR_GAME_INIT, FR_PLUNDER_TRACKING, FR_XP_TRACKING, FR_PLAYER_AMMO, FR_PLAYER_HEALTH
 	 */
 	@Test
 	public void gameStart() {
@@ -171,7 +171,7 @@ public class GameStateTests {
 
 	/**
 	 * Test Identifier: 2.3
-	 * Requirements Tested: UR_DFCLTY_LVL
+	 * Requirements Tested: UR_DFCLTY_LVL, FR_DFCLTY_CHANGE, FR_DFCLTY_DFRNCE
 	 */
 	@Test
 	public void gameDifficulty() {

@@ -38,7 +38,7 @@ public class PowerUpTests {
 
 	/**
 	 * Test Identifier: 5.0
-	 * Requirements Tested: UR_POWER_UP
+	 * Requirements Tested: UR_POWER_UP, FR_POWER_UP
 	 */
 	@Test
 	public void powerUpApply() {
@@ -120,7 +120,7 @@ public class PowerUpTests {
 
 	/**
 	 * Test Identifier: 5.1
-	 * Requirements Tested: UR_POWER_UP
+	 * Requirements Tested: UR_POWER_UP, FR_POWER_UP
 	 */
 	@Test
 	public void powerUpPickup() {
@@ -144,7 +144,7 @@ public class PowerUpTests {
 
 	/**
 	 * Test Identifier: 5.2
-	 * Requirements Tested: UR_POWER_UP, UR_SPEND_PLUNDER
+	 * Requirements Tested: UR_POWER_UP, UR_SPEND_PLUNDER, FR_PLUNDER_SPEND, FR_POWER_UP
 	 */
 	@Test
 	public void buyPowerUp(){
@@ -159,8 +159,8 @@ public class PowerUpTests {
 	}
 
 	/**
-	 * Test Identifier: 5.2
-	 * Requirements Tested: UR_POWER_UP
+	 * Test Identifier: 5.3
+	 * Requirements Tested: UR_POWER_UP, FR_POWER_UP
 	 */
 	@Test
 	public void powerUpDuration(){
