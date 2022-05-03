@@ -36,12 +36,6 @@ public class ProjectileTests {
 		ResourceManager.dispose();
 	}
 
-	@Test
-	public void getComponent() {
-		Player player = new Player();
-		assertNull(player.getComponent(AINavigation.class));
-	}
-
 	/**
 	 * Test Identifier: 6.0
 	 * Requirements Tested: FR_PLAYER_AMMO
