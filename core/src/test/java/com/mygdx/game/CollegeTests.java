@@ -112,7 +112,7 @@ public class CollegeTests {
 		zeroDisplacement.add(zeroVector);
 		zeroDisplacement.add(zeroVector);
 
-		assertEquals("College faction not changed to match conqueror", zeroDisplacement, college.displacementFromShip(player));
+		assertEquals("Displacement incorrect when college and ship same location", zeroDisplacement, college.displacementFromShip(player));
 
 		player.getComponent(Transform.class).setPosition(10,10);
 
@@ -121,6 +121,6 @@ public class CollegeTests {
 		tenDisplacement.add(tenVector);
 		tenDisplacement.add(tenVector);
 
-		assertEquals("College faction not changed to match conqueror", tenDisplacement, college.displacementFromShip(player));
+		assertEquals("Displacement incorrect when college and ship different locations", tenDisplacement, college.displacementFromShip(player));
 	}
 }

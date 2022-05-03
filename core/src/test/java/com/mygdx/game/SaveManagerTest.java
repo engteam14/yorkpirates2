@@ -77,8 +77,4 @@ public class SaveManagerTest {
         assertEquals(playerHealth1, playerHealth3);
         assertEquals(playerHealth2, playerHealth4);
     }
-
-    @Test
-    public void spawnGame() {
-    }
 }
