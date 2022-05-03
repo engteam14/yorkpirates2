@@ -201,7 +201,7 @@ public class Pirate extends Component {
 
     /**
      * if dst to target is less than attack range
-     * target will be null if not in agro range
+     * target will be null if not in aggro range
      */
     public boolean canAttack() {
         final Ship p = (Ship) parent;
@@ -217,7 +217,7 @@ public class Pirate extends Component {
 
     /**
      * if dst to target is >= attack range
-     * target will be null if not in agro range
+     * target will be null if not in aggro range
      */
     public boolean isAggro() {
         final Ship p = (Ship) parent;
