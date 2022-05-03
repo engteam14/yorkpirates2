@@ -4,9 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.Entitys.Player;
 import com.mygdx.game.Entitys.Ship;
 import com.mygdx.game.Managers.RenderingManager;
+import com.mygdx.game.UI.GameScreen;
+
+import java.util.ArrayList;
 
 import static com.mygdx.utils.Constants.HALF_DIMENSIONS;
 
@@ -16,6 +20,7 @@ import static com.mygdx.utils.Constants.HALF_DIMENSIONS;
 public class PlayerController extends Component {
     private Player player;
     private float speed;
+    private ArrayList<TextButton> buttons; //Added for Assessment 2, stores list of Shop UI buttons
 
     /**
      * Creates the base PlayerController Component, setting up its initial values
@@ -37,6 +42,7 @@ public class PlayerController extends Component {
     }
 
     /**
+     * Amended for Assessment 2, added check for Shop UI elements being pressed before shooting
      * Reads keyboard and mouse inputs, moving and shooting as required.
      */
     @Override
@@ -55,6 +61,14 @@ public class PlayerController extends Component {
         RenderingManager.getCamera().update();
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            if(buttons != null){
+                for(TextButton button : buttons){
+                    if(button.isPressed()){
+                        return;
+                    }
+                }
+            }
+
             int x = Gdx.input.getX();
             int y = Gdx.input.getY();
 
@@ -96,5 +110,12 @@ public class PlayerController extends Component {
             dir.x += 1;
         }
         return dir;
+    }
+
+    /**
+     * @param buttons the list of ShopUI buttons
+     */
+    public void setButtons(ArrayList<TextButton> buttons) {
+        this.buttons = buttons;
     }
 }

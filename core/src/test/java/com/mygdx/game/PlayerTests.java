@@ -95,7 +95,7 @@ public class PlayerTests {
 		QuestManager.addQuest(killCollege);
 
 		collegeToKill.killThisCollege(null);
-		QuestManager.checkCompleted();
+		GameManager.update();
 
 		int after = player.getPlunder();
 		assertTrue("Player hasn't gained loot after completing killCollege task", (after > initial));
@@ -131,7 +131,7 @@ public class PlayerTests {
 		QuestManager.addQuest(killCollege);
 
 		collegeToKill.killThisCollege(null);
-		QuestManager.checkCompleted();
+		GameManager.update();
 
 		int after = player.getPoints();
 		assertTrue("Player hasn't gained points after completing killCollege task", (after > initial));

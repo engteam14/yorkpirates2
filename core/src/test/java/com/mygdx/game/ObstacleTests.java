@@ -43,7 +43,7 @@ public class ObstacleTests {
 
 	/**
 	 * Test Identifier: 3.0
-	 * Requirements Tested: UR_OBSTACLE_ENCOUNTER
+	 * Requirements Tested: UR_OBSTACLE_ENCOUNTER, FR_OBSTACLE_HIT, FR_PLAYER_DAMAGE
 	 */
 	@Test
 	public void obstacleDamage() {
@@ -81,8 +81,8 @@ public class ObstacleTests {
 	}
 
 	/**
-	 * Test Identifier: 3.0
-	 * Requirements Tested: UR_WEATHER_ENCOUNTER
+	 * Test Identifier: 3.1
+	 * Requirements Tested: UR_WEATHER_ENCOUNTER, FR_WEATHER_HIT, FR_PLAYER_DAMAGE
 	 */
 	@Test
 	public void weatherDamage() {

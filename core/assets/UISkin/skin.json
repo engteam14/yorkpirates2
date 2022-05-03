@@ -71,7 +71,8 @@
 		"font": "default-font",
 		"fontColorSelected": "white",
 		"fontColorUnselected": "white",
-		"selection": "default-rect-pad"
+		"selection": "default-scroll",
+		"background": "default-round-large"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle": {
@@ -87,7 +88,7 @@
 	"default": {
 		"font": "default-font",
 		"fontColor": "white",
-		"background": "default-select",
+		"background": "default-scroll",
 		"scrollStyle": "default",
 		"listStyle": "default"
 	}
@@ -161,5 +162,5 @@
 		"titleFontColor": "white",
 		"stageBackground": "dialogDim"
 	}
-
-}}
+}
+}
