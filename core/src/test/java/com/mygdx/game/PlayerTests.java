@@ -43,25 +43,32 @@ public class PlayerTests {
 	public void playerProgressTasks() {
 		GameManager.CreatePlayer();
 		Player player = GameManager.getPlayer();
+		QuestManager.Initialize();
 
 		Vector2 questLocA = new Vector2(100,100);
 		Vector2 questLocB = new Vector2(player.getPosition());
 
 		LocateQuest questA = new LocateQuest(questLocA,1);
 		LocateQuest questB = new LocateQuest(questLocB,1);
+		QuestManager.addQuest(questA);
+		QuestManager.addQuest(questB);
 
 		boolean questStatusA = questA.checkCompleted(player);
 		boolean questStatusB = questB.checkCompleted(player);
+		QuestManager.checkCompleted();
 
 		assertFalse("Locate Quest shown as complete when isn't",questStatusA);
 		assertTrue("Locate Quest shown as incomplete when isn't",questStatusB);
 
 		College collegeToKill = new College(1);
 		KillQuest killCollege = new KillQuest(collegeToKill);
+		QuestManager.addQuest(killCollege);
 		boolean questStatusC = killCollege.checkCompleted(player);
+		QuestManager.checkCompleted();
 
 		collegeToKill.killThisCollege(null);
 		boolean questStatusD = killCollege.checkCompleted(player);
+		QuestManager.checkCompleted();
 
 		assertFalse("Kill Quest shown as complete when isn't",questStatusC);
 		assertTrue("Kill Quest shown as incomplete when isn't",questStatusD);
