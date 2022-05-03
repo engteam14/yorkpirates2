@@ -98,7 +98,9 @@ public class PauseScreen extends Page{
     @Override
     protected void update() {
         super.update();
-
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            parent.setScreen(parent.game);
+        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
             System.exit(0);
