@@ -134,4 +134,11 @@ public class PowerUp {
     public String getName() {
         return name;
     }
+
+    /**
+     * @return the name of the power-up
+     */
+    public int getCost() {
+        return cost;
+    }
 }

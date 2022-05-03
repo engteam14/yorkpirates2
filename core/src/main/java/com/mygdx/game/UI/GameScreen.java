@@ -124,7 +124,7 @@ public class GameScreen extends Page {
 
         //power up 1
         PowerUp pow1 = powerUps.get("1");
-        TextButton powerUp1 = new TextButton(pow1.getName(), parent.skin);
+        TextButton powerUp1 = new TextButton(String.format("$%s - %s", pow1.getCost(), pow1.getName()), parent.skin);
         powerUp1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -135,7 +135,7 @@ public class GameScreen extends Page {
 
         //power up 2
         PowerUp pow2 = powerUps.get("2");
-        TextButton powerUp2 = new TextButton(pow2.getName(), parent.skin);
+        TextButton powerUp2 = new TextButton(String.format("$%s - %s", pow2.getCost(), pow2.getName()), parent.skin);
         powerUp2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -146,7 +146,7 @@ public class GameScreen extends Page {
 
         //power up 3
         PowerUp pow3 = powerUps.get("3");
-        TextButton powerUp3 = new TextButton(pow3.getName(), parent.skin);
+        TextButton powerUp3 = new TextButton(String.format("$%s - %s", pow3.getCost(), pow3.getName()), parent.skin);
         powerUp3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -157,7 +157,7 @@ public class GameScreen extends Page {
 
         //power up 4
         PowerUp pow4 = powerUps.get("4");
-        TextButton powerUp4 = new TextButton(pow4.getName(), parent.skin);
+        TextButton powerUp4 = new TextButton(String.format("$%s - %s", pow4.getCost(), pow4.getName()), parent.skin);
         powerUp4.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -168,7 +168,7 @@ public class GameScreen extends Page {
 
         //power up 5
         PowerUp pow5 = powerUps.get("5");
-        TextButton powerUp5 = new TextButton(pow5.getName(), parent.skin);
+        TextButton powerUp5 = new TextButton(String.format("$%s - %s", pow5.getCost(), pow5.getName()), parent.skin);
         powerUp5.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -179,7 +179,7 @@ public class GameScreen extends Page {
 
         //power up 6
         PowerUp pow6 = powerUps.get("6");
-        TextButton powerUp6 = new TextButton(pow6.getName(), parent.skin);
+        TextButton powerUp6 = new TextButton(String.format("$%s - %s", pow6.getCost(), pow6.getName()), parent.skin);
         powerUp6.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -190,7 +190,7 @@ public class GameScreen extends Page {
 
         //power up 7
         PowerUp pow7 = powerUps.get("7");
-        TextButton powerUp7 = new TextButton(pow7.getName(), parent.skin);
+        TextButton powerUp7 = new TextButton(String.format("$%s - %s", pow7.getCost(), pow7.getName()), parent.skin);
         powerUp7.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

@@ -160,7 +160,7 @@
       "id": 1,
       "duration": -1,
       "spawnCooldown": 100,
-      "cost": 20,
+      "cost": 10,
       "positions": [
         [63, 57],
         [21, 15]
@@ -190,7 +190,7 @@
       "id": 3,
       "duration": 30,
       "spawnCooldown": 60,
-      "cost": 20,
+      "cost": 30,
       "positions": [
         [85, 45]
       ]
@@ -204,7 +204,7 @@
       "id": 4,
       "duration": 15,
       "spawnCooldown": 60,
-      "cost": 20,
+      "cost": 30,
       "positions": [
         [55, 70]
       ]
@@ -232,7 +232,7 @@
       "id": 6,
       "duration": 15,
       "spawnCooldown": 120,
-      "cost": 20,
+      "cost": 200,
       "positions": [
         [88, 90]
       ]
@@ -246,7 +246,7 @@
       "id": 7,
       "duration": 15,
       "spawnCooldown": 120,
-      "cost": 20,
+      "cost": 200,
       "positions": [
         [88, 10]
       ]
