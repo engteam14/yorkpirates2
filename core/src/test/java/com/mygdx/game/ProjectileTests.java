@@ -162,16 +162,6 @@ public class ProjectileTests {
 		Vector2 deadPosition = cannon.getComponent(Transform.class).getPosition().cpy();
 
 		assertNotEquals("Cannon hasn't moved after being shot",startPosition, shotPosition);
-		assertEquals("Hasn't gone off screen after being kill", new Vector2(10000, 10000), deadPosition);
-	}
-
-	/**
-	 * Test Identifier: 6.5
-	 * Requirements Tested:
-	 */
-	@Test
-	public void getComponent() {
-		Player player = new Player();
-		assertNull(player.getComponent(AINavigation.class));
+		assertEquals("Hasn't gone off screen after being killed", new Vector2(10000, 10000), deadPosition);
 	}
 }
