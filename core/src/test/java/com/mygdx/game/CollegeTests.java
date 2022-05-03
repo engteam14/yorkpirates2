@@ -77,7 +77,7 @@ public class CollegeTests {
 	}
 
 	/**
-	 * Test Identifier: 1.1
+	 * Test Identifier: 1.2
 	 * Requirements Tested: UR_HOSTILE_COLLEGE_CAPTURE
 	 */
 	@Test
@@ -95,7 +95,7 @@ public class CollegeTests {
 	}
 
 	/**
-	 * Test Identifier: 1.2
+	 * Test Identifier: 1.3
 	 * Requirements Tested:
 	 */
 	@Test
