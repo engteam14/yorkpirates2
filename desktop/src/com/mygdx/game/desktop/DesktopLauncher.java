@@ -25,12 +25,13 @@ public class DesktopLauncher {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setTitle(VIEWPORT_TITLE);
 
-        if (FULLSCREEN) {
+        cfg.setWindowedMode(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+  /*      if (FULLSCREEN) {
             cfg.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
         } else {
             cfg.setWindowedMode(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         }
-
+*/
         if (!VSYNC) {
             cfg.useVsync(false);
             cfg.setForegroundFPS(0);

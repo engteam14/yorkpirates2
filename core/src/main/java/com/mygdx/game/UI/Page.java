@@ -59,7 +59,7 @@ public abstract class Page extends ScreenAdapter {
         parent.stage.act(delta);
         parent.stage.draw();
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            parent.setScreen(parent.game);
+            parent.StartGame();
         }
     }
 
